@@ -3,7 +3,7 @@
 
 ## About
 
-Concerto is a graphical front end for CCCaster. This is a prototyping build used to test basic features for advanced implementation.
+Concerto is a graphical front end for EFZRevival.
 
 To use it, just drop `Concerto.exe` in the same folder as EFZRevival. You need to be using the latest version of EFZRevival and your Revival executable needs to be named `EfzRevival.exe` to work by default.
 
