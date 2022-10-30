@@ -1,0 +1,1193 @@
+#:import webbrowser webbrowser
+#:import threading threading
+#:import res kivy.resources
+#:import pyperclip pyperclip
+#:import cfg config
+#:import lang ui.lang
+
+<MenuBtn>
+    text_size: self.size
+    halign: 'left'
+    valign: 'middle'
+    size_hint_y: None
+    height: 36
+    padding_x: 50
+    background_normal: 'res/menubtn.png'
+    outline_width: 2
+    on_press: self.background_color = (255, 0, 0, 1)
+    on_release: self.background_color = (1, 1 ,1 ,1)
+    
+<PlayerRow>
+    size_hint_y: None
+    height: 32
+    canvas.before:
+        Color:
+            rgba: (0,0,0,0.2)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        rows: 1
+        Button:
+            size_hint_x: 0.8
+            id: PlayerBtn
+            outline_width: 2
+            font_name: 'res/texgyreheros-bolditalic.otf' 
+            background_color: (0, 0, 0, 0)
+            on_press: self.background_color = (255, 0, 0, 1)
+            on_release: self.background_color = (0, 0, 0, 0)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            padding_x: 50
+        Button:
+            size_hint_x: 0.2
+            id: WatchBtn
+            outline_width: 2
+            font_name: 'res/texgyreheros-bolditalic.otf' 
+            background_color: (0, 0, 0, 0)
+            on_press: self.background_color = (255, 0, 0, 1)
+            on_release: self.background_color = (0, 0, 0, 0)
+            text_size: self.size
+            halign: 'right'
+            valign: 'center'
+            padding_x: 10
+
+<DummyBtn>
+    text_size: self.size
+    halign: 'center'
+    valign: 'middle'
+    size_hint_y: None
+    height: 32
+    padding_x: 50
+    outline_width: 2
+    font_name: 'res/texgyreheros-bolditalic.otf'
+    background_normal: ''
+    background_color: (0,0,0,0.3)
+
+<LobbyBtn>:
+    text: 'LOBBY'
+    size_hint_x: 0.25
+    size_hint_y: None
+    height: 36
+    outline_width: 2
+    font_name: 'res/texgyreheros-bolditalic.otf'
+    background_color: (255, 0, 0, 0.2)
+    background_normal: ''
+    on_release: 
+        self.background_color = (255, 0, 0, 0.2)
+    on_press: 
+        self.background_color = (100, 0, 0, 0.9)  
+
+<SpinnerOption>:
+    text_size: self.size
+    font_name: 'res/texgyreheros-bolditalic.otf'
+    halign: 'center'
+    valign: 'middle'
+    background_color: '#210205'
+    height: 30
+    background_normal: ''
+
+<Spinner>:
+    text_size: self.size
+    font_name: 'res/texgyreheros-bolditalic.otf'
+    halign: 'center'
+    valign: 'middle'
+    background_color: '#343B88'
+
+<MainScreen>:
+    name: 'Main'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('main_bg.png')
+        Image:
+            source: 'res/gradient.png'
+        Image:
+            source: 'res/mainmenu.png'
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                size_hint: (0.6183, 1)
+                cols: 1
+                padding: (0,50)
+                spacing: [0,10]
+                MenuBtn:
+                    text: '1. %s' % lang.localize("MAIN_MENU_OFFLINE")
+                    on_release: app.sm.current = 'Offline'
+                MenuBtn:
+                    text: '2. %s' % lang.localize("MAIN_MENU_ONLINE")
+                    on_release: app.sm.current = 'Online'
+                MenuBtn:
+                    text: '3. %s' % lang.localize("MAIN_MENU_RESOURCES")
+                    on_release: app.sm.current = 'Resources'
+                MenuBtn:
+                    text: '4. %s' % lang.localize("MAIN_MENU_OPTIONS")
+                    on_release: app.OptionScreen.load()
+                MenuBtn:
+                    text: '5. %s' % lang.localize("MAIN_MENU_ABOUT")
+                    on_release: app.sm.current = 'About'
+                MenuBtn:
+                    text: '6. %s' % lang.localize("MAIN_MENU_UPDATE")
+                    on_release: root.update()
+        Image:
+            source: cfg.find_img('main.png')
+        Label:
+            id: version
+            size_hint: (0.97,0.1)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            text: 'Version'
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            font_size: 12
+            outline_width: 2
+        BoxLayout:
+            size_hint: (0.2, 0.1)
+            Label:
+                text: cfg.img_credit('main.png','[ref=x]Bee Chan[/ref]')
+                outline_width: 2
+                markup: True
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                font_size: 12
+                on_ref_press: webbrowser.open('https://twitter.com/Bee_Sempai')
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        BoxLayout:
+            padding: 0,40
+            DummyBtn:
+                id: welcome
+                text: lang.localize("MAIN_MENU_WELCOME")
+
+<AboutScreen>
+    name: 'About'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('lobby_bg.png')
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: 0.1
+                MenuBtn:
+                    text: lang.localize("TERM_BACK").upper()
+                    on_release: 
+                        app.sm.current = 'Main'
+                    size_hint_y: 1
+            BoxLayout:
+                size_hint_y: 0.9
+                padding: 20,5
+                Label:
+                    id: about
+                    size_hint: (1,1)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'top'
+                    markup: True
+        Label:
+            id: version
+            size_hint: (0.97,0.1)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            text: 'Version'
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            font_size: 12
+            outline_width: 2
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<LobbyScreen>:
+    player_list: player_list
+    challenge_list: challenge_list
+    match_list: match_list
+    lobby_code: lobby_code
+    name: 'Lobby'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        Image:
+            source: cfg.find_img('lobby_bg.png')
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                rows: 1
+                size_hint: (1, 0.1)
+                MenuBtn:
+                    size_hint_x: 0.348
+                    padding_x: 25
+                    text: lang.localize("TERM_LEAVE").upper()
+                    on_release: 
+                        root.exit()
+                DummyBtn:
+                    size_hint_x: 0.58
+                    id: lobby_code
+                    text: 'Lobby ID: 1234'
+                    padding_x: 15
+                    text_size: self.size
+                    halign: 'right'
+                    valign: 'middle'
+                    background_color: (0,0,0,0)
+                    on_release: root.invite_link()
+            ScrollView:
+                size_hint: (1,0.9)
+                do_scroll_x: False
+                do_scroll_y: True
+                GridLayout:
+                    height: self.minimum_height
+                    size_hint_y: None
+                    size_hint_x: 1
+                    cols: 1
+                    spacing: [0,2]
+                    GridLayout:
+                        id: challenge_list
+                        cols: 1
+                        height: self.minimum_height
+                        size_hint_x: 1
+                        size_hint_y: None
+                        spacing: [0,2]
+                    GridLayout:
+                        id: player_list
+                        cols: 1
+                        height: self.minimum_height
+                        size_hint_x: 1
+                        size_hint_y: None
+                        spacing: [0,2]
+                    GridLayout:
+                        id: match_list
+                        cols: 1
+                        height: self.minimum_height
+                        size_hint_x: 1
+                        size_hint_y: None
+                        spacing: [0,2]    
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+        LobbyBtn:
+            text: lang.localize("LOBBY_MENU_MAINMENU")
+            on_release: app.sm.current = 'Main'
+                        
+<LobbyList>:
+    lobby_code: lobby_code
+    lobby_type: lobby_type
+    lobby_view: lobby_view
+    name: 'LobbyList'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        Image:
+            source: cfg.find_img('lobby_bg.png')
+        Image:
+            source: 'res/lowergradient.png'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                size_hint_y: 0.1
+                text: lang.localize("LOBBY_LIST_HEADER")
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 1
+            RecycleView:
+                size_hint: (1,0.7)
+                do_scroll_x: False
+                do_scroll_y: True
+                GridLayout:
+                    size_hint: (1,0.7)
+                    id: lobby_view
+                    cols: 1
+                    height: self.minimum_height
+                    size_hint_y: None
+                    spacing: [0,5]
+            GridLayout:
+                cols: 2
+                size_hint_y: 0.2
+                GridLayout:
+                    rows: 2
+                    padding: [20,5]
+                    spacing: [0,5]
+                    GridLayout:
+                        size_hint_y: None
+                        height: 32
+                        cols: 3
+                        Label:
+                            text_size: self.size
+                            outline_width: 1
+                            text: '%s: ' % lang.localize('TERM_LOBBYCODE')
+                            halign: 'right'
+                            valign: 'middle'
+                        TextInput:
+                            id: lobby_code
+                            multiline: False
+                            foreground_color: (255, 255, 255, 1)
+                            background_color: (255, 0, 0, 0.2)
+                        Button:
+                            text: lang.localize('TERM_JOIN')
+                            outline_width: 1
+                            background_color: '#343B88'
+                            on_release: root.join()
+                    GridLayout:
+                        size_hint_y: None
+                        height: 32
+                        cols: 3
+                        Label:
+                            text_size: self.size
+                            text: '%s: ' % lang.localize("TERM_TYPE")
+                            halign: 'right'
+                            valign: 'middle'
+                            outline_width: 1
+                        Spinner:
+                            id: lobby_type
+                            text: 'Private'
+                            values: 'Private','Public'
+                            outline_width: 1
+                            background_color: '#343B88'
+                        Button:
+                            text: lang.localize('TERM_CREATE')
+                            background_color: '#343B88'
+                            outline_width: 1
+                            on_release: root.create()
+                GridLayout:
+                    rows: 2
+                    padding: [20,5]
+                    spacing: [0,5]
+                    Button:
+                        text: lang.localize('TERM_REFRESH')
+                        outline_width: 1
+                        background_color: '#343B88'
+                        size_hint_y: None
+                        height: 32
+                        halign: 'right'
+                        padding_x: 10
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'middle'
+                        on_release: 
+                            root.refresh()
+                    Button:
+                        text: lang.localize('TERM_BACK')
+                        outline_width: 1
+                        background_color: '#343B88'
+                        size_hint_y: None
+                        height: 32
+                        halign: 'right'
+                        padding_x: 10
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'middle'
+                        on_release: 
+                            app.sm.current = 'Online'
+
+<OnlineScreen>:
+    name: 'Online'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('online_bg.png')
+        Image:
+            source: 'res/gradient.png'
+        Image:
+            source: 'res/onlinemenu.png'
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout: 
+                size_hint_x: 0.6183
+                cols: 1
+                padding: (0,50)
+                spacing: [0,10]
+                MenuBtn:
+                    text: '1. %s' % lang.localize("ONLINE_MENU_DIRECT")
+                    on_release:
+                        root.direct()
+                MenuBtn:
+                    text: '2. %s' % lang.localize("ONLINE_MENU_QUICK")
+                    on_release:
+                        root.matchmaking()
+                MenuBtn:
+                    text: '3. %s' % lang.localize("ONLINE_MENU_LOBBY")
+                    on_release: 
+                        root.lobby()
+                MenuBtn:
+                    text: '4. %s' % lang.localize("ONLINE_MENU_BROADCAST")
+                    on_release:
+                        root.broadcast()
+                MenuBtn:
+                    text: '0. %s' % lang.localize("TERM_BACK").upper()
+                    on_release: app.sm.current = 'Main'
+        Image:
+            source: cfg.find_img('online.png')
+        BoxLayout:
+            size_hint: (0.2, 0.1)
+            Label:
+                text: cfg.img_credit('online.png','[ref=x]abitofBaileys[/ref]')
+                outline_width: 2
+                markup: True
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                font_size: 12
+                on_ref_press: webbrowser.open('https://twitter.com/abitofBaileys')
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<ResourceScreen>:
+    name: 'Resources'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('resources_bg.png')
+        Image:
+            source: 'res/gradient.png'
+        Image:
+            source: 'res/resourcesmenu.png'
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                size_hint: (0.6183, 1)
+                cols: 1
+                padding: (0,50)
+                spacing: [0,10]
+                MenuBtn:
+                    text: '1. HOW TO PLAY'
+                    on_release: app.sm.current = 'HowTo'
+                MenuBtn:
+                    text: '2. MIZUUMI WIKI'
+                    on_release:
+                        webbrowser.open('https://wiki.gbl.gg/w/Melty_Blood/MBAACC')
+                MenuBtn:
+                    text: '3. MELTY.GAMES DATABASE'
+                    on_release:
+                        webbrowser.open('http://mbaacc.melty.games/')
+                MenuBtn:
+                    text: '0. %s' % lang.localize('TERM_BACK').upper()
+                    on_release: app.sm.current = 'Main'
+        Image:
+            source: cfg.find_img('resources.png')
+        BoxLayout:
+            size_hint: (0.2, 0.1)
+            Label:
+                text: cfg.img_credit('resources.png','[ref=x]kohakudoori[/ref]')
+                outline_width: 2
+                markup: True
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                font_size: 12
+                on_ref_press: webbrowser.open('https://twitter.com/kohakudoori')
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<HowtoScreen>
+    name: 'HowTo'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        Image:
+            source: cfg.find_img('lobby_bg.png')
+        BoxLayout:
+            orientation: 'vertical'
+            MenuBtn:
+                size_hint: (1, 0.1)
+                text: lang.localize("TERM_BACK").upper()
+                on_release: 
+                    app.sm.current = 'Main'
+            TabbedPanel:
+                size_hint_y: 0.9
+                do_default_tab: False
+                background_color: (0,0,0,0)
+                TabbedPanelItem:
+                    text: 'Introduction'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: intro
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/intro.rst')
+                TabbedPanelItem:
+                    text: 'Movement'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: movement
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/movement.rst')
+                TabbedPanelItem:
+                    text: 'Offense'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: offense
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/offense.rst')
+                TabbedPanelItem:
+                    text: 'Defense'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: defense
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/defense.rst')
+                TabbedPanelItem:
+                    text: 'Moon Styles'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: moons
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/moons.rst')
+                TabbedPanelItem:
+                    text: 'Glossary'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    RstDocument:
+                        id: glossary
+                        background_color: (0,0,0,0.5)
+                        source: res.resource_find('res/glossary.rst')
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<OfflineScreen>:
+    name: 'Offline'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('offline_bg.png')
+        Image:
+            source: 'res/gradient.png'
+        Image:
+            source: 'res/offlinemenu.png'
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                size_hint: (0.6183, 1)
+                cols: 1
+                padding: (0,50)
+                spacing: [0,5]
+                MenuBtn:
+                    text: '1. %s' % lang.localize("OFFLINE_MENU_LOCAL_VS")
+                    on_release: 
+                        root.local()
+                MenuBtn:
+                    text: '2. %s' % lang.localize("OFFLINE_MENU_TOURNAMENT_VS")
+                    on_release: 
+                        root.tournament()
+                MenuBtn:
+                    text: '3. %s' % lang.localize("OFFLINE_MENU_CPU_VS")
+                    on_release: 
+                        root.cpu()
+                MenuBtn:
+                    text: '4. %s' % lang.localize("OFFLINE_MENU_TRAINING")
+                    on_release: 
+                        root.training()
+                MenuBtn:
+                    text: '5. %s' % lang.localize("OFFLINE_MENU_REPLAYS")
+                    on_release: 
+                        root.replays()
+                MenuBtn:
+                    text: '6. %s' % lang.localize("OFFLINE_MENU_TRIALS")
+                    on_release: 
+                        root.trials()
+                MenuBtn:
+                    text: '7. %s' % lang.localize("OFFLINE_MENU_STANDALONE")
+                    on_release: 
+                        root.standalone()
+                MenuBtn:
+                    text: '0. %s' % lang.localize("TERM_BACK").upper()
+                    on_release: 
+                        app.sm.current = 'Main'
+        Image:
+            source: cfg.find_img('offline.png')
+        BoxLayout:
+            size_hint: (0.2, 0.1)
+            Label:
+                text: cfg.img_credit('offline.png','[ref=x]Onemi[/ref]')
+                outline_width: 2
+                markup: True
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                font_size: 12
+                on_ref_press: webbrowser.open('https://twitter.com/OnemiESESEBEME')
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<OptionScreen>
+    name: 'Options'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        Image:
+            source: cfg.find_img('lobby_bg.png')
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint: (1, 0.1)
+                MenuBtn:
+                    text: lang.localize("TERM_BACK").upper()
+                    size_hint_x: 0.8
+                    on_release: 
+                        app.sm.current = 'Main'
+                    size_hint_y: 1
+                Button:
+                    text: lang.localize("TERM_SAVE").upper()
+                    font_name: 'res/texgyreheros-bolditalic.otf'
+                    size_hint_x: 0.2
+                    outline_width: 2
+                    background_color: (255, 0, 0, 0.2)
+                    background_normal: ''
+                    size_hint_y: 1
+                    on_release: 
+                        self.background_color = (255, 0, 0, 0.2)
+                        root.save()
+                    on_press: 
+                        self.background_color = (100, 0, 0, 0.9)  
+            ScrollView:
+                size_hint: (1,0.9)
+                do_scroll_x: False
+                do_scroll_y: True
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    DummyBtn:
+                        text: lang.localize("TIP_CONTROLS")
+                    DummyBtn:
+                        text: lang.localize("OPT_HEADER_CONCERTO")
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_NETPLAY_PORT")
+                        TextInput:
+                            id: netplay_port
+                            multiline: False
+                            input_filter: 'int'
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_MUTE_ALERTS")
+                        CheckBox:
+                            id: mute_alerts
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_MUTE_BGM")
+                        CheckBox:
+                            id: mute_bgm
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_DISCORD")
+                        CheckBox:
+                            id: discord
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_WRITE_SCORES")
+                        CheckBox:
+                            id: write_scores
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_CASTER_EXE")
+                        TextInput:
+                            id: caster_exe
+                            multiline: False
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_BGM_TRACK")
+                        BoxLayout:
+                            Spinner:
+                                id: bgm_track
+                                values: ["Soubrette's Walkway","Fuzzy"]
+                    DummyBtn:
+                        text: lang.localize("OPT_HEADER_CASTER")
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_DISPLAY_NAME")
+                        TextInput:
+                            id: display_name
+                            multiline: False
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_MAX_DELAY")
+                        TextInput:
+                            id: max_delay
+                            multiline: False
+                            input_filter: 'int'
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_DEFAULT_ROLLBACK")
+                        TextInput:
+                            id: default_rollback
+                            multiline: False
+                            input_filter: 'int'
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_HELD_START")
+                        TextInput:
+                            id: held_start
+                            multiline: False
+                            input_filter: 'float'
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_MATCHMAKING_REGION")
+                        BoxLayout:
+                            Spinner:
+                                id: matchmaking_region
+                                values: [ "NA West", "NA East", "SA", "EU", "Middle East", "Asia", "OCE" ]
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_ALERT_CONNECT")
+                        CheckBox:
+                            id: alert_connect
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_FULL_NAMES")
+                        CheckBox:
+                            id: full_names
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_REPLAY_ROLLBACK")
+                        CheckBox:
+                            id: replay_rollback
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_CPU_PRIORITY")
+                        CheckBox:
+                            id: cpu_priority
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_CASTER_UPDATES")
+                        CheckBox:
+                            id: caster_updates
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_VERSUS_COUNT")
+                        BoxLayout:
+                            Label:
+                                text: str(versus_count.value)
+                                size_hint_x: 0.2
+                            Slider:
+                                id: versus_count
+                                min: 1
+                                max: 5
+                                step: 1
+                                size_hint_x: 0.8
+                    DummyBtn:
+                        text: lang.localize("OPT_HEADER_AV")
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_BGM_VOL")
+                        BoxLayout:
+                            Label:
+                                text: str(int(bgm_vol.value))
+                                size_hint_x: 0.2
+                            Slider:
+                                id: bgm_vol
+                                min: 0
+                                max: 20
+                                step: 1
+                                size_hint_x: 0.8
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_SFX_VOL")
+                        BoxLayout:
+                            Label:
+                                text: str(int(sfx_vol.value))
+                                size_hint_x: 0.2
+                            Slider:
+                                id: sfx_vol
+                                min: 0
+                                max: 20
+                                step: 1
+                                size_hint_x: 0.8
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_CHARACTER_FILTER")
+                        BoxLayout:
+                            Spinner:
+                                id: character_filter
+                                values: ['Off','Edge','Full','Linear']
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_SCREEN_FILTER")
+                        CheckBox:
+                            id: screen_filter
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_ASPECT_RATIO")
+                        BoxLayout:
+                            Spinner:
+                                id: aspect_ratio
+                                values: ['Normal','Auto','4:3','16:9','16:10','5:4','15:9']
+                    OptionRow:
+                        Label:
+                            text: lang.localize("OPT_ASPECT_RATIO")
+                        CheckBox:
+                            id: view_fps
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<OptionRow@BoxLayout>
+    size_hint_x: 1
+    size_hint_y: None
+    height: 28
+    canvas.before:
+        Color:
+            rgba: (0,0,0,0.3)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<BroadcastModal>:
+    size_hint: None,None
+    size: 400,160
+    auto_dismiss: False
+    mode_type: mode_type
+    background_color: '#343B88'
+    GridLayout:
+        padding: 20,20
+        spacing: [0,8]
+        cols: 1
+        Label:
+            text: lang.localize("ONLINE_MODAL_BROADCAST")
+            size_hint_y: 0.32
+        BoxLayout:
+            size_hint_y: 0.36
+            Label:
+                text: "%s: " % lang.localize("TERM_GAMETYPE")
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 1
+                size_hint_x: 0.3
+            Spinner:
+                values: 'Versus','Training'
+                id: mode_type
+                size_hint_x: 0.7
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 1
+                background_color: (255, 0, 0, 0.2)
+                size_hint_x: 0.5
+            Button:
+                text: lang.localize("TERM_START")
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 1
+                background_color: '#343B88'
+                size_hint_x: 0.2
+                on_release:
+                    root.screen.start_broadcast()
+        Button:
+            size_hint_y: 0.32
+            text: lang.localize("TERM_CLOSE")
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            outline_width: 1
+            background_color: (255, 0, 0, 0.2)
+            on_release: 
+                root.dismiss()
+                self.background_color = (255, 0, 0, 0.2)
+            on_press: 
+                self.background_color = (100, 0, 0, 0.9)  
+
+<DirectModal>:
+    size_hint: None,None
+    size: 400,160
+    auto_dismiss: False
+    join_ip: join_ip
+    watch_ip: watch_ip
+    game_type: game_type
+    background_color: '#343B88'
+    GridLayout:
+        padding: 20,20
+        spacing: [0,8]
+        cols: 1
+        TabbedPanel:
+            size_hint_y: 0.7
+            do_default_tab: False
+            background_color: '#343B88'
+            TabbedPanelItem:
+                text: lang.localize("TERM_HOST")
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: '#343B88'
+                BoxLayout:
+                    Label:
+                        text: "%s: " % lang.localize("TERM_GAMETYPE")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        size_hint_x: 0.3
+                    Spinner:
+                        text: 'Versus'
+                        values: 'Versus','Training'
+                        id: game_type
+                        size_hint_x: 0.7
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        background_color: (255, 0, 0, 0.2)
+                        size_hint_x: 0.5
+                    Button:
+                        text: lang.localize("TERM_START")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        background_color: '#343B88'
+                        size_hint_x: 0.2
+                        on_release:
+                            root.screen.host()
+            TabbedPanelItem:
+                text: 'Join'  
+                font_name: 'res/texgyreheros-bolditalic.otf'  
+                background_color: '#343B88'
+                BoxLayout:
+                    Label:
+                        text: '%s: ' % lang.localize("TERM_CONNECTIP")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        size_hint_x: 0.3
+                    TextInput:
+                        multiline: False
+                        id: join_ip
+                        size_hint_x: 0.5
+                        foreground_color: (255, 255, 255, 1)
+                        background_color: (255, 0, 0, 0.2)
+                    Button:
+                        text: lang.localize("TERM_START")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        background_color: '#343B88'
+                        size_hint_x: 0.2
+                        on_release:
+                            root.screen.join()
+            TabbedPanelItem:
+                text: lang.localize("TERM_WATCH")
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: '#343B88'
+                BoxLayout:
+                    Label:
+                        text: '%s: ' % lang.localize("TERM_CONNECTIP")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        size_hint_x: 0.3
+                    TextInput:
+                        multiline: False
+                        id: watch_ip
+                        size_hint_x: 0.5
+                        foreground_color: (255, 255, 255, 1)
+                        background_color: (255, 0, 0, 0.2)
+                    Button:
+                        text: lang.localize("TERM_WATCH")
+                        font_name: 'res/texgyreheros-bolditalic.otf'
+                        outline_width: 1
+                        background_color: '#343B88'
+                        size_hint_x: 0.2
+                        on_release:
+                            root.screen.watch()
+        Button:
+            size_hint_y: 0.3
+            text: lang.localize("TERM_CLOSE")
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            outline_width: 1
+            background_color: (255, 0, 0, 0.2)
+            on_release: 
+                root.dismiss()
+                self.background_color = (255, 0, 0, 0.2)
+            on_press: 
+                self.background_color = (100, 0, 0, 0.9)  
+
+<GameModal>:
+    modal_txt: modal_txt
+    close_btn: close_btn
+    p1_char_guide: p1_char_guide
+    p2_char_guide: p2_char_guide
+    size_hint: None,None
+    size: 400,200
+    auto_dismiss: False 
+    background_color: '#343B88'
+    GridLayout:
+        padding: [30,15]
+        spacing: [0,0]
+        cols: 1
+        GridLayout:
+            padding: [0,5]
+            cols: 1
+            Label:
+                id: modal_txt
+                background_color: (0, 0, 0, 0)
+                halign: 'center'
+                valign: 'top'
+                size: self.texture_size
+                text_size: self.size
+                size_hint_y: 0.60
+            Button:
+                id: close_btn
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: (255, 0, 0, 0.2)
+                outline_width: 1
+                on_press: 
+                    self.background_color = (100, 0, 0, 0.9)
+                on_release: 
+                    self.background_color = (255, 0, 0, 0.2)
+                size_hint_y: 0.20
+            BoxLayout:
+                padding: [0,0]
+                orientation:'horizontal'
+                size_hint_y: 0.20
+                Button:
+                    id: p1_char_guide
+                    disabled: True
+                    font_name: 'res/texgyreheros-bolditalic.otf'
+                    background_color: (255, 0, 0, 0.2)
+                    opacity: 0
+                    outline_width: 1
+                    on_press: 
+                        self.background_color = (100, 0, 0, 0.9)
+                    on_release: 
+                        self.background_color = (255, 0, 0, 0.2)
+                Button:
+                    id: p2_char_guide
+                    disabled: True
+                    font_name: 'res/texgyreheros-bolditalic.otf'
+                    background_color: (255, 0, 0, 0.2)
+                    opacity: 0
+                    outline_width: 1
+                    on_press: 
+                        self.background_color = (100, 0, 0, 0.9)
+                    on_release: 
+                        self.background_color = (255, 0, 0, 0.2)
+
+<ProgressModal>:
+    modal_txt: modal_txt
+    prog_bar: prog_bar
+    size_hint: None,None
+    size: 400,100
+    auto_dismiss: False 
+    background_color: '#343B88'
+    BoxLayout:
+        padding: 20,20
+        orientation: 'vertical'
+        Label:
+            id: modal_txt
+            background_color: (0, 0, 0, 0)
+            text_size: self.size
+            halign: 'center'
+            valign: 'top'
+        ProgressBar:
+            id: prog_bar
+
+<ChoiceModal>:
+    modal_txt: modal_txt
+    btn_1: btn_1
+    btn_2: btn_2
+    size_hint: None,None
+    size: 400,180
+    auto_dismiss: False 
+    background_color: '#343B88'
+    BoxLayout:
+        padding: 20,20
+        orientation: 'vertical'
+        Label:
+            id: modal_txt
+            background_color: (0, 0, 0, 0)
+            text_size: self.size
+            halign: 'center'
+            valign: 'center'
+        BoxLayout:
+            size_hint_y: 0.35
+            Button:
+                id: btn_1
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: (255, 0, 0, 0.2)
+                outline_width: 1
+                on_press: self.background_color = (100, 0, 0, 0.9)
+                on_release: 
+                    background_color: (255, 0, 0, 0.2)
+            Button:
+                id: btn_2
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: (255, 0, 0, 0.2)
+                outline_width: 1
+                on_press: self.background_color = (100, 0, 0, 0.9)
+                on_release: 
+                    background_color: (255, 0, 0, 0.2)
+
+<FrameModal>:
+    frame_txt: frame_txt
+    start_btn: start_btn
+    close_btn: close_btn
+    r_input: r_input
+    d_input: d_input
+    size_hint: None,None
+    size: 350,200
+    auto_dismiss: False
+    background_color: '#343B88'
+    GridLayout:
+        cols: 1
+        padding: 20,20
+        spacing: [0,5]
+        Label:
+            size_hint_y: 0.55
+            id: frame_txt
+            background_color: (0, 0, 0, 0)
+            text_size: self.size
+            valign: 'top'
+            halign: 'center'
+            markup: True
+        AnchorLayout:
+            size_hint_y: 0.20
+            anchor_x: 'center'
+            BoxLayout:  
+                size_hint_x: None
+                width: self.minimum_width
+                Label:
+                    text: '%s:' % lang.localize('TERM_DELAY')
+                    background_color: (0, 0, 0, 0)
+                    outline_width: 1
+                    size_hint_x: None
+                    width: 50
+                TextInput
+                    multiline: False
+                    id: d_input
+                    input_filter: 'int'
+                    foreground_color: (255, 255, 255, 1)
+                    background_color: (255, 0, 0, 0.2)
+                    size_hint_x: None
+                    width: 30
+                Label:
+                    text: '%s:' % lang.localize('TERM_ROLLBACK')
+                    background_color: (0, 0, 0, 0)
+                    outline_width: 1
+                    size_hint_x: None
+                    width: 70
+                TextInput
+                    multiline: False
+                    id: r_input
+                    input_filter: 'int'
+                    foreground_color: (255, 255, 255, 1)
+                    background_color: (255, 0, 0, 0.2)
+                    size_hint_x: None
+                    width: 30
+        BoxLayout:
+            size_hint_y: 0.25
+            Button:
+                text: lang.localize('TERM_CANCEL')
+                id: close_btn
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: (255, 0, 0, 0.2)
+                outline_width: 1
+                on_press: self.background_color = (100, 0, 0, 0.9)
+                on_release: 
+                    background_color: (255, 0, 0, 0.2)
+            Button:
+                text: lang.localize('TERM_START')
+                id: start_btn
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                background_color: (255, 0, 0, 0.2)
+                outline_width: 1
+                on_press: self.background_color = (100, 0, 0, 0.9)
+                on_release: 
+                    background_color: (255, 0, 0, 0.2)

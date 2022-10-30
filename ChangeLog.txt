@@ -1,0 +1,101 @@
+28/04/2020 1.02e
+  - Fixed slow loading times on windows XP
+  - Added icon
+
+27/04/2020 1.02d
+  - Reverted to older version of library
+  - Fixed a bug in input display involving simultaneous up and down inputs
+  - Improved connectivity for spectators using udp hole punching
+  - Tournament mode now remembers palette selection
+  - Reverted to older timing function
+
+26/03/2020 v1.02c
+  - Added hit/hurt/collision box display
+  - Both players can now use revival training mode (vs human)
+  - Additional revival training mode features (block, Rg, etc...) some of which are really janky why did I release that
+  - Input display added
+  - Offline Tournament mode added. Disables practice keys, hold esc to quit match, automatically saves replays, battle log, displays player names and scores.
+  - UDP hole punching added to allow some people to host without port forwarding
+  - Updated windows console calls to keep up with changes on more modern systems
+  - Added possibility to play random custom music by setting a music folder
+  - Various bug fixes
+
+21/12/2014 v1.02a
+  - Added battle log
+  - Ping now displays max ping
+  - Fixed end match when using EFZ to replay .rep files recorded with Revival
+  - Fixed replays ending too early on using pause
+  - Fixed recording of local replays
+  - Fixed replays sending back to char select on ending
+  - Fixed functions keys not being saved in replays
+
+23/11/2014 v1.02
+  - Fixed sound issues on rollbacks
+  - Added AllowSpectating option to EfzRevival.ini, setting it to "false" disables both spectating and being spectated
+  - Fix desyncs in netplay and replays, EFZ Revival now forces normal effects
+  - Spectators now get the correct palettes
+  - Recommended delay now takes 90% worst ping in account
+
+16/11/2014 v1.01
+  - Fixed FPS not being saved between replays
+  - Fixed F8 key being played back in replays
+
+16/11/2014 v1.00
+  - Release
+  - Added Debug option in EfzRevival.ini, debug mode is not forced on anymore
+  - Pressing Alt no longer calls the window menu
+  - Bunch of minor UI tweaks 
+
+12/11/2014 v0.98
+  - Fixed empty replays not being automatically generated in replay menu
+  - Fixed initial state not being saved when using F6 during recording
+  - Fixed palettes being messed up if arcade mode was selected before other ones
+  - Fixed recommended delay, EFZ is 64 FPS not 60
+
+08/11/2014 v0.97
+  - Fix the input priority
+  - Fix on playing back replays recorded with Vanilla EFZ and replayed in EfzRevival that contain ESC key
+  - SaveAllReplays option now only affects online replays
+
+07/11/2014 v0.96
+  - Added SavePreviousReplay in EfzRevival.ini, allows to save the previous match played to disk when in char select
+  - Left input now has priority on right input to prevent blocking in both directions, only when efz is launched through EfzRevival.exe for compatibility
+  - Fixed sound issues on rollback
+  - Added AllowPracticeKeys option in EfzRevival.ini to allow training mode function keys in netplay
+  - Spectating succeeds more often
+  - Fix to GUI on switch from client to spectator
+  - Fix potential timeout when trying to connect while host is setting the delay
+  - Spectators can now wait on a host and automatically join when the match starts
+
+29/10/2014 v0.94
+  - Added version check on the dll
+  - Color is kept between matches on character select
+
+29/10/2014 v0.93
+  - Added option in EfzRevival.ini for score display
+  - Added display of which match is playing for spectators
+  - Version check fix
+  - Added EfzCheckMD5.exe tool to see if EFZ install is compatible
+
+26/10/2014 v0.92
+  - Added option in EfzRevival.ini to change initial window position
+  - Added option in EfzRevival.ini to force software rendering
+
+25/10/2014 v0.91
+  - Added windows and backbuffer settings in the EvzRevival.ini
+  - Fixed a desync caused by uninitialised variables in characters
+  - Fixed an issue with loading the dll
+  - Fixed blank screen on launch in high delays
+
+21/10/2014 v0.90
+  - Sound now works when the window is not in focus
+  - Added MuteBGM option to EfzRevival.ini
+  - Fixed a win screen desync
+  - Fixed FPS being consistently too high
+  - Fixed recommended delay on connect, now actually gives sane advice
+
+20/10/2014 v0.85
+  - Added height and width option for EFZ window creation
+  - Clarified UI for practice
+  - Version check
+  - EfzRevival now prints out the cause of disconnects
