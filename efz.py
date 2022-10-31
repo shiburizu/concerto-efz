@@ -12,9 +12,16 @@ import urllib.request
 error_strings = [
 ]
 
+ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
+
 spec_names = re.compile(r'^Spectating versus mode \(\d* delay, \d* rollback\) (.*) \(.*\) vs (.*) \(.*\) \(Tap the spacebar to toggle fast-forward\)$')
 player_name_host_mm = re.compile(r'')
 player_name_join_mm = re.compile(r'\w* connected')
+
+delay = re.compile(r'Recommended input delay: \d{1,2}')
+avg_ping = re.compile(r'Average Ping: \d{1,4}')
+max_ping = re.compile(r'Max Ping: \d{1,4}')
+min_ping = re.compile(r'Min Ping: \d{1,4}')
 
 class loghelper():
     dateTimeObj = datetime.now()
@@ -51,21 +58,49 @@ class Revival():
         except FileNotFoundError:
             sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
         while self.aproc.isalive(): # find IP and port combo for host
+        #TODO use cumulative text for this stage of the process
             txt = self.aproc.read()
-            print(txt)
             if "Press 2 to cancel." in txt:
                 #replace with ping back to the lobby server
                 self.adr = urllib.request.urlopen('https://ident.me').read().decode('utf8')
                 #NOTE: Heroku does not serve IPV6 requests so anyone using that will need to be re-routed to an external resolve.
                 #Should be fine otherwise.
-                sc.set_ip(self.adr)
+                while True:
+                    flag = sc.set_ip(self.adr)
+                    if flag:
+                        break
                 break
             elif "1: Host" in txt:
                 self.aproc.write('1')
         print("IP: %s" % self.adr)
+        cur_delay = None
+        cur_max_ping = None
+        cur_min_ping = None
+        sum_txt = ""
+        prev_txt = ""
         while self.aproc.isalive():
-            txt = self.aproc.read()
-            print(txt)
+            txt = ansi_escape.sub('', str(self.aproc.read()))
+            if prev_txt != '':
+                if prev_txt in txt:
+                    txt = txt.replace(prev_txt,'')
+            sum_txt += txt
+            prev_txt = txt
+            logger.write(str(sum_txt.split()))
+            logger.write("\n\n")
+            print(str(sum_txt.split()))
+
+            cur_delay = re.findall(delay,sum_txt)
+            cur_avg_ping = re.findall(avg_ping,sum_txt)
+            cur_max_ping = re.findall(max_ping,sum_txt)
+            cur_min_ping = re.findall(min_ping,sum_txt)
+
+            if cur_delay != [] and cur_avg_ping != [] and cur_max_ping != [] and cur_min_ping != []:
+                if ":" in cur_avg_ping[0][-3:]:
+                    ping = int(cur_avg_ping[0][-2:])
+                else:
+                    ping = int(cur_avg_ping[0][-3:])
+                sc.set_frames('EfzPlayer',int(str(cur_delay[0][-2:])),ping)
+                break
 
     def host_old(self, sc, port='0', mode="Versus",t=None): #sc is a Screen for UI triggers
         self.kill_caster()
@@ -233,15 +268,10 @@ class Revival():
                 break
 
     def confirm_frames(self,rf,df):
+        print("test")
         if self.aproc:
-            self.aproc.write('\x08')
-            self.aproc.write('\x08')
+            print("check")
             self.aproc.write(str(rf))
-            self.aproc.write('\x0D')
-            time.sleep(0.1)
-            self.aproc.write('\x08')
-            self.aproc.write('\x08')
-            self.aproc.write(str(df))
             self.aproc.write('\x0D')
             self.playing = True
 
@@ -362,16 +392,14 @@ class Revival():
         self.adr = None
         self.rs = -1
         self.ds = -1
-        killed = False
         if self.aproc != None:
             subprocess.run('taskkill /f /im efz.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
-            killed = True
+            subprocess.run('taskkill /f /im EfzRevival.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
         self.aproc = None
         self.startup = False
         self.offline = False
         self.broadcasting = False
         self.playing = False
-        self.pid = None
 
     def check_msg(self,s):
         e = []

@@ -5,6 +5,7 @@ from ui.concertoscreen import ConcertoScreen
 from ui.modals import *
 import config
 import requests
+from kivy.clock import Clock
 
 class OnlineScreen(ConcertoScreen):
     
@@ -67,17 +68,21 @@ class OnlineScreen(ConcertoScreen):
         return err
 
     def host(self):
-        caster = threading.Thread(
-            target=self.app.game.host, args=[self], daemon=True)
-        caster.start()
-        popup = GameModal(self.localize('ONLINE_MENU_HOSTING') % self.direct_pop.game_type.text,self.localize('TERM_QUIT'))
+        popup = GameModal(self.localize('ONLINE_MENU_HOSTING'),self.localize('TERM_QUIT'))
         popup.bind_btn(partial(self.dismiss, p=popup))
         popup.open()
         self.active_pop = popup
         self.app.mode = 'Direct Match'
+        caster = threading.Thread(
+            target=self.app.game.host, args=[self], daemon=True)
+        caster.start()
 
     def set_ip(self,ip=None):
-        self.active_pop.modal_txt.text += 'IP: %s\n%s' % (ip, self.localize('TERM_COPY_CLIPBOARD'))
+        if self.active_pop != None:
+            self.active_pop.modal_txt.text += 'IP: %s\n%s' % (ip, self.localize('TERM_COPY_CLIPBOARD'))
+            return True
+        else:
+            return False
 
     def join(self, ip=None):
         if not self.validate_ip(ip):
@@ -117,7 +122,10 @@ class OnlineScreen(ConcertoScreen):
         except ValueError:
             pass
 
-    def set_frames(self, name, delay, ping, target=None, mode="Versus", rounds=2): #t is used by Lobby frameset, placed here as a dummy
+    def set_frames(self, name, delay, ping, target=None, mode="Versus", rounds=2):
+        Clock.schedule_once(partial(self.set_frames_func,name,delay,ping,target,mode,rounds))
+
+    def set_frames_func(self, name, delay, ping, target=None, mode="Versus", rounds=2,obj=None): #t is used by Lobby frameset, placed here as a dummy
         popup = FrameModal()
         self.opponent = name
         if rounds != 0:
@@ -126,8 +134,8 @@ class OnlineScreen(ConcertoScreen):
             rounds = ''
         popup.frame_txt.text = self.localize('GAME_MODAL_INFO') % (
             name, mode, rounds, delay, ping, self.app.game.ds, self.app.game.rs)
-        popup.r_input.text = str(self.app.game.rs)
-        popup.d_input.text = str(self.app.game.ds)
+        popup.r_input.text = str(delay)
+        popup.d_input.text = str(delay)
         popup.start_btn.bind(on_release=partial(
             self.confirm, p=popup, r=popup.r_input, d=popup.d_input, n=name))
         popup.close_btn.bind(on_release=partial(

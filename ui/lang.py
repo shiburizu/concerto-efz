@@ -65,7 +65,7 @@ strings = {
         "EN" : "DIRECT MATCH",
     },
     "ONLINE_MENU_HOSTING" : {
-        "EN" : "Hosting %s mode...\n",
+        "EN" : "Hosting session...\n",
     },
     "ONLINE_MENU_BROADCASTING" : {
         "EN" : "Broadcasting %s mode...\n",
