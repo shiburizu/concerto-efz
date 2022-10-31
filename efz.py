@@ -41,7 +41,6 @@ class Revival():
         self.offline = False #True when an offline mode has been started
         self.broadcasting = False #True when Broadcasting offline has been started
         self.startup = False #True when waiting for efz.exe to start in offline
-        self.stats = {} #dict of information we can read from memory
         self.pid = None #PID of efz.exe
 
     def host(self,sc):
@@ -299,6 +298,22 @@ class Revival():
                     continue
 
     def local(self,sc):
+        self.kill_revival()
+        self.startup = True
+        logger.write('\n== Host ==\n')
+        try:
+            self.aproc = PtyProcess.spawn(app_config['settings']['revival_exe'].strip())
+        except FileNotFoundError:
+            sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
+        while self.aproc.isalive(): # find IP and port combo for host
+            txt = self.aproc.read()
+            print(txt)
+            if "1: Host" in txt:
+                self.aproc.write('5')
+                self.flag_offline(sc)
+                break
+
+    def local_old(self,sc):
         self.kill_caster()
         self.startup = True
         if app_config['settings']['write_scores'] == '1':
@@ -323,9 +338,9 @@ class Revival():
                     sc.error_message(self.check_msg(con))
                     break
 
-    def flag_offline(self,sc,stats=True): #stats tells us whether or not to pull info from the game
+    def flag_offline(self,sc):
         while True:
-            cmd = f"""tasklist /FI "IMAGENAME eq mbaa.exe" /FO CSV /NH"""
+            cmd = f"""tasklist /FI "IMAGENAME eq EfzRevival.exe" /FO CSV /NH"""
             task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
             try:
                 task_data.replace("\"", "").split(",")[1]
@@ -335,8 +350,6 @@ class Revival():
                 if self.offline is False:
                     self.startup = False
                     self.offline = True
-                    if stats is True:
-                        threading.Thread(target=self.update_stats,daemon=True).start()
                     break
             if self.aproc != None:
                 if self.aproc.isalive() is False:
@@ -351,7 +364,7 @@ class Revival():
         self.ds = -1
         killed = False
         if self.aproc != None:
-            subprocess.run('taskkill /f /im %s' % app_config['settings']['revival_exe'].strip(), shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            subprocess.run('taskkill /f /im efz.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
             killed = True
         self.aproc = None
         self.startup = False
@@ -359,18 +372,6 @@ class Revival():
         self.broadcasting = False
         self.playing = False
         self.pid = None
-        if self.app.discord is True:
-            if self.app.LobbyScreen.type != None:
-                if self.app.LobbyScreen.type.lower() == 'public':
-                    self.app.mode = 'Public Lobby'
-                    presence.public_lobby(self.app.LobbyScreen.code)
-                elif self.app.LobbyScreen.type.lower() == 'private':
-                    self.app.mode = 'Private Lobby'
-                    presence.private_lobby()
-            else:
-                if killed:
-                    self.app.mode = 'Menu'
-                    presence.menu()
 
     def check_msg(self,s):
         e = []

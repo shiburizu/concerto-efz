@@ -2523,3 +2523,736 @@ WARNING:kivy:Concerto: argv is concerto.py
 WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
 INFO:kivy:Base: Start application main loop
 INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_43.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     run()
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp.run()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 383, in idle
+WARNING:kivy:stderr:     self.dispatch_input()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 334, in dispatch_input
+WARNING:kivy:stderr:     post_dispatch_input(*pop(0))
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 302, in post_dispatch_input
+WARNING:kivy:stderr:     wid.dispatch('on_touch_up', me)
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\uix\behaviors\button.py", line 179, in on_touch_up
+WARNING:kivy:stderr:     self.dispatch('on_release')
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\lang\builder.py", line 55, in custom_callback
+WARNING:kivy:stderr:     exec(__kvlang__.co_value, idmap)
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\concerto.kv", line 128, in <module>
+WARNING:kivy:stderr:     on_release: app.MainScreen.local()
+WARNING:kivy:stderr: AttributeError: 'MainScreen' object has no attribute 'local'
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_44.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     run()
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp.run()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 383, in idle
+WARNING:kivy:stderr:     self.dispatch_input()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 334, in dispatch_input
+WARNING:kivy:stderr:     post_dispatch_input(*pop(0))
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 302, in post_dispatch_input
+WARNING:kivy:stderr:     wid.dispatch('on_touch_up', me)
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\uix\behaviors\button.py", line 179, in on_touch_up
+WARNING:kivy:stderr:     self.dispatch('on_release')
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\lang\builder.py", line 55, in custom_callback
+WARNING:kivy:stderr:     exec(__kvlang__.co_value, idmap)
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\concerto.kv", line 128, in <module>
+WARNING:kivy:stderr:     on_release: app.MainScreen.local()
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\ui\mainscreen.py", line 13, in local
+WARNING:kivy:stderr:     self.offline_pop(ui.lang.localize("MAIN_MENU_LOCAL_VS"))
+WARNING:kivy:stderr: NameError: name 'ui' is not defined
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_45.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     run()
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp.run()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 383, in idle
+WARNING:kivy:stderr:     self.dispatch_input()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 334, in dispatch_input
+WARNING:kivy:stderr:     post_dispatch_input(*pop(0))
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 302, in post_dispatch_input
+WARNING:kivy:stderr:     wid.dispatch('on_touch_up', me)
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\uix\behaviors\button.py", line 179, in on_touch_up
+WARNING:kivy:stderr:     self.dispatch('on_release')
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\lang\builder.py", line 55, in custom_callback
+WARNING:kivy:stderr:     exec(__kvlang__.co_value, idmap)
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\concerto.kv", line 128, in <module>
+WARNING:kivy:stderr:     on_release: app.MainScreen.local()
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\ui\mainscreen.py", line 14, in local
+WARNING:kivy:stderr:     self.offline_pop(ui.lang.localize("MAIN_MENU_LOCAL_VS"))
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\ui\mainscreen.py", line 18, in offline_pop
+WARNING:kivy:stderr:     popup = GameModal(ui.lang.localize('OFFLINE_MENU_STARTING') % (mode,tip),ui.lang.localize('TERM_STANDBY'))
+WARNING:kivy:stderr: NameError: name 'GameModal' is not defined
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_46.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     run()
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp.run()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 383, in idle
+WARNING:kivy:stderr:     self.dispatch_input()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 334, in dispatch_input
+WARNING:kivy:stderr:     post_dispatch_input(*pop(0))
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 302, in post_dispatch_input
+WARNING:kivy:stderr:     wid.dispatch('on_touch_up', me)
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\uix\behaviors\button.py", line 179, in on_touch_up
+WARNING:kivy:stderr:     self.dispatch('on_release')
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+WARNING:kivy:stderr:   File "kivy\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\lang\builder.py", line 55, in custom_callback
+WARNING:kivy:stderr:     exec(__kvlang__.co_value, idmap)
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\concerto.kv", line 128, in <module>
+WARNING:kivy:stderr:     on_release: app.MainScreen.local()
+WARNING:kivy:stderr:   File "C:\Users\shib\Desktop\EFZ\ui\mainscreen.py", line 16, in local
+WARNING:kivy:stderr:     threading.Thread(target=self.app.game.local,args=[self],daemon=True).start()
+WARNING:kivy:stderr: NameError: name 'threading' is not defined
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_47.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_48.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_49.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     run()
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp.run()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 379, in idle
+WARNING:kivy:stderr:     Clock.tick()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 733, in tick
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 689, in idle
+WARNING:kivy:stderr:     usleep(1000000 * sleeptime)
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 965, in usleep
+WARNING:kivy:stderr:     _usleep(microseconds, self._sleep_obj)
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 504, in _usleep
+WARNING:kivy:stderr:     _kernel32.WaitForSingleObject(obj, 0xffffffff)
+WARNING:kivy:stderr: KeyboardInterrupt
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_50.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_51.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_52.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_53.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_54.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+WARNING:kivy:stderr: Traceback (most recent call last):
+WARNING:kivy:stderr:   File "concerto.py", line 190, in <module>
+WARNING:kivy:stderr:     if __name__ == '__main__':
+WARNING:kivy:stderr:   File "concerto.py", line 187, in run
+WARNING:kivy:stderr:     CApp = Concerto()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\app.py", line 955, in run
+WARNING:kivy:stderr:     runTouchApp()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 574, in runTouchApp
+WARNING:kivy:stderr:     EventLoop.mainloop()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 339, in mainloop
+WARNING:kivy:stderr:     self.idle()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\base.py", line 379, in idle
+WARNING:kivy:stderr:     Clock.tick()
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 733, in tick
+WARNING:kivy:stderr:     self.post_idle(ts, self.idle())
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 689, in idle
+WARNING:kivy:stderr:     usleep(1000000 * sleeptime)
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 965, in usleep
+WARNING:kivy:stderr:     _usleep(microseconds, self._sleep_obj)
+WARNING:kivy:stderr:   File "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\clock.py", line 504, in _usleep
+WARNING:kivy:stderr:     _kernel32.WaitForSingleObject(obj, 0xffffffff)
+WARNING:kivy:stderr: KeyboardInterrupt
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_55.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_56.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...
+INFO:kivy:Logger: Record log in C:\Users\shib\.kivy\logs\kivy_22-10-30_57.txt
+INFO:kivy:deps: Successfully imported "kivy_deps.angle" 0.3.3
+INFO:kivy:deps: Successfully imported "kivy_deps.glew" 0.3.1
+INFO:kivy:deps: Successfully imported "kivy_deps.sdl2" 0.4.5
+INFO:kivy:Kivy: v2.1.0
+INFO:kivy:Kivy: Installed at "C:\Users\shib\AppData\Local\Programs\Python\Python38\lib\site-packages\kivy\__init__.py"
+INFO:kivy:Python: v3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+INFO:kivy:Python: Interpreter at "C:\Users\shib\AppData\Local\Programs\Python\Python38\python.exe"
+INFO:kivy:Logger: Purge log fired. Processing...
+INFO:kivy:Logger: Purge finished!
+INFO:kivy:Factory: 189 symbols loaded
+INFO:kivy:Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+INFO:kivy:Text: Provider: sdl2
+INFO:kivy:Window: Provider: sdl2
+INFO:kivy:GL: Using the "OpenGL" graphics system
+INFO:kivy:GL: GLEW initialization succeeded
+INFO:kivy:GL: Backend used <glew>
+INFO:kivy:GL: OpenGL version <b'4.6.0 - Build 30.0.101.1994'>
+INFO:kivy:GL: OpenGL vendor <b'Intel'>
+INFO:kivy:GL: OpenGL renderer <b'Intel(R) HD Graphics 620'>
+INFO:kivy:GL: OpenGL parsed version: 4, 6
+INFO:kivy:GL: Shading version <b'4.60 - Build 30.0.101.1994'>
+INFO:kivy:GL: Texture max size <16384>
+INFO:kivy:GL: Texture max units <32>
+INFO:kivy:Window: auto add sdl2 input provider
+INFO:kivy:Window: virtual keyboard not allowed, single mode, not docked
+INFO:kivy:Audio: Providers: audio_sdl2 (audio_ffpyplayer ignored)
+WARNING:kivy:Factory: Ignored class "OptionRow" re-declaration. Current -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\Concerto.kv. Ignored -  module: None, cls: None, baseclass: BoxLayout, filename: C:\Users\shib\Desktop\EFZ\concerto.kv.
+INFO:kivy:GL: NPOT texture support is available
+INFO:kivy:Video: Provider: null(['video_ffmpeg', 'video_ffpyplayer'] ignored)
+INFO:kivy:Concerto: Version 1.04
+INFO:kivy:Concerto: Debug Version EFZ
+WARNING:kivy:Concerto: old CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: new CWD is C:\Users\shib\Desktop\EFZ
+WARNING:kivy:Concerto: argv is concerto.py
+WARNING:kivy:Concerto: PATH is C:\Users\shib\Desktop\EFZ\
+INFO:kivy:Base: Start application main loop
+INFO:kivy:Base: Leaving application in progress...

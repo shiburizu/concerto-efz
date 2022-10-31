@@ -4,6 +4,7 @@ media/
 cccaster*.exe
 *.zip
 concerto.ini
+concerto.log
 Concerto_*.txt
 Information/
 concerto-logs/

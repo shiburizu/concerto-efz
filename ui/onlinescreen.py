@@ -11,7 +11,6 @@ class OnlineScreen(ConcertoScreen):
     def __init__(self, CApp):
         super().__init__(CApp)
         self.direct_pop = None  # Direct match popup for user settings
-        self.broadcast_pop = None
         self.opponent = None
 
     def direct(self):
