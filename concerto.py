@@ -168,7 +168,31 @@ class Concerto(App):
             #                'secret': self.LobbyScreen.secret
             #            }
             #            requests.get(url=LOBBYURL, params=r).json()
-            #        self.game.kill_revival()   
+            #        self.game.kill_revival()
+            if self.game.offline is True:
+                pass
+            else:
+                cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
+                task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
+                try:
+                    task_data.replace("\"", "").split(",")[1]
+                except IndexError:
+                    if self.OnlineScreen.active_pop != None:
+                        self.OnlineScreen.active_pop.dismiss()
+                        self.OnlineScreen.active_pop = None
+                    if self.LobbyScreen.active_pop != None:
+                        self.LobbyScreen.active_pop.dismiss()
+                        self.LobbyScreen.active_pop = None
+                        self.LobbyScreen.challenge_id = None
+                        self.LobbyScreen.challenge_name = None
+                        r = {
+                            'action': 'end',
+                            'p': self.LobbyScreen.player_id,
+                            'id': self.LobbyScreen.code,
+                            'secret': self.LobbyScreen.secret
+                        }
+                        requests.get(url=LOBBYURL, params=r).json()
+                        self.game.kill_revival()
             if hasattr(self,'sound'):
                 cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
                 task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
