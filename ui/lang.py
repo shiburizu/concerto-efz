@@ -50,10 +50,10 @@ strings = {
         "EN" : "%s rounds per game"
     },
     "GAME_MODAL_INFO" : {
-        "EN" : "[b]Connected to %s[/b]\n[size=14][u]%s mode%s[/u]\nNetwork delay: %s (%s ms)\nSuggested: Delay %s, Rollback %s[/size]"
+        "EN" : "[b]Player Connected[/b]\n[size=14][u]%s Ping (%s Max/%s Min)[/u]\nSuggested delay: %s[/size]"
     },
     "LOBBY_MENU_CONN_INFO" : {
-        "EN" : "Connected to: %s, %s Delay & %s Rollback",
+        "EN" : "Connected.",
     },
     "LOBBY_MENU_PLAYING" : {
         "EN" : "Now playing (click to watch)",
@@ -61,8 +61,14 @@ strings = {
     "LOBBY_MENU_LINK" : {
         "EN" : "Link copied to clipboard",
     },
-    "ONLINE_MENU_DIRECT" : {
-        "EN" : "DIRECT MATCH",
+    "ONLINE_MENU_HOST" : {
+        "EN" : "HOST",
+    },
+    "ONLINE_MENU_JOIN" : {
+        "EN" : "JOIN",
+    },
+    "ONLINE_MENU_SPECTATE" : {
+        "EN" : "SPECTATE",
     },
     "ONLINE_MENU_HOSTING" : {
         "EN" : "Hosting session...\n",

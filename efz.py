@@ -42,36 +42,45 @@ class Revival():
         self.app = CApp
         self.adr = None #our IP when hosting, needed to trigger UI actions
         self.playing = False #True when netplay begins via input to Revival
-        self.rs = -1 # Revival's suggested rollback frames. Sent to UI.
-        self.ds = -1 # delay suggestion
         self.aproc = None # active caster Thread object to check for isalive()
         self.offline = False #True when an offline mode has been started
-        self.broadcasting = False #True when Broadcasting offline has been started
         self.startup = False #True when waiting for efz.exe to start in offline
-        self.pid = None #PID of efz.exe
 
     def host(self,sc):
+        flag = False #set to True when hosting is ready
         self.kill_revival()
         logger.write('\n== Host ==\n')
         try:
             self.aproc = PtyProcess.spawn(app_config['settings']['revival_exe'].strip())
         except FileNotFoundError:
             sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
-        while self.aproc.isalive(): # find IP and port combo for host
-        #TODO use cumulative text for this stage of the process
-            txt = self.aproc.read()
-            if "Press 2 to cancel." in txt:
+        sum_txt = ""
+        prev_txt = ""
+        while self.aproc.isalive():
+            txt = ansi_escape.sub('', str(self.aproc.read()))
+            if prev_txt != '':
+                if prev_txt in txt:
+                    txt = txt.replace(prev_txt,'')
+            sum_txt += txt
+            prev_txt = txt
+            logger.write(str(sum_txt.split()))
+            logger.write("\n\n")
+            print(str(sum_txt.split()))
+            if "Press 2 to cancel." in sum_txt:
                 #replace with ping back to the lobby server
                 self.adr = urllib.request.urlopen('https://ident.me').read().decode('utf8')
                 #NOTE: Heroku does not serve IPV6 requests so anyone using that will need to be re-routed to an external resolve.
                 #Should be fine otherwise.
                 while True:
-                    flag = sc.set_ip(self.adr)
                     if flag:
                         break
+                    flag = sc.set_ip(self.adr)
                 break
-            elif "1: Host" in txt:
+            elif "1: Host" in sum_txt:
                 self.aproc.write('1')
+            elif self.check_msg(sum_txt) != []:
+                sc.error_message(self.check_msg(sum_txt))
+                return None
         print("IP: %s" % self.adr)
         cur_delay = None
         cur_max_ping = None
@@ -99,8 +108,14 @@ class Revival():
                     ping = int(cur_avg_ping[0][-2:])
                 else:
                     ping = int(cur_avg_ping[0][-3:])
-                sc.set_frames('EfzPlayer',int(str(cur_delay[0][-2:])),ping)
+                sc.set_frames(int(str(cur_delay[0][-2:])),ping,int(str(cur_min_ping[0][-3:])),int(str(cur_max_ping[0][-3:])),target=t)
                 break
+            else:
+                if self.check_msg(sum_txt) != []:
+                    sc.error_message(self.check_msg(sum_txt))
+                    self.aproc = None
+                    break
+
 
     def host_old(self, sc, port='0', mode="Versus",t=None): #sc is a Screen for UI triggers
         self.kill_caster()
@@ -268,9 +283,7 @@ class Revival():
                 break
 
     def confirm_frames(self,rf,df):
-        print("test")
         if self.aproc:
-            print("check")
             self.aproc.write(str(rf))
             self.aproc.write('\x0D')
             self.playing = True
@@ -327,7 +340,7 @@ class Revival():
                     last_con = cur_con
                     continue
 
-    def local(self,sc):
+    def local(self,sc,tournament=False):
         self.kill_revival()
         self.startup = True
         logger.write('\n== Host ==\n')
@@ -335,13 +348,27 @@ class Revival():
             self.aproc = PtyProcess.spawn(app_config['settings']['revival_exe'].strip())
         except FileNotFoundError:
             sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
-        while self.aproc.isalive(): # find IP and port combo for host
-            txt = self.aproc.read()
-            print(txt)
-            if "1: Host" in txt:
-                self.aproc.write('5')
+        sum_txt = ""
+        prev_txt = ""
+        while self.aproc.isalive():
+            txt = ansi_escape.sub('', str(self.aproc.read()))
+            if prev_txt != '':
+                if prev_txt in txt:
+                    txt = txt.replace(prev_txt,'')
+            sum_txt += txt
+            prev_txt = txt
+            if "1: Host" in sum_txt:
+                if tournament is True:
+                    self.aproc.write('6')
+                else:
+                    self.aproc.write('5')
                 self.flag_offline(sc)
                 break
+            else:
+                if self.check_msg(sum_txt) != []:
+                    sc.error_message(self.check_msg(sum_txt))
+                    self.aproc = None
+                    break
 
     def local_old(self,sc):
         self.kill_caster()

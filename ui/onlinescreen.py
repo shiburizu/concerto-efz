@@ -3,6 +3,7 @@ import threading
 from functools import partial
 from ui.concertoscreen import ConcertoScreen
 from ui.modals import *
+import ui.lang
 import config
 import requests
 from kivy.clock import Clock
@@ -13,10 +14,14 @@ class OnlineScreen(ConcertoScreen):
         super().__init__(CApp)
         self.direct_pop = None  # Direct match popup for user settings
         self.opponent = None
+        self.spectate = False
 
-    def direct(self):
+    def direct(self,spectate=False):
         self.direct_pop = DirectModal()
         self.direct_pop.screen = self
+        if spectate:
+            self.direct_pop.connect_txt.text = ui.lang.localize("TERM_WATCH")
+            self.spectate = True
         self.direct_pop.open()
 
     def lobby(self):
@@ -79,65 +84,53 @@ class OnlineScreen(ConcertoScreen):
 
     def set_ip(self,ip=None):
         if self.active_pop != None:
-            self.active_pop.modal_txt.text += 'IP: %s\n%s' % (ip, self.localize('TERM_COPY_CLIPBOARD'))
+            self.active_pop.modal_txt.text += 'IP: %s' % ip
             return True
         else:
             return False
 
-    def join(self, ip=None):
+    def join(self, ip=None, spectate=False):
         if not self.validate_ip(ip):
             ip = self.direct_pop.join_ip.text
             if not self.validate_ip(ip):
                 self.error_message(self.localize('ERR_INVALID_IP'))
                 return None
-        caster = threading.Thread(target=self.app.game.join, args=[ip, self], daemon=True)
-        caster.start()
-        popup = GameModal(self.localize("ONLINE_MENU_CONNECTING") % ip,self.localize('TERM_QUIT'))
-        popup.bind_btn(partial(self.dismiss,p=popup))
-        popup.open()
-        self.active_pop = popup
-        self.app.mode = 'Direct Match'
+        if spectate:
+            caster = threading.Thread(target=self.app.game.watch, args=[ip, self], daemon=True)
+            caster.start()
+            popup = GameModal(msg=self.localize('ONLINE_WATCHING_IP') % ip,btntext=self.localize('TERM_QUIT'))
+            popup.bind_btn(partial(self.dismiss,p=popup))        
+            popup.open()
+            self.active_pop = popup
+            self.app.offline_mode = 'Spectating' #needs to be an offline mode for lobby multitasking
+        else:
+            caster = threading.Thread(target=self.app.game.join, args=[ip, self], daemon=True)
+            caster.start()
+            popup = GameModal(self.localize("ONLINE_MENU_CONNECTING") % ip,self.localize('TERM_QUIT'))
+            popup.bind_btn(partial(self.dismiss,p=popup))
+            popup.open()
+            self.active_pop = popup
+            self.app.mode = 'Direct Match'
 
-    def watch(self, ip=None):
-        if not self.validate_ip(ip):
-            ip = self.direct_pop.watch_ip.text
-            if not self.validate_ip(ip):
-                self.error_message(self.localize('ERR_INVALID_IP'))
-                return None
-        caster = threading.Thread(target=self.app.game.watch, args=[ip, self], daemon=True)
-        caster.start()
-        popup = GameModal(msg=self.localize('ONLINE_WATCHING_IP') % ip,btntext=self.localize('TERM_QUIT'))
-        popup.bind_btn(partial(self.dismiss,p=popup))        
-        popup.open()
-        self.active_pop = popup
-        self.app.offline_mode = 'Spectating' #needs to be an offline mode for lobby multitasking
-
-    def confirm(self, obj, r, d, p, n, *args):
+    def confirm(self, obj, p, d, *args):
         try:
             if self.app.game.playing is False:
-                self.app.game.confirm_frames(int(r.text),int(d.text))
-                self.active_pop.modal_txt.text += "\n" + self.localize("ONLINE_MENU_CONN_INFO") % (
-                n, d.text, r.text)
+                self.app.game.confirm_frames(int(d.text))
+                self.active_pop.modal_txt.text += "\n" + self.localize("ONLINE_MENU_CONN_INFO")
                 p.dismiss()
         except ValueError:
             pass
 
-    def set_frames(self, name, delay, ping, target=None, mode="Versus", rounds=2):
-        Clock.schedule_once(partial(self.set_frames_func,name,delay,ping,target,mode,rounds))
+    def set_frames(self, delay, avg_ping, min_ping, max_ping,target=None): #target for Lobby call, dummied out here
+        Clock.schedule_once(partial(self.set_frames_func,delay,avg_ping,min_ping,max_ping))
 
-    def set_frames_func(self, name, delay, ping, target=None, mode="Versus", rounds=2,obj=None): #t is used by Lobby frameset, placed here as a dummy
+    def set_frames_func(self, delay, avg_ping, min_ping, max_ping, *args):
         popup = FrameModal()
-        self.opponent = name
-        if rounds != 0:
-            rounds = "," + self.localize('GAME_MODAL_ROUNDS') % rounds
-        else:
-            rounds = ''
         popup.frame_txt.text = self.localize('GAME_MODAL_INFO') % (
-            name, mode, rounds, delay, ping, self.app.game.ds, self.app.game.rs)
-        popup.r_input.text = str(delay)
+            avg_ping, max_ping, min_ping, delay)
         popup.d_input.text = str(delay)
         popup.start_btn.bind(on_release=partial(
-            self.confirm, p=popup, r=popup.r_input, d=popup.d_input, n=name))
+            self.confirm, p=popup, d=popup.d_input))
         popup.close_btn.bind(on_release=partial(
             self.dismiss, p=popup))
         popup.open()
@@ -146,6 +139,7 @@ class OnlineScreen(ConcertoScreen):
     def dismiss(self, obj, p=None, *args):
         self.app.game.kill_revival()
         self.opponent = None
+        self.spectate = False
         if p:
             p.dismiss()
         self.dismiss_active_pop()

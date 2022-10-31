@@ -413,15 +413,23 @@
                 padding: (0,50)
                 spacing: [0,10]
                 MenuBtn:
-                    text: '1. %s' % lang.localize("ONLINE_MENU_DIRECT")
+                    text: '1. %s' % lang.localize("ONLINE_MENU_HOST")
+                    on_release:
+                        root.host()
+                MenuBtn:
+                    text: '2. %s' % lang.localize("ONLINE_MENU_JOIN")
                     on_release:
                         root.direct()
                 MenuBtn:
-                    text: '2. %s' % lang.localize("ONLINE_MENU_LOBBY")
+                    text: '3. %s' % lang.localize("ONLINE_MENU_SPECTATE")
+                    on_release: 
+                        root.direct(True)
+                MenuBtn:
+                    text: '4. %s' % lang.localize("ONLINE_MENU_LOBBY")
                     on_release: 
                         root.lobby()
                 MenuBtn:
-                    text: '3. ???'
+                    text: '5. ???'
                 MenuBtn:
                     text: '0. %s' % lang.localize("TERM_BACK").upper()
                     on_release: app.sm.current = 'Main'
@@ -780,166 +788,47 @@
             pos: self.pos
             size: self.size
 
-<BroadcastModal>:
+<DirectModal>:
     size_hint: None,None
-    size: 400,160
+    size: 400,105
     auto_dismiss: False
-    mode_type: mode_type
-    background_color: '#343B88'
+    join_ip: join_ip
+    connect_txt: connect_txt
     GridLayout:
         padding: 20,20
-        spacing: [0,8]
+        spacing: [0,4]
         cols: 1
-        Label:
-            text: lang.localize("ONLINE_MODAL_BROADCAST")
-            size_hint_y: 0.32
         BoxLayout:
-            size_hint_y: 0.36
             Label:
-                text: "%s: " % lang.localize("TERM_GAMETYPE")
+                text: '%s: ' % lang.localize("TERM_CONNECTIP")
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 outline_width: 1
                 size_hint_x: 0.3
-            Spinner:
-                values: 'Versus','Training'
-                id: mode_type
-                size_hint_x: 0.7
-                font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
-                background_color: (255, 0, 0, 0.2)
+            TextInput:
+                multiline: False
+                id: join_ip
                 size_hint_x: 0.5
             Button:
-                text: lang.localize("TERM_START")
+                id: connect_txt
+                text: lang.localize("TERM_JOIN")
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 outline_width: 1
-                background_color: '#343B88'
                 size_hint_x: 0.2
                 on_release:
-                    root.screen.start_broadcast()
+                    root.screen.join()
         Button:
-            size_hint_y: 0.32
             text: lang.localize("TERM_CLOSE")
             font_name: 'res/texgyreheros-bolditalic.otf'
             outline_width: 1
-            background_color: (255, 0, 0, 0.2)
             on_release: 
                 root.dismiss()
-                self.background_color = (255, 0, 0, 0.2)
-            on_press: 
-                self.background_color = (100, 0, 0, 0.9)  
-
-<DirectModal>:
-    size_hint: None,None
-    size: 400,160
-    auto_dismiss: False
-    join_ip: join_ip
-    watch_ip: watch_ip
-    game_type: game_type
-    background_color: '#343B88'
-    GridLayout:
-        padding: 20,20
-        spacing: [0,8]
-        cols: 1
-        TabbedPanel:
-            size_hint_y: 0.7
-            do_default_tab: False
-            background_color: '#343B88'
-            TabbedPanelItem:
-                text: lang.localize("TERM_HOST")
-                font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: '#343B88'
-                BoxLayout:
-                    Label:
-                        text: "%s: " % lang.localize("TERM_GAMETYPE")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        size_hint_x: 0.3
-                    Spinner:
-                        text: 'Versus'
-                        values: 'Versus','Training'
-                        id: game_type
-                        size_hint_x: 0.7
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        background_color: (255, 0, 0, 0.2)
-                        size_hint_x: 0.5
-                    Button:
-                        text: lang.localize("TERM_START")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        background_color: '#343B88'
-                        size_hint_x: 0.2
-                        on_release:
-                            root.screen.host()
-            TabbedPanelItem:
-                text: 'Join'  
-                font_name: 'res/texgyreheros-bolditalic.otf'  
-                background_color: '#343B88'
-                BoxLayout:
-                    Label:
-                        text: '%s: ' % lang.localize("TERM_CONNECTIP")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        size_hint_x: 0.3
-                    TextInput:
-                        multiline: False
-                        id: join_ip
-                        size_hint_x: 0.5
-                        foreground_color: (255, 255, 255, 1)
-                        background_color: (255, 0, 0, 0.2)
-                    Button:
-                        text: lang.localize("TERM_START")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        background_color: '#343B88'
-                        size_hint_x: 0.2
-                        on_release:
-                            root.screen.join()
-            TabbedPanelItem:
-                text: lang.localize("TERM_WATCH")
-                font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: '#343B88'
-                BoxLayout:
-                    Label:
-                        text: '%s: ' % lang.localize("TERM_CONNECTIP")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        size_hint_x: 0.3
-                    TextInput:
-                        multiline: False
-                        id: watch_ip
-                        size_hint_x: 0.5
-                        foreground_color: (255, 255, 255, 1)
-                        background_color: (255, 0, 0, 0.2)
-                    Button:
-                        text: lang.localize("TERM_WATCH")
-                        font_name: 'res/texgyreheros-bolditalic.otf'
-                        outline_width: 1
-                        background_color: '#343B88'
-                        size_hint_x: 0.2
-                        on_release:
-                            root.screen.watch()
-        Button:
-            size_hint_y: 0.3
-            text: lang.localize("TERM_CLOSE")
-            font_name: 'res/texgyreheros-bolditalic.otf'
-            outline_width: 1
-            background_color: (255, 0, 0, 0.2)
-            on_release: 
-                root.dismiss()
-                self.background_color = (255, 0, 0, 0.2)
-            on_press: 
-                self.background_color = (100, 0, 0, 0.9)  
 
 <GameModal>:
     modal_txt: modal_txt
     close_btn: close_btn
-    p1_char_guide: p1_char_guide
-    p2_char_guide: p2_char_guide
     size_hint: None,None
     size: 400,200
     auto_dismiss: False 
-    background_color: '#343B88'
     GridLayout:
         padding: [30,15]
         spacing: [0,0]
@@ -949,7 +838,6 @@
             cols: 1
             Label:
                 id: modal_txt
-                background_color: (0, 0, 0, 0)
                 halign: 'center'
                 valign: 'top'
                 size: self.texture_size
@@ -958,39 +846,8 @@
             Button:
                 id: close_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: (255, 0, 0, 0.2)
                 outline_width: 1
-                on_press: 
-                    self.background_color = (100, 0, 0, 0.9)
-                on_release: 
-                    self.background_color = (255, 0, 0, 0.2)
                 size_hint_y: 0.20
-            BoxLayout:
-                padding: [0,0]
-                orientation:'horizontal'
-                size_hint_y: 0.20
-                Button:
-                    id: p1_char_guide
-                    disabled: True
-                    font_name: 'res/texgyreheros-bolditalic.otf'
-                    background_color: (255, 0, 0, 0.2)
-                    opacity: 0
-                    outline_width: 1
-                    on_press: 
-                        self.background_color = (100, 0, 0, 0.9)
-                    on_release: 
-                        self.background_color = (255, 0, 0, 0.2)
-                Button:
-                    id: p2_char_guide
-                    disabled: True
-                    font_name: 'res/texgyreheros-bolditalic.otf'
-                    background_color: (255, 0, 0, 0.2)
-                    opacity: 0
-                    outline_width: 1
-                    on_press: 
-                        self.background_color = (100, 0, 0, 0.9)
-                    on_release: 
-                        self.background_color = (255, 0, 0, 0.2)
 
 <ProgressModal>:
     modal_txt: modal_txt
@@ -1018,13 +875,11 @@
     size_hint: None,None
     size: 400,180
     auto_dismiss: False 
-    background_color: '#343B88'
     BoxLayout:
         padding: 20,20
         orientation: 'vertical'
         Label:
             id: modal_txt
-            background_color: (0, 0, 0, 0)
             text_size: self.size
             halign: 'center'
             valign: 'center'
@@ -1033,30 +888,20 @@
             Button:
                 id: btn_1
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: (255, 0, 0, 0.2)
                 outline_width: 1
-                on_press: self.background_color = (100, 0, 0, 0.9)
-                on_release: 
-                    background_color: (255, 0, 0, 0.2)
             Button:
                 id: btn_2
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: (255, 0, 0, 0.2)
                 outline_width: 1
-                on_press: self.background_color = (100, 0, 0, 0.9)
-                on_release: 
-                    background_color: (255, 0, 0, 0.2)
 
 <FrameModal>:
     frame_txt: frame_txt
     start_btn: start_btn
     close_btn: close_btn
-    r_input: r_input
     d_input: d_input
     size_hint: None,None
     size: 350,200
     auto_dismiss: False
-    background_color: '#343B88'
     GridLayout:
         cols: 1
         padding: 20,20
@@ -1085,22 +930,6 @@
                     multiline: False
                     id: d_input
                     input_filter: 'int'
-                    foreground_color: (255, 255, 255, 1)
-                    background_color: (255, 0, 0, 0.2)
-                    size_hint_x: None
-                    width: 30
-                Label:
-                    text: '%s:' % lang.localize('TERM_ROLLBACK')
-                    background_color: (0, 0, 0, 0)
-                    outline_width: 1
-                    size_hint_x: None
-                    width: 70
-                TextInput
-                    multiline: False
-                    id: r_input
-                    input_filter: 'int'
-                    foreground_color: (255, 255, 255, 1)
-                    background_color: (255, 0, 0, 0.2)
                     size_hint_x: None
                     width: 30
         BoxLayout:
@@ -1109,17 +938,9 @@
                 text: lang.localize('TERM_CANCEL')
                 id: close_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: (255, 0, 0, 0.2)
                 outline_width: 1
-                on_press: self.background_color = (100, 0, 0, 0.9)
-                on_release: 
-                    background_color: (255, 0, 0, 0.2)
             Button:
                 text: lang.localize('TERM_START')
                 id: start_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                background_color: (255, 0, 0, 0.2)
                 outline_width: 1
-                on_press: self.background_color = (100, 0, 0, 0.9)
-                on_release: 
-                    background_color: (255, 0, 0, 0.2)

@@ -16,8 +16,12 @@ class MainScreen(ConcertoScreen):
         self.offline_pop(ui.lang.localize("MAIN_MENU_LOCAL_VS"))
         threading.Thread(target=self.app.game.local,args=[self],daemon=True).start()
 
+    def tournament(self, *args):
+        self.offline_pop(ui.lang.localize("MAIN_MENU_TOURNAMENT_VS"))
+        threading.Thread(target=self.app.game.local,args=[self,True],daemon=True).start()
+
     def offline_pop(self, mode, tip=""):
-        popup = GameModal(ui.lang.localize('OFFLINE_MENU_STARTING') % (mode,tip),ui.lang.localize('TERM_STANDBY'))
+        popup = GameModal(ui.lang.localize("OFFLINE_MENU_STARTING") % (mode,tip),ui.lang.localize("TERM_STANDBY"))
         popup.close_btn.disabled = True
         popup.open()
         self.active_pop = popup

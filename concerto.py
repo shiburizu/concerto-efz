@@ -157,6 +157,7 @@ class Concerto(App):
                         if self.OnlineScreen.active_pop != None:
                             self.OnlineScreen.active_pop.dismiss()
                             self.OnlineScreen.active_pop = None
+                            self.OnlineScreen.spectate = False
                         if self.LobbyScreen.active_pop != None:
                             self.LobbyScreen.active_pop.dismiss()
                             self.LobbyScreen.active_pop = None
