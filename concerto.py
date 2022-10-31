@@ -7,7 +7,6 @@ import threading
 import subprocess
 import winreg
 import ui.lang
-# Utility scripts
 # EFZ Revival
 from efz import Revival
 # Kivy
@@ -16,7 +15,7 @@ from kivy.app import App
 from kivy.lang import Builder
 Builder.load_file('Concerto.kv')
 # Internal UI objects
-from ui import howtoscreen, lobbyscreen, lobbylist, offlinescreen, onlinescreen, mainscreen, resourcescreen, optionscreen, aboutscreen, sound, buttons
+from ui import howtoscreen, lobbyscreen, lobbylist, onlinescreen, mainscreen, resourcescreen, optionscreen, aboutscreen, sound, buttons
 
 class Concerto(App):
     def __init__(self, **kwargs):
@@ -26,14 +25,13 @@ class Concerto(App):
         self.offline_mode = None #secondary Offline activity, mostly for lobby
         self.sm = ScreenManager(transition=FadeTransition(duration=0.10))
         self.game = Revival(CApp=self)  # expects Caster object
-        self.player_name = 'Concerto Player' #static player name to use for online lobbies
+        self.player_name = 'Concerto Player' #static player name to use for online lobbies #TODO load name from Revival config
         self.lang = ui.lang.current_lang
 
     def build(self):
         self.sound = sound.Sound()
         self.MainScreen = mainscreen.MainScreen(CApp=self)
         self.OnlineScreen = onlinescreen.OnlineScreen(CApp=self)
-        self.OfflineScreen = offlinescreen.OfflineScreen(CApp=self)
         self.ResourceScreen = resourcescreen.ResourceScreen(CApp=self)
         self.OptionScreen = optionscreen.OptionScreen(CApp=self)
         self.LobbyList = lobbylist.LobbyList(CApp=self)
@@ -42,7 +40,6 @@ class Concerto(App):
         self.AboutScreen = aboutscreen.AboutScreen(CApp=self)
         self.sm.add_widget(self.MainScreen)
         self.sm.add_widget(self.OnlineScreen)
-        self.sm.add_widget(self.OfflineScreen)
         self.sm.add_widget(self.ResourceScreen)
         self.sm.add_widget(self.OptionScreen)
         self.sm.add_widget(self.LobbyList)

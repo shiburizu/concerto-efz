@@ -61,7 +61,7 @@ else:
         f.write('[settings]')
         for i in opt:
             if i == 'revival_exe':
-                f.write('\revival_exe=EfzRevival.exe\n')
+                f.write('\nrevival_exe=EfzRevival.exe\n')
             else:
                 f.write('\n%s=0\n' % i)
         f.close()

@@ -1,12 +1,17 @@
+import logging
+
 strings = {
     "MAIN_MENU_WELCOME" : {
-        "EN" : "Welcome to Concerto for Melty Blood Actress Again Current Code.",
+        "EN" : "Welcome to Concerto for Eternal Fighter Zero.",
     },
-    "MAIN_MENU_OFFLINE" : {
-        "EN" : "OFFLINE",
+    "MAIN_MENU_LOCAL_VS" : {
+        "EN" : "LOCAL PLAY",
+    },
+    "MAIN_MENU_TOURNAMENT_VS" : {
+        "EN" : "TOURNAMENT VS",
     },
     "MAIN_MENU_ONLINE" : {
-        "EN" : "ONLINE",
+        "EN" : "ONLINE PLAY",
     },
     "MAIN_MENU_RESOURCES" : {
         "EN" : "RESOURCES",

@@ -14,8 +14,8 @@
     padding_x: 50
     background_normal: 'res/menubtn.png'
     outline_width: 2
-    on_press: self.background_color = (255, 0, 0, 1)
-    on_release: self.background_color = (1, 1 ,1 ,1)
+    on_press: self.background_color = (135/255,195/255,255/255, 1)
+    on_release: self.background_color = (1, 1, 1, 1)
     
 <PlayerRow>
     size_hint_y: None
@@ -34,7 +34,7 @@
             outline_width: 2
             font_name: 'res/texgyreheros-bolditalic.otf' 
             background_color: (0, 0, 0, 0)
-            on_press: self.background_color = (255, 0, 0, 1)
+            on_press: self.background_color = (135/255,195/255,255/255, 1)
             on_release: self.background_color = (0, 0, 0, 0)
             text_size: self.size
             halign: 'left'
@@ -46,7 +46,7 @@
             outline_width: 2
             font_name: 'res/texgyreheros-bolditalic.otf' 
             background_color: (0, 0, 0, 0)
-            on_press: self.background_color = (255, 0, 0, 1)
+            on_press: self.background_color = (135/255,195/255,255/255, 1)
             on_release: self.background_color = (0, 0, 0, 0)
             text_size: self.size
             halign: 'right'
@@ -104,38 +104,48 @@
             source: cfg.find_img('main_bg.png')
         Image:
             source: 'res/gradient.png'
-        Image:
-            source: 'res/mainmenu.png'
+        Label:
+            size_hint: (0.975,1.875)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            text: 'Main Menu'
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            font_size: 20
+            outline_width: 2
         BoxLayout:
             orientation: 'vertical'
             GridLayout:
                 size_hint: (0.6183, 1)
                 cols: 1
                 padding: (0,50)
-                spacing: [0,10]
+                spacing: [0,5]
                 MenuBtn:
-                    text: '1. %s' % lang.localize("MAIN_MENU_OFFLINE")
-                    on_release: app.sm.current = 'Offline'
-                MenuBtn:
-                    text: '2. %s' % lang.localize("MAIN_MENU_ONLINE")
+                    text: '1. %s' % lang.localize("MAIN_MENU_ONLINE")
                     on_release: app.sm.current = 'Online'
                 MenuBtn:
-                    text: '3. %s' % lang.localize("MAIN_MENU_RESOURCES")
+                    text: '2. %s' % lang.localize("MAIN_MENU_LOCAL_VS")
+                    on_release: app.MainScreen.local()
+                MenuBtn:
+                    text: '3. %s' % lang.localize("MAIN_MENU_TOURNAMENT_VS")
+                    on_release: app.MainScreen.tournament()
+                MenuBtn:
+                    text: '4. %s' % lang.localize("MAIN_MENU_RESOURCES")
                     on_release: app.sm.current = 'Resources'
                 MenuBtn:
-                    text: '4. %s' % lang.localize("MAIN_MENU_OPTIONS")
+                    text: '5. %s' % lang.localize("MAIN_MENU_OPTIONS")
                     on_release: app.OptionScreen.load()
                 MenuBtn:
-                    text: '5. %s' % lang.localize("MAIN_MENU_ABOUT")
+                    text: '6. %s' % lang.localize("MAIN_MENU_ABOUT")
                     on_release: app.sm.current = 'About'
                 MenuBtn:
-                    text: '6. %s' % lang.localize("MAIN_MENU_UPDATE")
+                    text: '7. %s' % lang.localize("MAIN_MENU_UPDATE")
                     on_release: root.update()
         Image:
             source: cfg.find_img('main.png')
         Label:
             id: version
-            size_hint: (0.97,0.1)
+            size_hint: (0.97,0.075)
             text_size: self.size
             halign: 'left'
             valign: 'center'
@@ -144,7 +154,7 @@
             font_size: 12
             outline_width: 2
         BoxLayout:
-            size_hint: (0.2, 0.1)
+            size_hint: (0.2, 0.075)
             Label:
                 text: cfg.img_credit('main.png','[ref=x]Bee Chan[/ref]')
                 outline_width: 2
@@ -160,7 +170,7 @@
         anchor_x: 'center'
         anchor_y: 'bottom'
         BoxLayout:
-            padding: 0,40
+            padding: 0,30
             DummyBtn:
                 id: welcome
                 text: lang.localize("MAIN_MENU_WELCOME")
@@ -395,8 +405,6 @@
             source: cfg.find_img('online_bg.png')
         Image:
             source: 'res/gradient.png'
-        Image:
-            source: 'res/onlinemenu.png'
         BoxLayout:
             orientation: 'vertical'
             GridLayout: 
@@ -409,17 +417,11 @@
                     on_release:
                         root.direct()
                 MenuBtn:
-                    text: '2. %s' % lang.localize("ONLINE_MENU_QUICK")
-                    on_release:
-                        root.matchmaking()
-                MenuBtn:
-                    text: '3. %s' % lang.localize("ONLINE_MENU_LOBBY")
+                    text: '2. %s' % lang.localize("ONLINE_MENU_LOBBY")
                     on_release: 
                         root.lobby()
                 MenuBtn:
-                    text: '4. %s' % lang.localize("ONLINE_MENU_BROADCAST")
-                    on_release:
-                        root.broadcast()
+                    text: '3. ???'
                 MenuBtn:
                     text: '0. %s' % lang.localize("TERM_BACK").upper()
                     on_release: app.sm.current = 'Main'
@@ -448,8 +450,6 @@
             source: cfg.find_img('resources_bg.png')
         Image:
             source: 'res/gradient.png'
-        Image:
-            source: 'res/resourcesmenu.png'
         BoxLayout:
             orientation: 'vertical'
             GridLayout:
@@ -463,11 +463,9 @@
                 MenuBtn:
                     text: '2. MIZUUMI WIKI'
                     on_release:
-                        webbrowser.open('https://wiki.gbl.gg/w/Melty_Blood/MBAACC')
+                        webbrowser.open('https://wiki.gbl.gg/w/Eternal_Fighter_Zero')
                 MenuBtn:
-                    text: '3. MELTY.GAMES DATABASE'
-                    on_release:
-                        webbrowser.open('http://mbaacc.melty.games/')
+                    text: '3. ???'
                 MenuBtn:
                     text: '0. %s' % lang.localize('TERM_BACK').upper()
                     on_release: app.sm.current = 'Main'
@@ -553,72 +551,6 @@
                         id: glossary
                         background_color: (0,0,0,0.5)
                         source: res.resource_find('res/glossary.rst')
-    AnchorLayout
-        id: lobbyAnchor
-        anchor_x: 'center'
-        anchor_y: 'top'
-
-<OfflineScreen>:
-    name: 'Offline'
-    AnchorLayout:
-        anchor_x: 'right'
-        anchor_y: 'bottom'
-        Image:
-            source: cfg.find_img('offline_bg.png')
-        Image:
-            source: 'res/gradient.png'
-        Image:
-            source: 'res/offlinemenu.png'
-        BoxLayout:
-            orientation: 'vertical'
-            GridLayout:
-                size_hint: (0.6183, 1)
-                cols: 1
-                padding: (0,50)
-                spacing: [0,5]
-                MenuBtn:
-                    text: '1. %s' % lang.localize("OFFLINE_MENU_LOCAL_VS")
-                    on_release: 
-                        root.local()
-                MenuBtn:
-                    text: '2. %s' % lang.localize("OFFLINE_MENU_TOURNAMENT_VS")
-                    on_release: 
-                        root.tournament()
-                MenuBtn:
-                    text: '3. %s' % lang.localize("OFFLINE_MENU_CPU_VS")
-                    on_release: 
-                        root.cpu()
-                MenuBtn:
-                    text: '4. %s' % lang.localize("OFFLINE_MENU_TRAINING")
-                    on_release: 
-                        root.training()
-                MenuBtn:
-                    text: '5. %s' % lang.localize("OFFLINE_MENU_REPLAYS")
-                    on_release: 
-                        root.replays()
-                MenuBtn:
-                    text: '6. %s' % lang.localize("OFFLINE_MENU_TRIALS")
-                    on_release: 
-                        root.trials()
-                MenuBtn:
-                    text: '7. %s' % lang.localize("OFFLINE_MENU_STANDALONE")
-                    on_release: 
-                        root.standalone()
-                MenuBtn:
-                    text: '0. %s' % lang.localize("TERM_BACK").upper()
-                    on_release: 
-                        app.sm.current = 'Main'
-        Image:
-            source: cfg.find_img('offline.png')
-        BoxLayout:
-            size_hint: (0.2, 0.1)
-            Label:
-                text: cfg.img_credit('offline.png','[ref=x]Onemi[/ref]')
-                outline_width: 2
-                markup: True
-                font_name: 'res/texgyreheros-bolditalic.otf'
-                font_size: 12
-                on_ref_press: webbrowser.open('https://twitter.com/OnemiESESEBEME')
     AnchorLayout
         id: lobbyAnchor
         anchor_x: 'center'

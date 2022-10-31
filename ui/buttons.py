@@ -42,7 +42,7 @@ class MenuBtn(Button):
         if not self.hover:
             self.canvas.before.clear()
             with self.canvas.before:
-                Color(rgba=(255, 0, 0, 0.5))
+                Color(135/255,195/255,255/255)
                 Rectangle(size=self.size,pos=self.pos)
             self.hover = True
 

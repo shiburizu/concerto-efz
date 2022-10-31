@@ -19,12 +19,6 @@ class OnlineScreen(ConcertoScreen):
         self.direct_pop.screen = self
         self.direct_pop.open()
 
-    def broadcast(self):
-        self.broadcast_pop = BroadcastModal()
-        self.broadcast_pop.screen = self
-        self.broadcast_pop.mode_type.text = "Versus"
-        self.broadcast_pop.open()
-
     def lobby(self):
         check = self.online_login()
         if "UPDATE" in check:
@@ -48,7 +42,8 @@ class OnlineScreen(ConcertoScreen):
             'action' : 'login',
             'version' : config.CURRENT_VERSION,
             'name' : name,
-            'lang' : self.app.lang
+            'lang' : self.app.lang,
+            'game' : 'efz'
         }
         try:
             req = requests.get(url=config.VERSIONURL,params=params,timeout=5)
@@ -72,15 +67,6 @@ class OnlineScreen(ConcertoScreen):
             self.app.player_name = name #assign name to be used everywhere
         return err
 
-    def matchmaking(self):
-        caster = threading.Thread(target=self.app.game.matchmaking, args=[self], daemon=True)
-        caster.start()
-        popup = GameModal(self.localize('ONLINE_MENU_QUICK_SEARCHING') % config.caster_config['settings']['matchmakingRegion'],self.localize('TERM_CANCEL'))
-        popup.bind_btn(partial(self.dismiss, p=popup))
-        popup.open()
-        self.active_pop = popup
-        self.app.mode = 'Direct Match'
-
     def host(self):
         caster = threading.Thread(
             target=self.app.game.host, args=[self], daemon=True)
@@ -90,16 +76,6 @@ class OnlineScreen(ConcertoScreen):
         popup.open()
         self.active_pop = popup
         self.app.mode = 'Direct Match'
-        
-    def start_broadcast(self):
-        caster = threading.Thread(
-            target=self.app.game.broadcast, args=[self,config.app_config['settings']['netplay_port'], self.broadcast_pop.mode_type.text], daemon=True)
-        caster.start()
-        popup = GameModal(self.localize('ONLINE_MENU_BROADCASTING') % self.broadcast_pop.mode_type.text,self.localize('TERM_QUIT'))
-        popup.bind_btn(partial(self.dismiss, p=popup))
-        popup.open()
-        self.active_pop = popup
-        self.app.offline_mode = 'Broadcasting %s' % self.broadcast_pop.mode_type.text
 
     def set_ip(self,ip=None):
         self.active_pop.modal_txt.text += 'IP: %s\n%s' % (ip, self.localize('TERM_COPY_CLIPBOARD'))
