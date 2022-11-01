@@ -46,7 +46,7 @@ class Revival():
         self.offline = False #True when an offline mode has been started
         self.startup = False #True when waiting for efz.exe to start in offline
 
-    def host(self,sc,t=None):
+    def host(self,sc,t=None,ipv6=False):
         flag = False #set to True when hosting is ready
         self.kill_revival()
         logger.write('\n== Host ==\n')
@@ -114,96 +114,6 @@ class Revival():
                     sc.error_message(self.check_msg(sum_txt))
                     self.aproc = None
                     break
-
-
-    def host_old(self, sc, port='0', mode="Versus",t=None): #sc is a Screen for UI triggers
-        self.kill_caster()
-        self.app.offline_mode = None
-        if app_config['Concerto']['write_scores'] == '1':
-            write_name_to_file(1, 'NETPLAY P1')
-            write_name_to_file(2, 'NETPLAY P2')
-            reset_score_file(1)
-            reset_score_file(2)
-        try:
-            if mode == "Training":
-                self.aproc = PtyProcess.spawn('%s -n -t %s' % (app_config['Concerto']['caster_exe'].strip(),port))
-            else:
-                self.aproc = PtyProcess.spawn('%s -n %s' % (app_config['Concerto']['caster_exe'].strip(),port)) 
-        except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['Concerto']['caster_exe'].strip())
-            return None
-        # Stats
-        threading.Thread(target=self.update_stats,daemon=True).start()
-        logger.write('\n== Host ==\n')
-        while self.aproc.isalive(): # find IP and port combo for host
-            txt = self.aproc.read()
-            ip = re.findall(
-                r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{,5}', txt)
-            if ip != []:
-                self.adr = str(ip[0])
-                sc.set_ip(self.adr) #tell UI we have the IP address
-                break
-            elif self.check_msg(txt) != []:
-                sc.error_message(self.check_msg(txt))
-                return None
-        logger.write('IP: %s\n' % self.adr)
-        cur_con = "" #current Caster read
-        last_con = "" #last Caster read
-        con = "" #cumulative string of all cur_con reads
-        while self.aproc.isalive():
-            cur_con = ansi_escape.sub('', str(self.aproc.read()))
-            con += last_con + cur_con #con is what we send to validate_read
-            logger.write('\n=================================\n')
-            logger.write(str(con.split()))
-            if self.playing == False and self.rs == -1 and self.ds == -1: #break self.playing is True
-                n = self.validate_read(con)
-                if n != False:
-                    logger.write('\n=================================\n')
-                    logger.write(str(con.split()))
-                    if int(n[-2]) - int(n[-1]) < 0: # last item should be rollback frames, 2nd to last is network delay
-                        self.ds = 0
-                    else:
-                        self.ds = int(n[-2]) - int(n[-1])
-                    self.rs = int(n[-1])
-                    r = []
-                    name = False  # try to read names from caster output
-                    for x in reversed(con.split()):
-                        if name == False and (x == "connected" or x == "conected"):
-                            name = True
-                        elif name == True and x == '*':
-                            break
-                        elif name == True and x.replace('*', '') != '':
-                            r.insert(0, x)
-                    #Regex for Ping
-                    p = re.findall('Ping: \d+\.\d+ ms', con)
-                    ping = p[-1].replace('Ping:','')
-                    ping = ping.replace('ms','')
-                    ping = ping.strip()
-                    #Network Delay
-                    delay = n[-2]
-                    #Mode and rounds
-                    m = ""
-                    rd = 2
-                    if "Versus" in con:
-                        m = "Versus"
-                        rd = n[-3]
-                    elif "Training" in con:
-                        m = "Training"
-                        rd = 0
-                    #Name
-                    opponent_name = ' '.join(r)
-                    sc.set_frames(opponent_name,delay,ping,mode=m,rounds=rd,target=t) #trigger frame delay settings in UI
-                    break
-                else:
-                    if self.check_msg(con) != []:
-                        sc.error_message(self.check_msg(con))
-                        self.aproc = None
-                        break
-                    elif last_con != cur_con:
-                        last_con = cur_con
-                        continue
-            else:
-                break
 
     def join(self, ip, sc, t=None, *args): #t is required by the Lobby screen to send an "accept" request later
         self.kill_caster()
@@ -416,22 +326,28 @@ class Revival():
         self.playing = False
 
     def input(self,sc):
-        subprocess.run(['config_EN.exe'])
-
+        try:
+            subprocess.run(['config_EN.exe'])
+        except FileNotFoundError:
+            sc.error_message('config_EN not found.')
+        
     def dinput(self,sc):
-        subprocess.run('start cmd /K DInput_Config_Beta.exe', shell=True)
+        try:
+            subprocess.run('start cmd /K DInput_Config_Beta.exe', shell=True)
+        except FileNotFoundError:
+            sc.error_message('DInput_Config_Beta.exe not found.')
 
     def paledit(self,sc):
-        subprocess.run(['pal_edit.exe'])
-
+        try:
+            subprocess.run(['pal_edit.exe'])
+        except FileNotFoundError:
+            sc.error_message('pal_edit.exe not found.')
+        
     def check_msg(self,s):
         e = []
         for i in error_strings:
             if i in s:
-                if i == 'Latest version is' or i == 'Update?': #update prompt
-                    e.append("A new version of CCCaster is available. Please update by opening CCCaster.exe manually or downloading manually from concerto.shib.live.")
-                else:
-                    e.append(i)
+                e.append(i)
                 logger.write('\n%s\n' % e)
         if e != []:
             self.kill_caster()
