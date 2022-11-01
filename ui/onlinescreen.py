@@ -6,6 +6,7 @@ from ui.modals import *
 import ui.lang
 import config
 import requests
+import pyperclip
 from kivy.clock import Clock
 
 class OnlineScreen(ConcertoScreen):
@@ -36,13 +37,13 @@ class OnlineScreen(ConcertoScreen):
 
     def online_login(self): #version and name validation before going to screen, returns a list of problems if any
         err = []
-        if config.caster_config['settings']['displayName'].strip() == '':
+        if config.revival_config['Network']['Name'].strip() == '':
             err.append(self.localize('ERR_LOBBY_NONAME'))
             return err
-        elif len(config.caster_config['settings']['displayName']) > 16:
-            name = config.caster_config['settings']['displayName'][0:15].strip()
+        elif len(config.revival_config['Network']['Name']) > 16:
+            name = config.revival_config['Network']['Name'][0:15].strip()
         else:
-            name = config.caster_config['settings']['displayName'].strip()
+            name = config.revival_config['Network']['Name'].strip()
         params = {
             'action' : 'login',
             'version' : config.CURRENT_VERSION,
@@ -84,7 +85,10 @@ class OnlineScreen(ConcertoScreen):
 
     def set_ip(self,ip=None):
         if self.active_pop != None:
-            self.active_pop.modal_txt.text += 'IP: %s' % ip
+            self.active_pop.modal_txt.text += 'IP: %s:%s' % (ip,config.revival_config['Network']['Port'])
+            if config.app_config['Concerto']['copy_ip_clipboard'] == "1":
+                pyperclip.copy('%s:%s' % (ip,config.revival_config['Network']['Port']))
+                self.active_pop.modal_txt.text += '\n(IP:Port copied to clipboard)'
             return True
         else:
             return False

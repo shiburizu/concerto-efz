@@ -77,7 +77,7 @@ strings = {
         "EN" : "Broadcasting %s mode...\n",
     },
     "ONLINE_MENU_CONN_INFO" : {
-        "EN" : "Connected to: %s, %s Delay & %s Rollback",
+        "EN" : "Connected.",
     },
     "ONLINE_WATCHING_IP" : {
         "EN" : "Watching IP: %s",

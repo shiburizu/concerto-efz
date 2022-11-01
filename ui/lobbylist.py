@@ -62,7 +62,7 @@ class LobbyList(ConcertoScreen):
             Clock.schedule_once(lambda dt: self.switch_to_lobby(),0)
             return None
         try:
-            a = requests.get(url=LOBBYURL, params={'action':'list'}).json()
+            a = requests.get(url=LOBBYURL, params={'action':'list','game':'efz'}).json()
             self.lobby_view.clear_widgets()
             if a['lobbies'] != []:
                 for i in a['lobbies']:

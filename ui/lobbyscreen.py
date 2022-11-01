@@ -52,14 +52,6 @@ class LobbyScreen(ConcertoScreen):
             self.match_list.clear_widgets()
             self.challenge_list.clear_widgets()
             self.type = type
-            if self.app.discord is True:
-                if type.lower() == 'public':
-                    self.app.mode = 'Public Lobby'
-                    presence.public_lobby(self.code)
-                elif type.lower() == 'private':
-                    self.app.mode = 'Private Lobby'
-                    presence.private_lobby()
-                self.app.game.update_stats(once=True)
         challenging_ids = []
         
         # TODO: come up with a solution for players with identical names (this does not affect the server )
@@ -275,10 +267,6 @@ class LobbyScreen(ConcertoScreen):
         self.app.LobbyList.refresh()
         if msg:
             GameModal(msg,self.localize("TERM_DISMISS")).open()
-        # Set Rich Presence to main menu again
-        if self.app.discord is True:
-            presence.menu()
-        self.app.game.update_stats(once=True)
 
     def send_challenge(self, obj, name, id, *args):
         self.watch_player = None
@@ -429,5 +417,5 @@ class LobbyScreen(ConcertoScreen):
         if self.lobby_code.text != self.localize("LOBBY_MENU_LINK"):
             t = self.lobby_code.text
             self.lobby_code.text = self.localize("LOBBY_MENU_LINK")
-            time.sleep(2)
+            time.sleep(1)
             self.lobby_code.text = t

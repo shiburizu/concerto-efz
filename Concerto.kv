@@ -594,199 +594,41 @@
                         root.save()
                     on_press: 
                         self.background_color = (100, 0, 0, 0.9)  
+            BoxLayout:
+                size_hint_x: 1
+                size_hint_y: 0.080
+                Button:
+                    text: 'Controller Config'
+                    outline_width: 2
+                    background_color: (135/255,195/255,255/255, 0.8)
+                    on_release:
+                        root.input()
+                Button:
+                    text: 'DInput Controller Config'
+                    outline_width: 2
+                    background_color: (135/255,195/255,255/255, 0.8)
+                    on_release:
+                        root.dinput()
+                Button:
+                    text: 'Palette Editor'   
+                    outline_width: 2
+                    background_color: (135/255,195/255,255/255, 0.8)
+                    on_release:
+                        root.paledit()
             ScrollView:
-                size_hint: (1,0.9)
+                size_hint: (1,0.820)
                 do_scroll_x: False
                 do_scroll_y: True
                 GridLayout:
+                    id: opt_grid
                     cols: 1
                     size_hint_y: None
                     height: self.minimum_height
-                    DummyBtn:
-                        text: lang.localize("TIP_CONTROLS")
-                    DummyBtn:
-                        text: lang.localize("OPT_HEADER_CONCERTO")
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_NETPLAY_PORT")
-                        TextInput:
-                            id: netplay_port
-                            multiline: False
-                            input_filter: 'int'
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_MUTE_ALERTS")
-                        CheckBox:
-                            id: mute_alerts
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_MUTE_BGM")
-                        CheckBox:
-                            id: mute_bgm
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_DISCORD")
-                        CheckBox:
-                            id: discord
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_WRITE_SCORES")
-                        CheckBox:
-                            id: write_scores
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_CASTER_EXE")
-                        TextInput:
-                            id: caster_exe
-                            multiline: False
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_BGM_TRACK")
-                        BoxLayout:
-                            Spinner:
-                                id: bgm_track
-                                values: ["Soubrette's Walkway","Fuzzy"]
-                    DummyBtn:
-                        text: lang.localize("OPT_HEADER_CASTER")
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_DISPLAY_NAME")
-                        TextInput:
-                            id: display_name
-                            multiline: False
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_MAX_DELAY")
-                        TextInput:
-                            id: max_delay
-                            multiline: False
-                            input_filter: 'int'
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_DEFAULT_ROLLBACK")
-                        TextInput:
-                            id: default_rollback
-                            multiline: False
-                            input_filter: 'int'
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_HELD_START")
-                        TextInput:
-                            id: held_start
-                            multiline: False
-                            input_filter: 'float'
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_MATCHMAKING_REGION")
-                        BoxLayout:
-                            Spinner:
-                                id: matchmaking_region
-                                values: [ "NA West", "NA East", "SA", "EU", "Middle East", "Asia", "OCE" ]
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_ALERT_CONNECT")
-                        CheckBox:
-                            id: alert_connect
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_FULL_NAMES")
-                        CheckBox:
-                            id: full_names
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_REPLAY_ROLLBACK")
-                        CheckBox:
-                            id: replay_rollback
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_CPU_PRIORITY")
-                        CheckBox:
-                            id: cpu_priority
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_CASTER_UPDATES")
-                        CheckBox:
-                            id: caster_updates
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_VERSUS_COUNT")
-                        BoxLayout:
-                            Label:
-                                text: str(versus_count.value)
-                                size_hint_x: 0.2
-                            Slider:
-                                id: versus_count
-                                min: 1
-                                max: 5
-                                step: 1
-                                size_hint_x: 0.8
-                    DummyBtn:
-                        text: lang.localize("OPT_HEADER_AV")
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_BGM_VOL")
-                        BoxLayout:
-                            Label:
-                                text: str(int(bgm_vol.value))
-                                size_hint_x: 0.2
-                            Slider:
-                                id: bgm_vol
-                                min: 0
-                                max: 20
-                                step: 1
-                                size_hint_x: 0.8
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_SFX_VOL")
-                        BoxLayout:
-                            Label:
-                                text: str(int(sfx_vol.value))
-                                size_hint_x: 0.2
-                            Slider:
-                                id: sfx_vol
-                                min: 0
-                                max: 20
-                                step: 1
-                                size_hint_x: 0.8
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_CHARACTER_FILTER")
-                        BoxLayout:
-                            Spinner:
-                                id: character_filter
-                                values: ['Off','Edge','Full','Linear']
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_SCREEN_FILTER")
-                        CheckBox:
-                            id: screen_filter
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_ASPECT_RATIO")
-                        BoxLayout:
-                            Spinner:
-                                id: aspect_ratio
-                                values: ['Normal','Auto','4:3','16:9','16:10','5:4','15:9']
-                    OptionRow:
-                        Label:
-                            text: lang.localize("OPT_ASPECT_RATIO")
-                        CheckBox:
-                            id: view_fps
+                    
     AnchorLayout
         id: lobbyAnchor
         anchor_x: 'center'
         anchor_y: 'top'
-
-<OptionRow@BoxLayout>
-    size_hint_x: 1
-    size_hint_y: None
-    height: 28
-    canvas.before:
-        Color:
-            rgba: (0,0,0,0.3)
-        Rectangle:
-            pos: self.pos
-            size: self.size
 
 <DirectModal>:
     size_hint: None,None

@@ -39,8 +39,3 @@ class FrameModal(ModalView):
     d_input = ObjectProperty(None)
     start_btn = ObjectProperty(None)
     close_btn = ObjectProperty(None)
-
-
-class BroadcastModal(ModalView):
-    game_type = ObjectProperty(None)
-    screen = None

@@ -46,14 +46,14 @@ class Revival():
         self.offline = False #True when an offline mode has been started
         self.startup = False #True when waiting for efz.exe to start in offline
 
-    def host(self,sc):
+    def host(self,sc,t=None):
         flag = False #set to True when hosting is ready
         self.kill_revival()
         logger.write('\n== Host ==\n')
         try:
-            self.aproc = PtyProcess.spawn(app_config['settings']['revival_exe'].strip())
+            self.aproc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
+            sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
         sum_txt = ""
         prev_txt = ""
         while self.aproc.isalive():
@@ -81,7 +81,6 @@ class Revival():
             elif self.check_msg(sum_txt) != []:
                 sc.error_message(self.check_msg(sum_txt))
                 return None
-        print("IP: %s" % self.adr)
         cur_delay = None
         cur_max_ping = None
         cur_min_ping = None
@@ -120,18 +119,18 @@ class Revival():
     def host_old(self, sc, port='0', mode="Versus",t=None): #sc is a Screen for UI triggers
         self.kill_caster()
         self.app.offline_mode = None
-        if app_config['settings']['write_scores'] == '1':
+        if app_config['Concerto']['write_scores'] == '1':
             write_name_to_file(1, 'NETPLAY P1')
             write_name_to_file(2, 'NETPLAY P2')
             reset_score_file(1)
             reset_score_file(2)
         try:
             if mode == "Training":
-                self.aproc = PtyProcess.spawn('%s -n -t %s' % (app_config['settings']['caster_exe'].strip(),port))
+                self.aproc = PtyProcess.spawn('%s -n -t %s' % (app_config['Concerto']['caster_exe'].strip(),port))
             else:
-                self.aproc = PtyProcess.spawn('%s -n %s' % (app_config['settings']['caster_exe'].strip(),port)) 
+                self.aproc = PtyProcess.spawn('%s -n %s' % (app_config['Concerto']['caster_exe'].strip(),port)) 
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['caster_exe'].strip())
+            sc.error_message('%s not found.' % app_config['Concerto']['caster_exe'].strip())
             return None
         # Stats
         threading.Thread(target=self.update_stats,daemon=True).start()
@@ -209,15 +208,15 @@ class Revival():
     def join(self, ip, sc, t=None, *args): #t is required by the Lobby screen to send an "accept" request later
         self.kill_caster()
         self.app.offline_mode = None
-        if app_config['settings']['write_scores'] == '1':
+        if app_config['Concerto']['write_scores'] == '1':
             write_name_to_file(1, 'NETPLAY P1')
             write_name_to_file(2, 'NETPLAY P2')
             reset_score_file(1)
             reset_score_file(2)
         try:
-            self.aproc = PtyProcess.spawn('%s -n %s' % (app_config['settings']['caster_exe'].strip(),ip)) 
+            self.aproc = PtyProcess.spawn('%s -n %s' % (app_config['Concerto']['caster_exe'].strip(),ip)) 
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['caster_exe'].strip())
+            sc.error_message('%s not found.' % app_config['Concerto']['caster_exe'].strip())
             return None
         # Stats
         threading.Thread(target=self.update_stats,daemon=True).start()
@@ -282,18 +281,30 @@ class Revival():
             else:
                 break
 
-    def confirm_frames(self,rf,df):
+    def confirm_frames(self,df):
         if self.aproc:
-            self.aproc.write(str(rf))
+            self.aproc.write(str(df))
             self.aproc.write('\x0D')
-            self.playing = True
+            threading.Thread(target=self.flag_playing,daemon=True).start()
+            
+    def flag_playing(self):
+        while True:
+            cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
+            task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
+            try:
+                task_data.replace("\"", "").split(",")[1]
+                self.playing = True
+                time.sleep(0.1)
+                break
+            except IndexError:
+                pass
 
     def watch(self, ip, sc, *args):
         self.kill_caster()
         try:
-            self.aproc = PtyProcess.spawn('%s -n -s %s' % (app_config['settings']['caster_exe'].strip(),ip))
+            self.aproc = PtyProcess.spawn('%s -n -s %s' % (app_config['Concerto']['caster_exe'].strip(),ip))
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['caster_exe'].strip())
+            sc.error_message('%s not found.' % app_config['Concerto']['caster_exe'].strip())
             return None
         cur_con = ""
         last_con = ""
@@ -323,7 +334,7 @@ class Revival():
                             break
                     elif x != '*' and x.replace('*', '') != '':
                         r.insert(0, x)
-                if app_config['settings']['write_scores'] == '1':
+                if app_config['Concerto']['write_scores'] == '1':
                     regex_result = re.match(pattern=spec_names, string=' '.join(r))
                     write_name_to_file(1, regex_result.group(1))
                     write_name_to_file(2, regex_result.group(2))
@@ -345,9 +356,9 @@ class Revival():
         self.startup = True
         logger.write('\n== Host ==\n')
         try:
-            self.aproc = PtyProcess.spawn(app_config['settings']['revival_exe'].strip())
+            self.aproc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['revival_exe'].strip())
+            sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
         sum_txt = ""
         prev_txt = ""
         while self.aproc.isalive():
@@ -358,6 +369,7 @@ class Revival():
             sum_txt += txt
             prev_txt = txt
             if "1: Host" in sum_txt:
+                time.sleep(0.1)
                 if tournament is True:
                     self.aproc.write('6')
                 else:
@@ -370,31 +382,6 @@ class Revival():
                     self.aproc = None
                     break
 
-    def local_old(self,sc):
-        self.kill_caster()
-        self.startup = True
-        if app_config['settings']['write_scores'] == '1':
-            write_name_to_file(1, 'LOCAL P1')
-            write_name_to_file(2, 'LOCAL P2')
-            reset_score_file(1)
-            reset_score_file(2)
-        try:
-            proc = PtyProcess.spawn(app_config['settings']['caster_exe'].strip())
-        except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['settings']['caster_exe'].strip())
-            return None
-        self.aproc = proc
-        while self.aproc.isalive():
-            con = self.aproc.read()
-            if self.find_button(con.split(),'Offline') or self.find_button(con.split(),'Ofline'):
-                self.aproc.write('2')
-                self.flag_offline(sc)
-                break
-            else:
-                if self.check_msg(con) != []:
-                    sc.error_message(self.check_msg(con))
-                    break
-
     def flag_offline(self,sc):
         while True:
             cmd = f"""tasklist /FI "IMAGENAME eq EfzRevival.exe" /FO CSV /NH"""
@@ -405,8 +392,8 @@ class Revival():
                 pass
             else:
                 if self.offline is False:
-                    self.startup = False
                     self.offline = True
+                    self.startup = False
                     break
             if self.aproc != None:
                 if self.aproc.isalive() is False:
@@ -427,6 +414,15 @@ class Revival():
         self.offline = False
         self.broadcasting = False
         self.playing = False
+
+    def input(self,sc):
+        subprocess.run(['config_EN.exe'])
+
+    def dinput(self,sc):
+        subprocess.run('start cmd /K DInput_Config_Beta.exe', shell=True)
+
+    def paledit(self,sc):
+        subprocess.run(['pal_edit.exe'])
 
     def check_msg(self,s):
         e = []

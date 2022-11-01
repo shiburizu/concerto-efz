@@ -1,0 +1,62 @@
+Network
+Name = String, max 20 characters
+Max rollback = Int 
+Port = Int 
+Protocol = IPv4, IPv6 select
+HolePunchingServer = IP:Port
+AllowPracticeKeys = 0, 1
+IncreaseInputDelay = String
+DecreaseInputdelay = String
+IncreaseSpecSpeed = String
+DecreaseSpecSpeed = String
+ToggleRemotePalettes = String
+AllowSpectating = CheckBox
+DisplayScore = 1, 0 (CheckBox)
+LogScore = 1, 0 (CheckBox)
+SaveAllReplays = 1, 0 (CheckBox)
+ReplayFolder = String
+SavePreviousReplay = String
+BattleLogFile = String
+SaveBattleLog = 1, 0 (CheckBox)
+
+Practice Mode
+Pause = String 
+StepFrame = String
+Save = String
+Load = String
+ToggleRecord = String
+ToggleReplay = String
+SwitchStartCondition = String
+SetBuffer1 = String
+SetBuffer2 = String
+SetBuffer3 = String
+SetBuffer4 = String
+SetBuffer5 = String
+ToggleReplayRandom = String
+ToggleDisplay = String
+ToggleHitboxes = String
+ToggleHurtboxes = String
+ToggleCollisionBoxes = String
+SwitchPlayers = String
+MirrorPlayers = String
+IncreaseFPS = String
+DecreaseFPS = String
+ResetFPS = String
+
+Tournament VS
+P1_Name = String (Max 20)
+P2_Name = String (Max 20)
+TournamentFolder = String
+
+Global Settings
+WindowX = Int
+WindowY = Int
+WindowWidth = Int
+WindowHeight = Int
+BackBufferWidth = Int
+BackBufferHeight = Int
+ToggleBGM = String
+MuteBGM = Int
+BGMFolder = String
+SoftwareRendering = 0,1 (Checkbox)
+Debug = 0,1 (Checkbox)

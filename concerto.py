@@ -20,12 +20,11 @@ from ui import howtoscreen, lobbyscreen, lobbylist, onlinescreen, mainscreen, re
 class Concerto(App):
     def __init__(self, **kwargs):
         super(Concerto, self).__init__(**kwargs)
-        self.discord = False #Discord support flag
         self.mode = 'Menu' # current mode selection
         self.offline_mode = None #secondary Offline activity, mostly for lobby
         self.sm = ScreenManager(transition=FadeTransition(duration=0.10))
         self.game = Revival(CApp=self)  # expects Caster object
-        self.player_name = 'Concerto Player' #static player name to use for online lobbies #TODO load name from Revival config
+        self.player_name = 'Concerto Player'
         self.lang = ui.lang.current_lang
 
     def build(self):
@@ -71,7 +70,7 @@ class Concerto(App):
                 winreg.CloseKey(key)
         except:
             try:
-                winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, 'concerto')
+                winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, 'concerto-efz')
             except:
                 self.MainScreen.ids['welcome'].text = ui.lang.localize('TIP_CONCERTO_INVITES')
                 logging.warning('Concerto: please start as admin once to add concerto protocol handler')
@@ -86,12 +85,12 @@ class Concerto(App):
             self.MainScreen.error_message(e,fatal=True)
         else:
             #if all is well, start loading in user options
-            if app_config['settings']['mute_bgm'] == '1':
+            if app_config['Concerto']['mute_bgm'] == '1':
                 self.sound.muted = True
             else:
                 self.sound.cut_bgm()
-            self.sound.mute_alerts = app_config['settings']['mute_alerts'] == '1'
-            self.player_name = 'EfzPlayer'
+            self.sound.mute_alerts = app_config['Concerto']['mute_alerts'] == '1'
+            self.player_name = revival_config['Network']['Name']
         # Execute launch params
         if len(sys.argv) > 1:
             params = sys.argv[1].replace('concertoefz://', '').rstrip('/').split(':', 1)
@@ -104,14 +103,12 @@ class Concerto(App):
             elif params[0] == 'connect':
                 self.OnlineScreen.join(ip=params[1])
             elif params[0] == 'watch':
-                self.OnlineScreen.watch(ip=params[1])
+                self.OnlineScreen.join(ip=params[1],spectate=True)
 
     def on_stop(self,*args):
         self.game.kill_revival()
         if self.LobbyScreen.code != None:
             self.LobbyScreen.exit()
-        if self.discord is True:
-            presence.close()
 
     def lobby_button(self, *args):
         for i in self.sm.screens:
@@ -143,7 +140,7 @@ class Concerto(App):
 
     def checkPop(self, *args):
         while True:
-            if self.game.offline is True:
+            if self.game.offline is True or self.game.startup is True:
                 pass
             else:
                 cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
@@ -151,9 +148,7 @@ class Concerto(App):
                 try:
                     task_data.replace("\"", "").split(",")[1]
                 except IndexError:
-                    if self.game.aproc != None:
-                        pass
-                    else:
+                    if self.game.playing == True:
                         if self.OnlineScreen.active_pop != None:
                             self.OnlineScreen.active_pop.dismiss()
                             self.OnlineScreen.active_pop = None
@@ -170,7 +165,7 @@ class Concerto(App):
                                 'secret': self.LobbyScreen.secret
                             }
                             requests.get(url=LOBBYURL, params=r).json()
-                            self.game.kill_revival()
+                        self.game.kill_revival()
             if hasattr(self,'sound'):
                 cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
                 task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")

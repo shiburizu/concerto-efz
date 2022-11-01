@@ -37,10 +37,11 @@ Config.write()
 
 #Concerto ini default settings
 opt = [
-        'netplay_port',
+        'copy_ip_clipboard',
         'mute_alerts',
         'mute_bgm',
         'revival_exe',
+
 ]
 if os.path.exists(PATH + 'concerto.ini'):
     with open(PATH + 'concerto.ini') as f:
@@ -58,7 +59,7 @@ if os.path.exists(PATH + 'concerto.ini'):
             f.close()
 else:
     with open(PATH + 'concerto.ini', 'w') as f:
-        f.write('[settings]')
+        f.write('[Concerto]')
         for i in opt:
             if i == 'revival_exe':
                 f.write('\nrevival_exe=EfzRevival.exe\n')
@@ -68,7 +69,12 @@ else:
 with open(PATH + 'concerto.ini','r') as f:
     config_string = f.read()
 app_config = configparser.ConfigParser()
+app_config.optionxform = str
 app_config.read_string(config_string)
+
+revival_config = configparser.ConfigParser(comment_prefixes=';', allow_no_value=True)
+revival_config.optionxform = str
+revival_config.read('EfzRevival.ini',encoding='UTF-16')
 
 LOBBYURL = "https://concerto-mbaacc.shib.live/l"
 VERSIONURL = "https://concerto-mbaacc.shib.live/v"
