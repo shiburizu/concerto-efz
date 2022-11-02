@@ -14,8 +14,7 @@ class OnlineScreen(ConcertoScreen):
     def __init__(self, CApp):
         super().__init__(CApp)
         self.direct_pop = None  # Direct match popup for user settings
-        self.opponent = None
-        self.spectate = False
+        self.spectate = False # Toggles behavior of DirectModal
 
     def direct(self,spectate=False):
         self.direct_pop = DirectModal()
@@ -40,8 +39,8 @@ class OnlineScreen(ConcertoScreen):
         if config.revival_config['Network']['Name'].strip() == '':
             err.append(self.localize('ERR_LOBBY_NONAME'))
             return err
-        elif len(config.revival_config['Network']['Name']) > 16:
-            name = config.revival_config['Network']['Name'][0:15].strip()
+        elif len(config.revival_config['Network']['Name']) > 20:
+            name = config.revival_config['Network']['Name'][0:19].strip()
         else:
             name = config.revival_config['Network']['Name'].strip()
         params = {
@@ -78,7 +77,6 @@ class OnlineScreen(ConcertoScreen):
         popup.bind_btn(partial(self.dismiss, p=popup))
         popup.open()
         self.active_pop = popup
-        self.app.mode = 'Direct Match'
         caster = threading.Thread(
             target=self.app.game.host, args=[self], daemon=True)
         caster.start()
@@ -106,7 +104,6 @@ class OnlineScreen(ConcertoScreen):
             popup.bind_btn(partial(self.dismiss,p=popup))        
             popup.open()
             self.active_pop = popup
-            self.app.offline_mode = 'Spectating' #needs to be an offline mode for lobby multitasking
         else:
             caster = threading.Thread(target=self.app.game.join, args=[ip, self], daemon=True)
             caster.start()
@@ -114,7 +111,6 @@ class OnlineScreen(ConcertoScreen):
             popup.bind_btn(partial(self.dismiss,p=popup))
             popup.open()
             self.active_pop = popup
-            self.app.mode = 'Direct Match'
 
     def confirm(self, obj, p, d, *args):
         try:
@@ -142,7 +138,6 @@ class OnlineScreen(ConcertoScreen):
     # TODO prevent players from dismissing caster until EFZ is open to avoid locking issues
     def dismiss(self, obj, p=None, *args):
         self.app.game.kill_revival()
-        self.opponent = None
         self.spectate = False
         if p:
             p.dismiss()

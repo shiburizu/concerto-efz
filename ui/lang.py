@@ -395,7 +395,16 @@ strings = {
     },
     "TIP_TRIALS" : {
         "EN" : "Tip: Press F3 ingame to open Trial options."
-    }
+    },
+    "HEADER_MAIN" : {
+        "EN" : "Main Menu"
+    },
+    "HEADER_ONLINE" : {
+        "EN" : "Online Play"
+    },
+    "HEADER_RESOURCES" : {
+        "EN" : "Player Resources"
+    },
 }
 
 #TODO Strings

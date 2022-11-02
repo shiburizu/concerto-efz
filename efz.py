@@ -108,7 +108,7 @@ class Revival():
                 else:
                     ping = int(cur_avg_ping[0][-3:])
                 sc.set_frames(int(str(cur_delay[0][-2:])),ping,int(str(cur_min_ping[0][-3:])),int(str(cur_max_ping[0][-3:])),target=t)
-                break
+                break #do we need to break? can we keep the process alive and listen for errors?
             else:
                 if self.check_msg(sum_txt) != []:
                     sc.error_message(self.check_msg(sum_txt))

@@ -372,7 +372,6 @@ class LobbyScreen(ConcertoScreen):
         popup.bind_btn(partial(self.dismiss, p=popup))
         popup.open()
         self.active_pop = popup
-        self.app.offline_mode = 'Spectating' #needs to be an offline mode for lobby multitasking
 
     def set_frames(self, name, delay, ping, target=None, mode="Versus", rounds=2):
         popup = FrameModal()

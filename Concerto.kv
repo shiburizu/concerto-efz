@@ -81,16 +81,14 @@
 
 <SpinnerOption>:
     text_size: self.size
-    font_name: 'res/texgyreheros-bolditalic.otf'
     halign: 'center'
     valign: 'middle'
     background_color: '#210205'
-    height: 30
+    height: 28
     background_normal: ''
 
 <Spinner>:
     text_size: self.size
-    font_name: 'res/texgyreheros-bolditalic.otf'
     halign: 'center'
     valign: 'middle'
     background_color: '#343B88'
@@ -109,7 +107,7 @@
             text_size: self.size
             halign: 'left'
             valign: 'center'
-            text: 'Main Menu'
+            text: lang.localize("HEADER_MAIN")
             font_name: 'res/texgyreheros-bolditalic.otf'
             font_size: 20
             outline_width: 2
@@ -405,13 +403,22 @@
             source: cfg.find_img('online_bg.png')
         Image:
             source: 'res/gradient.png'
+        Label:
+            size_hint: (0.975,1.875)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            text: lang.localize("HEADER_ONLINE")
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            font_size: 20
+            outline_width: 2
         BoxLayout:
             orientation: 'vertical'
             GridLayout: 
                 size_hint_x: 0.6183
                 cols: 1
                 padding: (0,50)
-                spacing: [0,10]
+                spacing: [0,5]
                 MenuBtn:
                     text: '1. %s' % lang.localize("ONLINE_MENU_HOST")
                     on_release:
@@ -458,13 +465,22 @@
             source: cfg.find_img('resources_bg.png')
         Image:
             source: 'res/gradient.png'
+        Label:
+            size_hint: (0.975,1.875)
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
+            text: lang.localize("HEADER_RESOURCES")
+            font_name: 'res/texgyreheros-bolditalic.otf'
+            font_size: 20
+            outline_width: 2
         BoxLayout:
             orientation: 'vertical'
             GridLayout:
                 size_hint: (0.6183, 1)
                 cols: 1
                 padding: (0,50)
-                spacing: [0,10]
+                spacing: [0,5]
                 MenuBtn:
                     text: '1. HOW TO PLAY'
                     on_release: app.sm.current = 'HowTo'
@@ -598,19 +614,22 @@
                 size_hint_x: 1
                 size_hint_y: 0.080
                 Button:
-                    text: 'Controller Config'
+                    text: 'Game Config'
+                    font_name: 'res/texgyreheros-bolditalic.otf'
                     outline_width: 2
                     background_color: (135/255,195/255,255/255, 0.8)
                     on_release:
                         root.input()
                 Button:
-                    text: 'DInput Controller Config'
+                    text: 'Controller Config'
+                    font_name: 'res/texgyreheros-bolditalic.otf'
                     outline_width: 2
                     background_color: (135/255,195/255,255/255, 0.8)
                     on_release:
                         root.dinput()
                 Button:
-                    text: 'Palette Editor'   
+                    text: 'Palette Editor'  
+                    font_name: 'res/texgyreheros-bolditalic.otf' 
                     outline_width: 2
                     background_color: (135/255,195/255,255/255, 0.8)
                     on_release:
@@ -654,14 +673,14 @@
                 id: connect_txt
                 text: lang.localize("TERM_JOIN")
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
                 size_hint_x: 0.2
                 on_release:
                     root.screen.join()
         Button:
             text: lang.localize("TERM_CLOSE")
             font_name: 'res/texgyreheros-bolditalic.otf'
-            outline_width: 1
+            outline_width: 2
             on_release: 
                 root.dismiss()
 
@@ -688,7 +707,7 @@
             Button:
                 id: close_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
                 size_hint_y: 0.20
 
 <ProgressModal>:
@@ -730,11 +749,11 @@
             Button:
                 id: btn_1
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
             Button:
                 id: btn_2
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
 
 <FrameModal>:
     frame_txt: frame_txt
@@ -765,7 +784,7 @@
                 Label:
                     text: '%s:' % lang.localize('TERM_DELAY')
                     background_color: (0, 0, 0, 0)
-                    outline_width: 1
+                    outline_width: 2
                     size_hint_x: None
                     width: 50
                 TextInput
@@ -780,9 +799,9 @@
                 text: lang.localize('TERM_CANCEL')
                 id: close_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
             Button:
                 text: lang.localize('TERM_START')
                 id: start_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 1
+                outline_width: 2
