@@ -342,21 +342,18 @@ class LobbyScreen(ConcertoScreen):
     def wait_for_EFZ(self, t):
         while True:
             if self.app.game.playing is True and self.active_pop != None:
-                if self.app.game.read_memory(0x54EEE8) == 20: #wait for char select
-                    resp = {
-                        't': t,
-                        'p': self.player_id,
-                        'action': 'accept',
-                        'id': self.code,
-                        'secret': self.secret
-                    }
-                    print(resp)
-                    c = requests.get(url=LOBBYURL, params=resp).json()
-                    print(c)
-                    break
-                else:
-                    continue
-            else:
+                resp = {
+                    't': t,
+                    'p': self.player_id,
+                    'action': 'accept',
+                    'id': self.code,
+                    'secret': self.secret
+                }
+                print(resp)
+                c = requests.get(url=LOBBYURL, params=resp).json()
+                print(c)
+                break
+            elif self.game.aproc == None:
                 break
 
     def watch_match(self, obj=None, name="", ip="", *args):
@@ -376,7 +373,7 @@ class LobbyScreen(ConcertoScreen):
         self.active_pop = popup
 
     def set_frames(self, delay, avg_ping, min_ping, max_ping, min_delay, target): #target for Lobby call, dummied out here
-        Clock.schedule_once(partial(self.set_frames_func, self.opponent, delay,avg_ping,min_ping,max_ping, min_delay, target))
+        Clock.schedule_once(partial(self.set_frames_func, delay, avg_ping, min_ping, max_ping, min_delay, target))
 
     def set_frames_func(self, delay, avg_ping, min_ping, max_ping, min_delay, target, *args):
         popup = FrameModal()
