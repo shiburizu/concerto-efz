@@ -353,7 +353,7 @@ class LobbyScreen(ConcertoScreen):
                 c = requests.get(url=LOBBYURL, params=resp).json()
                 print(c)
                 break
-            elif self.game.aproc == None:
+            elif self.app.game.aproc == None:
                 break
 
     def watch_match(self, obj=None, name="", ip="", *args):
