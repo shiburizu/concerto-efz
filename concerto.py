@@ -15,7 +15,7 @@ from kivy.app import App
 from kivy.lang import Builder
 Builder.load_file('Concerto.kv')
 # Internal UI objects
-from ui import howtoscreen, lobbyscreen, lobbylist, onlinescreen, mainscreen, resourcescreen, optionscreen, aboutscreen, sound, buttons
+from ui import howtoscreen, lobbyscreen, lobbylist, onlinescreen, mainscreen, resourcescreen, optionscreen, aboutscreen, logscreen, sound, buttons
 
 class Concerto(App):
     def __init__(self, **kwargs):
@@ -35,6 +35,7 @@ class Concerto(App):
         self.LobbyScreen = lobbyscreen.LobbyScreen(CApp=self)
         self.HowtoScreen = howtoscreen.HowtoScreen(CApp=self)
         self.AboutScreen = aboutscreen.AboutScreen(CApp=self)
+        self.LogScreen = logscreen.LogScreen(CApp=self)
         self.sm.add_widget(self.MainScreen)
         self.sm.add_widget(self.OnlineScreen)
         self.sm.add_widget(self.ResourceScreen)
@@ -43,8 +44,7 @@ class Concerto(App):
         self.sm.add_widget(self.LobbyScreen)
         self.sm.add_widget(self.HowtoScreen)
         self.sm.add_widget(self.AboutScreen)
-        c = threading.Thread(target=self.checkPop,daemon=True)
-        c.start()
+        threading.Thread(target=self.checkPop,daemon=True).start()
         return self.sm
 
     def on_start(self):

@@ -77,8 +77,12 @@ class OnlineScreen(ConcertoScreen):
         popup.bind_btn(partial(self.dismiss, p=popup))
         popup.open()
         self.active_pop = popup
-        caster = threading.Thread(
-            target=self.app.game.host, args=[self], daemon=True)
+        if config.revival_config['Network']['Protocol'] == 'IPv6':
+            caster = threading.Thread(
+                target=self.app.game.host, args=[self], kwargs={'ipv6' : True}, daemon=True)
+        else:
+            caster = threading.Thread(
+                target=self.app.game.host, args=[self], daemon=True)
         caster.start()
 
     def set_ip(self,ip=None):
@@ -114,6 +118,8 @@ class OnlineScreen(ConcertoScreen):
 
     def confirm(self, obj, p, d, *args):
         try:
+            if int(d.text) < self.app.game.min_delay:
+                return None
             if self.app.game.playing is False:
                 self.app.game.confirm_frames(int(d.text))
                 self.active_pop.modal_txt.text += "\n" + self.localize("ONLINE_MENU_CONN_INFO")
@@ -121,13 +127,13 @@ class OnlineScreen(ConcertoScreen):
         except ValueError:
             pass
 
-    def set_frames(self, delay, avg_ping, min_ping, max_ping,target=None): #target for Lobby call, dummied out here
-        Clock.schedule_once(partial(self.set_frames_func,delay,avg_ping,min_ping,max_ping))
+    def set_frames(self, delay, avg_ping, min_ping, max_ping, min_delay, target=None): #target for Lobby call, dummied out here
+        Clock.schedule_once(partial(self.set_frames_func,delay,avg_ping,min_ping,max_ping, min_delay))
 
-    def set_frames_func(self, delay, avg_ping, min_ping, max_ping, *args):
+    def set_frames_func(self, delay, avg_ping, min_ping, max_ping, min_delay, *args):
         popup = FrameModal()
         popup.frame_txt.text = self.localize('GAME_MODAL_INFO') % (
-            avg_ping, max_ping, min_ping, delay)
+            avg_ping, max_ping, min_ping, delay, min_delay)
         popup.d_input.text = str(delay)
         popup.start_btn.bind(on_release=partial(
             self.confirm, p=popup, d=popup.d_input))

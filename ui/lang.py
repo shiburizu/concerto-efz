@@ -50,7 +50,10 @@ strings = {
         "EN" : "%s rounds per game"
     },
     "GAME_MODAL_INFO" : {
-        "EN" : "[b]Player Connected[/b]\n[size=14][u]%s Ping (%s Max/%s Min)[/u]\nSuggested delay: %s[/size]"
+        "EN" : "[b]Player Connected[/b]\n[size=14][u]%s Ping (%s Max/%s Min)[/u]\nSuggested delay: %s (Minimum %s)[/size]"
+    },
+    "GAME_MODAL_INFO_NAME" : {
+        "EN" : "[b]%s Connected[/b]\n[size=14][u]%s Ping (%s Max/%s Min)[/u]\nSuggested delay: %s (Minimum %s)[/size]"
     },
     "LOBBY_MENU_CONN_INFO" : {
         "EN" : "Connected.",

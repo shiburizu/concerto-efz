@@ -9,6 +9,7 @@ from ui.concertoscreen import ConcertoScreen
 from ui.modals import *
 from ui.buttons import DummyBtn, PlayerRow
 import logging
+from kivy.clock import Clock
 
 class LobbyScreen(ConcertoScreen):
     player_list = ObjectProperty(None)  # layout for idle players
@@ -31,7 +32,6 @@ class LobbyScreen(ConcertoScreen):
         self.type = None
         self.get_attempts = 0 #if 2, exit
         self.alias = None #lobby alias if any
-
 
     def create(self, j, first=False, type='Private'):  # json response object
         print(j)
@@ -283,7 +283,7 @@ class LobbyScreen(ConcertoScreen):
         popup.open()
         self.active_pop = popup
         caster = threading.Thread(
-            target=self.app.game.host, args=[self,app_config['settings']['netplay_port'],"Versus",id], daemon=True)
+            target=self.app.game.host, args=[self,id], daemon=True)
         caster.start()
 
     def set_ip(self,ip=None):
@@ -299,6 +299,7 @@ class LobbyScreen(ConcertoScreen):
         c = requests.get(url=LOBBYURL, params=p).json()
         
     def accept_challenge(self, obj, name, id, ip, *args):
+        self.opponent = name
         self.watch_player = None
         for k,v in self.widget_index.items():
             try:
@@ -325,19 +326,18 @@ class LobbyScreen(ConcertoScreen):
         }
         c = requests.get(url=LOBBYURL, params=p).json()
 
-    def confirm(self, obj, r, d, p, n, t=None, *args):
+    def confirm(self, obj, p, d, n, t=None, *args):
         try:
-            self.app.game.confirm_frames(int(r.text),int(d.text))
-            self.opponent = n
-            self.active_pop.modal_txt.text += "\n %s" % self.localize("LOBBY_MENU_CONN_INFO",(
-            n, d.text, r.text))            
+            self.app.game.confirm_frames(int(d.text))
+            #self.opponent = n # do we need this?
+            self.active_pop.modal_txt.text += "\n" + self.localize("ONLINE_MENU_CONN_INFO")
             p.dismiss()
-            if t != None: #if accepting, run MBAA check
-                threading.Thread(target=self.wait_for_MBAA, args=[t]).start()
+            if t != None: #if accepting, run EFZ check
+                threading.Thread(target=self.wait_for_EFZ, args=[t]).start()
         except ValueError:
             pass
         
-    def wait_for_MBAA(self, t):
+    def wait_for_EFZ(self, t):
         while True:
             if self.app.game.playing is True and self.active_pop != None:
                 if self.app.game.read_memory(0x54EEE8) == 20: #wait for char select
@@ -373,18 +373,16 @@ class LobbyScreen(ConcertoScreen):
         popup.open()
         self.active_pop = popup
 
-    def set_frames(self, name, delay, ping, target=None, mode="Versus", rounds=2):
+    def set_frames(self, delay, avg_ping, min_ping, max_ping, min_delay, target): #target for Lobby call, dummied out here
+        Clock.schedule_once(partial(self.set_frames_func, self.opponent, delay,avg_ping,min_ping,max_ping, min_delay, target))
+
+    def set_frames_func(self, delay, avg_ping, min_ping, max_ping, min_delay, target, *args):
         popup = FrameModal()
-        if rounds != 0:
-            rounds = ", %s" % self.localize("GAME_MODAL_ROUNDS",rounds)
-        else:
-            rounds = ''
-        popup.frame_txt.text =  self.localize("GAME_MODAL_INFO",(
-            name, mode, rounds, delay, ping, self.app.game.ds, self.app.game.rs))
-        popup.r_input.text = str(self.app.game.rs)
-        popup.d_input.text = str(self.app.game.ds)
+        popup.frame_txt.text = self.localize('GAME_MODAL_INFO_NAME') % (
+            self.opponent, avg_ping, max_ping, min_ping, delay, min_delay)
+        popup.d_input.text = str(delay)
         popup.start_btn.bind(on_release=partial(
-            self.confirm, p=popup, r=popup.r_input, d=popup.d_input, n=name, t=target))
+            self.confirm, p=popup, d=popup.d_input, n=self.opponent, t=target))
         popup.close_btn.bind(on_release=partial(
             self.dismiss, p=popup))
         popup.open()
@@ -407,9 +405,9 @@ class LobbyScreen(ConcertoScreen):
 
     def invite_link(self,*args):
         if self.alias:
-            pyperclip.copy('https://invite.meltyblood.club/%s' % self.alias)
+            pyperclip.copy('concertoefz://%s' % self.alias)
         else:
-            pyperclip.copy('https://invite.meltyblood.club/%s' % self.code)
+            pyperclip.copy('concertoefz://%s' % self.code)
         threading.Thread(target=self.invite_ui).start()
 
     def invite_ui(self):
