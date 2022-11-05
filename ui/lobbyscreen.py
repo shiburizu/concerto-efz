@@ -288,7 +288,7 @@ class LobbyScreen(ConcertoScreen):
         caster.start()
 
     def set_ip(self,ip=None):
-        pyperclip.copy('') #erase IP address from clipboard
+        #pyperclip.copy('') #erase IP address from clipboard
         p = {
             't': self.challenge_id,
             'p': self.player_id,
@@ -298,6 +298,7 @@ class LobbyScreen(ConcertoScreen):
             'secret': self.secret
         }
         c = requests.get(url=LOBBYURL, params=p).json()
+        return True
         
     def accept_challenge(self, obj, name, id, ip, *args):
         self.opponent = name
@@ -390,7 +391,7 @@ class LobbyScreen(ConcertoScreen):
 
     # TODO prevent players from dismissing caster until MBAA is open to avoid locking issues
     def dismiss(self, obj, p, *args):
-        self.app.game.kill_caster()
+        self.app.game.kill_revival()
         self.challenge_name = None
         self.opponent = None
         self.challenge_id = None
