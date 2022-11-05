@@ -233,18 +233,18 @@ class LobbyScreen(ConcertoScreen):
                     logging.warning('GET_ATTEMPTS: %s' % self.get_attempts)
                 else:
                     logging.warning('GET_ATTEMPTS: %s' % self.get_attempts)
-                    self.exit(msg='Error: %s' % e.__class__)
+                    Clock.schedule_once(partial(self.exit,'Error: %s' % e.__class__))
                     break
             else:
                 r = req.json()
                 if r['msg'] == 'OK':
                     Clock.schedule_once(partial(self.create,r))
-                    time.sleep(2)
+                    time.sleep(1)
                 else:
-                    self.exit(msg=r['msg'])
+                    Clock.schedule_once(partial(self.exit,r['msg']))
                     break
                 
-    def exit(self,msg=None):
+    def exit(self,msg=None,*args): #TODO create way to exit to main screen in case of network error
         self.lobby_thread_flag = 1
         try:
             p = {
