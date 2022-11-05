@@ -10,6 +10,7 @@ from ui.modals import *
 from ui.buttons import DummyBtn, PlayerRow
 import logging
 from kivy.clock import Clock
+from config import revival_config
 
 class LobbyScreen(ConcertoScreen):
     player_list = ObjectProperty(None)  # layout for idle players
@@ -34,12 +35,12 @@ class LobbyScreen(ConcertoScreen):
         self.alias = None #lobby alias if any
 
     def create(self, j, first=False, type='Private'):  # json response object
-        print(j)
         #this does not use self.type because it should only run once per lobby.
         #the reason for this is that a player may start a Direct Online match separately and we do not want to erase that status.
         #self.type is used for update_stats in the Caster function to signal info to the presence.
+        print(j)
         newSound = False
-        if first:
+        if first is True:
             self.player_id = j['msg']
             self.code = j['id']
             if j['alias']:
@@ -182,7 +183,7 @@ class LobbyScreen(ConcertoScreen):
         for i in n:
             self.widget_index.get(i).parent.remove_widget(self.widget_index.get(i))
             self.widget_index.pop(i)
-        if first:
+        if first is True:
             self.app.lobby_button()
             self.lobby_thread_flag = 0
             self.lobby_updater = threading.Thread(
@@ -235,7 +236,7 @@ class LobbyScreen(ConcertoScreen):
             else:
                 r = req.json()
                 if r['msg'] == 'OK':
-                    self.create(r)
+                    Clock.schedule_once(partial(self.create,r))
                     time.sleep(2)
                 else:
                     self.exit(msg=r['msg'])
@@ -293,7 +294,7 @@ class LobbyScreen(ConcertoScreen):
             'p': self.player_id,
             'action': 'challenge',
             'id': self.code,
-            'ip': ip,
+            'ip': ip + ":" + revival_config['Network']['Port'],
             'secret': self.secret
         }
         c = requests.get(url=LOBBYURL, params=p).json()
