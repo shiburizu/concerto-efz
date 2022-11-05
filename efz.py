@@ -71,7 +71,7 @@ class Revival():
             if "Press 2 to cancel." in sum_txt:
                 if ipv6 is False:
                     try:
-                        with urlopen('https://4.ident.me') as resp:
+                        with urlopen('http://4.ident.me') as resp:
                             self.adr = resp.read().decode('ascii')
                     except:
                         sc.error_message('Cannot start IPv4 Session. Please ensure you have an IPv4 IP address assigned.')
@@ -79,7 +79,7 @@ class Revival():
                         return None
                 else:
                     try:
-                        with urlopen('https://6.ident.me') as resp:
+                        with urlopen('http://6.ident.me') as resp:
                             self.adr = resp.read().decode('ascii')
                     except:
                         sc.error_message('Cannot start IPv6 Session. Please ensure you have an IPv6 IP address assigned.')
