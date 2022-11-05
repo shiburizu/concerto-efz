@@ -22,7 +22,8 @@ class LobbyList(ConcertoScreen):
         p = {
             'name': self.app.player_name,
             'action': 'create',
-            'type': self.lobby_type.text
+            'type': self.lobby_type.text,
+            'game' : 'efz'
         }
         a = requests.get(url=LOBBYURL, params=p).json()
         if a['status'] == 'OK':
@@ -41,7 +42,8 @@ class LobbyList(ConcertoScreen):
         p = {
             'name': self.app.player_name,
             'action': 'join',
-            'id': c
+            'id': c,
+            'game' : 'efz'
         }
         try:
             a = requests.get(url=LOBBYURL, params=p, timeout=5).json()

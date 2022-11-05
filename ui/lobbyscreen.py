@@ -12,6 +12,8 @@ import logging
 from kivy.clock import Clock
 from config import revival_config
 
+# detect ipv4 or ipv6 type from IP and add a suffix to the label
+
 class LobbyScreen(ConcertoScreen):
     player_list = ObjectProperty(None)  # layout for idle players
     challenge_list = ObjectProperty(None)  # layout for challenges
@@ -270,6 +272,7 @@ class LobbyScreen(ConcertoScreen):
             GameModal(msg,self.localize("TERM_DISMISS")).open()
 
     def send_challenge(self, obj, name, id, *args):
+        self.opponent = name
         self.watch_player = None
         for k,v in self.widget_index.items():
             try:
