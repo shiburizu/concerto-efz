@@ -2,10 +2,10 @@
 from kivy_deps import sdl2, glew
 block_cipher = None
 
-a = Analysis(['concerto.py','mbaacc.py','config.py'],
+a = Analysis(['concerto.py','efz.py','config.py'],
             binaries=[('winpty-agent.exe','winpty')],
             datas=[
-                ('mbaacc.py','.'),
+                ('efz.py','.'),
                 ('config.py','.'),
                 ('Concerto.kv','.'),
                 ('./ui','/ui'),

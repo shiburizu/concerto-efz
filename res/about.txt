@@ -4,6 +4,7 @@
 - [u][ref=https://concerto-efz.shib.live]Project website at concerto-efz.shib.live[/ref][/u]
 
 [b]Art credits:[/b]
+- Akiko by [u][ref=https://twitter.com/sushisuke_]sushi[/ref][/u]
 - Nayuki by [u][ref=https://twitter.com/Bee_Sempai]Bee Chan[/ref][/u]
 - Sayuri by [u][ref=https://twitter.com/Tamaki_sh]Tamaki[/ref][/u]
 - UI direction in cooperation with [u][ref=https://github.com/matthewrobo]M-AS[/ref][/u] and [u][ref=https://github.com/okkdev]okk[/ref][/u]
