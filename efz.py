@@ -10,6 +10,8 @@ from urllib.request import urlopen
 
 #error messages
 error_strings = [
+    "Connection timed out",
+    "Host timed out"
 ]
 
 ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
@@ -43,7 +45,8 @@ class Revival():
         self.app = CApp
         self.adr = None #our IP when hosting, needed to trigger UI actions
         self.playing = False #True when netplay begins via input to Revival
-        self.aproc = None # active caster Thread object to check for isalive()
+        self.aproc = None # active caster Thread object to check for isalive()}
+        self.secondary = None # Thread object only used to provide Local Play while in a locking action like Host
         self.offline = False #True when an offline mode has been started
         self.startup = False #True when waiting for efz.exe to start in offline
         self.min_delay = 0 #minimum delay frames when EFZ connection is started
@@ -90,7 +93,8 @@ class Revival():
                         break
                     flag = sc.set_ip(self.adr)
                 break
-            elif "1: Host" in sum_txt:
+            elif "1:" in sum_txt:
+                time.sleep(0.1)
                 self.aproc.write('1')
             elif self.check_msg(sum_txt) != []:
                 sc.error_message(self.check_msg(sum_txt))
@@ -137,6 +141,7 @@ class Revival():
             sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
         sum_txt = ""
         prev_txt = ""
+        join_flag = False
         while self.aproc.isalive():
             txt = ansi_escape.sub('', str(self.aproc.read()))
             if prev_txt != '':
@@ -148,11 +153,16 @@ class Revival():
             logger.write("\n\n")
             print(str(sum_txt.split()))
             if "Input host ip:port" in sum_txt:
+                time.sleep(0.1)
                 self.aproc.write(ip)
+                time.sleep(0.1)
                 self.aproc.write('\x0D')
                 break
-            elif "1: Host" in sum_txt:
+            elif "1:" in sum_txt and join_flag == False:
+                time.sleep(0.1)
                 self.aproc.write('2')
+                join_flag = True
+                time.sleep(0.1)
             elif self.check_msg(sum_txt) != []:
                 sc.error_message(self.check_msg(sum_txt))
                 return None
@@ -191,6 +201,7 @@ class Revival():
 
     def watch(self,ip,sc,*args):
         self.kill_revival()
+        self.startup = True
         logger.write('\n== Watch ==\n')
         try:
             self.aproc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
@@ -198,6 +209,7 @@ class Revival():
             sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
         sum_txt = ""
         prev_txt = ""
+        watch_flag = False #True when IP has been pasted
         while self.aproc.isalive():
             txt = ansi_escape.sub('', str(self.aproc.read()))
             if prev_txt != '':
@@ -209,50 +221,80 @@ class Revival():
             logger.write("\n\n")
             print(str(sum_txt.split()))
             if 'Successfully loaded' in sum_txt:
+                threading.Thread(target=self.flag_watching,daemon=True).start()
                 break #maybe dont break to listen for errors
-            elif "3: Join from clipboard" in sum_txt:
+            elif "4:" in sum_txt and watch_flag == False:
+                time.sleep(0.1)
                 old = pyperclip.paste()
                 pyperclip.copy(ip)
                 self.aproc.write('4')
                 time.sleep(0.1)
                 pyperclip.copy(old)
-
-    def local(self,sc,tournament=False):
-        self.kill_revival()
-        self.startup = True
-        logger.write('\n== Host ==\n')
-        try:
-            self.aproc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
-        except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
-        sum_txt = ""
-        prev_txt = ""
-        while self.aproc.isalive():
-            txt = ansi_escape.sub('', str(self.aproc.read()))
-            if prev_txt != '':
-                if prev_txt in txt:
-                    txt = txt.replace(prev_txt,'')
-            sum_txt += txt
-            prev_txt = txt
-            if "1: Host" in sum_txt:
-                time.sleep(0.1)
-                if tournament is True:
-                    self.aproc.write('6')
-                else:
-                    self.aproc.write('5')
-                self.flag_offline(sc)
-                break
+                watch_flag = True
             else:
                 if self.check_msg(sum_txt) != []:
                     sc.error_message(self.check_msg(sum_txt))
                     self.aproc = None
                     break
 
+    def local(self,sc,tournament=False,secondary=False):
+        if not secondary:
+            self.kill_revival()
+        self.startup = True
+        logger.write('\n== Local Play ==\n')
+        try:
+            if secondary:
+                proc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
+                self.secondary = True
+            else:
+                proc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
+                self.aproc = proc
+        except FileNotFoundError:
+            sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
+        sum_txt = ""
+        prev_txt = ""
+        while proc.isalive():
+            txt = ansi_escape.sub('', str(proc.read()))
+            if prev_txt != '':
+                if prev_txt in txt:
+                    txt = txt.replace(prev_txt,'')
+            sum_txt += txt
+            prev_txt = txt
+            if "1:" in sum_txt:
+                time.sleep(0.1)
+                if tournament is True:
+                    proc.write('6')
+                else:
+                    proc.write('5')
+                if not secondary:
+                    self.flag_offline(sc)
+                break
+            else:
+                if self.check_msg(sum_txt) != []:
+                    sc.error_message(self.check_msg(sum_txt))
+                    proc = None
+                    break
+
     def confirm_frames(self,df):
+        if self.secondary:
+            subprocess.run('taskkill /f /im efz.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            self.secondary = False
         if self.aproc:
             self.aproc.write(str(df))
             self.aproc.write('\x0D')
             threading.Thread(target=self.flag_playing,daemon=True).start()
+
+    def flag_watching(self):
+        while True:
+            cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
+            task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
+            try:
+                task_data.replace("\"", "").split(",")[1]
+                self.startup = False
+                time.sleep(0.1)
+                break
+            except IndexError:
+                pass
             
     def flag_playing(self):
         while True:
@@ -298,6 +340,7 @@ class Revival():
         self.offline = False
         self.broadcasting = False
         self.playing = False
+        self.secondary = False
 
     def input(self,sc):
         try:
@@ -324,5 +367,5 @@ class Revival():
                 e.append(i)
                 logger.write('\n%s\n' % e)
         if e != []:
-            self.kill_caster()
+            self.kill_revival()
         return e

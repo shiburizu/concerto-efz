@@ -70,7 +70,7 @@ class LobbyList(ConcertoScreen):
                 for i in a['lobbies']:
                     b = DummyBtn()
                     b.halign = 'left'
-                    b.text = "ID %s: %s %s" % (i[0], i[1],self.localize("TERM_PLAYERS"))
+                    b.text = "ID %s: %s %s" % (i[0], i[1], self.localize("TERM_PLAYERS"))
                     b.bind(on_release=partial(self.join, code=i[0]))
                     self.lobby_view.add_widget(b)
             else:

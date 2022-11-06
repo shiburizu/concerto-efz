@@ -35,6 +35,7 @@ class LobbyScreen(ConcertoScreen):
         self.type = None
         self.get_attempts = 0 #if 2, exit
         self.alias = None #lobby alias if any
+        self.spectate = False # flag True if watching a match
 
     def create(self, j, first=False, type='Private'):  # json response object
         #this does not use self.type because it should only run once per lobby.
@@ -361,6 +362,7 @@ class LobbyScreen(ConcertoScreen):
 
     def watch_match(self, obj=None, name="", ip="", *args):
         self.watch_player = None
+        self.spectate = True
         for k,v in self.widget_index.items():
             try:
                 if k != self.player_id and v.parent == self.player_list:
@@ -392,6 +394,7 @@ class LobbyScreen(ConcertoScreen):
     # TODO prevent players from dismissing caster until MBAA is open to avoid locking issues
     def dismiss(self, obj, p, *args):
         self.app.game.kill_revival()
+        self.spectate = False
         self.challenge_name = None
         self.opponent = None
         self.challenge_id = None

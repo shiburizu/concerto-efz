@@ -117,6 +117,12 @@ class OptionScreen(ConcertoScreen):
                     if self.app.sound.bgm.state == 'play':
                         self.app.sound.cut_bgm() 
                     self.app.sound.muted = True 
+            else:
+                if self.app.sound.muted is True:
+                    self.app.sound.muted = False
+                    if self.app.sound.bgm.state == 'stop':
+                        self.app.sound.cut_bgm() 
+                    
 
     def input(self):
         threading.Thread(target=self.app.game.input,args=[self],daemon=True).start()

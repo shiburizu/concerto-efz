@@ -156,6 +156,7 @@ class Concerto(App):
                             self.LobbyScreen.active_pop = None
                             self.LobbyScreen.challenge_id = None
                             self.LobbyScreen.challenge_name = None
+                            self.LobbyScreen.spectate = False
                             r = {
                                 'action': 'end',
                                 'p': self.LobbyScreen.player_id,
@@ -164,6 +165,19 @@ class Concerto(App):
                             }
                             requests.get(url=LOBBYURL, params=r).json()
                         self.game.kill_revival()
+                    else:
+                        if self.OnlineScreen.active_pop != None and self.OnlineScreen.spectate == True:
+                            self.OnlineScreen.active_pop.dismiss()
+                            self.OnlineScreen.active_pop = None
+                            self.OnlineScreen.spectate = False
+                            self.game.kill_revival()
+                        if self.LobbyScreen.active_pop != None and self.LobbyScreen.spectate == True:
+                            self.LobbyScreen.active_pop.dismiss()
+                            self.LobbyScreen.active_pop = None
+                            self.LobbyScreen.challenge_id = None
+                            self.LobbyScreen.challenge_name = None
+                            self.LobbyScreen.spectate = False
+                            self.game.kill_revival()
             if hasattr(self,'sound'):
                 cmd = f"""tasklist /FI "IMAGENAME eq efz.exe" /FO CSV /NH"""
                 task_data = subprocess.check_output(cmd, shell=True, creationflags=subprocess.CREATE_NO_WINDOW, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL).decode("UTF8","ignore")
