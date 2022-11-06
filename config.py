@@ -76,7 +76,7 @@ revival_config = configparser.ConfigParser(comment_prefixes=';', allow_no_value=
 revival_config.optionxform = str
 revival_config.read('EfzRevival.ini',encoding='UTF-16')
 
-LOBBYURL = "https://concerto-mbaacc.shib.live/l"
+LOBBYURL = "https://concerto-efz-testing.herokuapp.com/l"
 VERSIONURL = "https://concerto-mbaacc.shib.live/v"
 CURRENT_VERSION = '1.04'
 DEBUG_VERSION = 'EFZ' # set to '' if not in use. This string is printed to logging to track specific test builds.
