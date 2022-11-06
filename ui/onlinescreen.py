@@ -95,13 +95,13 @@ class OnlineScreen(ConcertoScreen):
         else:
             return False
 
-    def join(self, ip=None, spectate=False):
+    def join(self, ip=None):
         if not self.validate_ip(ip):
             ip = self.direct_pop.join_ip.text
             if not self.validate_ip(ip):
                 self.error_message(self.localize('ERR_INVALID_IP'))
                 return None
-        if spectate:
+        if self.spectate:
             caster = threading.Thread(target=self.app.game.watch, args=[ip, self], daemon=True)
             caster.start()
             popup = GameModal(msg=self.localize('ONLINE_WATCHING_IP') % ip,btntext=self.localize('TERM_QUIT'))

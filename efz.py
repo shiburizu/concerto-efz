@@ -330,15 +330,12 @@ class Revival():
 
     def kill_revival(self):
         self.adr = None
-        self.rs = -1
-        self.ds = -1
         if self.aproc != None:
             subprocess.run('taskkill /f /im efz.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
             subprocess.run('taskkill /f /im EfzRevival.exe', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
         self.aproc = None
         self.startup = False
         self.offline = False
-        self.broadcasting = False
         self.playing = False
         self.secondary = False
 

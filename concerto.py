@@ -166,11 +166,6 @@ class Concerto(App):
                             requests.get(url=LOBBYURL, params=r).json()
                         self.game.kill_revival()
                     else:
-                        if self.OnlineScreen.active_pop != None and self.OnlineScreen.spectate == True:
-                            self.OnlineScreen.active_pop.dismiss()
-                            self.OnlineScreen.active_pop = None
-                            self.OnlineScreen.spectate = False
-                            self.game.kill_revival()
                         if self.LobbyScreen.active_pop != None and self.LobbyScreen.spectate == True:
                             self.LobbyScreen.active_pop.dismiss()
                             self.LobbyScreen.active_pop = None
