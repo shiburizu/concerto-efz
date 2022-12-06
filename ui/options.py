@@ -1,4 +1,3 @@
-from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label 
 from kivy.uix.spinner import Spinner
@@ -6,11 +5,7 @@ from kivy.uix.checkbox import CheckBox
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from ui.modals import GameModal
-from kivy.graphics import Color
-from kivy.graphics import Rectangle
 from functools import partial
-
-from ui.buttons import DummyBtn
 import ui.lang 
 
 class OptionRow(BoxLayout):
@@ -19,7 +14,7 @@ class OptionRow(BoxLayout):
         super(OptionRow, self).__init__(**kwargs)
         self.size_hint_x = 1
         self.size_hint_y = None
-        self.height = 28
+        self.height = 30
         self.inptype = None
         self.inp = None
 
@@ -60,7 +55,8 @@ class OptionRow(BoxLayout):
             self.add_widget(spinnerbox)
         else:
             if k == "Name":
-                inp = TextInput(text=v,multiline=False,input_filter=self.name_filter)
+                self.height=33
+                inp = TextInput(text=v,multiline=False,input_filter=self.name_filter,font_name='res/notosansjp.otf',font_size=14)
             else:
                 inp = TextInput(text=v,multiline=False)
             self.add_widget(inp)

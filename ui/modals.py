@@ -1,9 +1,11 @@
 from kivy.uix.modalview import ModalView
 from kivy.properties import ObjectProperty
+from kivy.uix.button import Button
 
 class GameModal(ModalView):
     modal_txt = ObjectProperty(None)
     close_btn = ObjectProperty(None)
+    btn_row = ObjectProperty(None)
 
     def __init__(self,msg='',btntext='Dismiss',btnaction=None):
         super().__init__()
@@ -17,6 +19,12 @@ class GameModal(ModalView):
     def bind_btn(self,btnaction=None):
         if btnaction:
             self.close_btn.bind(on_release=btnaction)
+
+    def bind_secondary(self,btnaction=None,lbl="button"):
+        if btnaction:
+            second = Button(text=lbl,outline_width=2,font_name='res/texgyreheros-bolditalic.otf')
+            second.bind(on_release=btnaction)
+            self.btn_row.add_widget(second) 
 
 class ProgressModal(ModalView):
     modal_txt = ObjectProperty(None)

@@ -1,10 +1,10 @@
 from ui.concertoscreen import ConcertoScreen
 from config import *
-from ui.modals import GameModal
 from ui.buttons import DummyBtn
 import ui.lang
 import ui.options
 import threading
+import config
 
 class OptionScreen(ConcertoScreen):
 
@@ -33,8 +33,25 @@ class OptionScreen(ConcertoScreen):
                 self.ids['opt_grid'].add_widget(row)
                 self.optrows[k] = row
 
+    def update_options(self,conf):
+        for s in conf.sections():
+            for (k, v) in conf.items(s):
+                if k in self.optrows:
+                    opt = self.optrows[k]
+                    if opt.inptype == 'string' or opt.inptype == 'int' or opt.inptype == 'spinner':
+                        opt.inp.text = v
+                    elif opt.inptype == 'bool':
+                        if v == "True":
+                            opt.inp.active = True
+                        else:
+                            opt.inp.active = False
+                    elif opt.inptype == 'boolint':
+                        if v == "1":
+                            opt.inp.active = True
+                        else:
+                            opt.inp.active = False
+
     def load(self):
-        
         if self.loaded is False: #Build widgets if they don't exist
 
             self.create_options(app_config)
@@ -84,7 +101,6 @@ class OptionScreen(ConcertoScreen):
             for i in config_file:
                 if i[0] != ';' and i[0] != '[' and len(i.strip()) != 0:
                     opt_k = i.split("=",1)[0].strip()
-                    opt_v = i.split("=",1)[1].strip()
                     if opt_k in self.optrows:
                         opt = self.optrows[opt_k]                            
                         if opt.inptype == 'bool':

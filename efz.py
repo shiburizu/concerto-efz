@@ -120,9 +120,9 @@ class Revival():
 
             if cur_delay != [] and cur_min_delay != None and cur_avg_ping != [] and cur_max_ping != [] and cur_min_ping != []:
                 if ":" in cur_avg_ping[0][-3:]:
-                    ping = int(cur_avg_ping[0][-2:])
+                    ping = int(str(cur_avg_ping[0][-2:]).replace(":",""))
                 else:
-                    ping = int(cur_avg_ping[0][-3:])
+                    ping = int(str(cur_avg_ping[0][-3:]).replace(":",""))
                 self.min_delay = int(str(cur_min_delay.group(1)))
                 sc.set_frames(int(str(cur_delay[0][-2:])),ping,int(str(cur_min_ping[0][-3:])),int(str(cur_max_ping[0][-3:])),int(str(cur_min_delay.group(1))),target=t)
                 break #do we need to break? can we keep the process alive and listen for errors?
@@ -237,7 +237,7 @@ class Revival():
                     self.aproc = None
                     break
 
-    def local(self,sc,tournament=False,secondary=False):
+    def local(self,sc=None,tournament=False,secondary=False):
         if not secondary:
             self.kill_revival()
         self.startup = True
@@ -250,7 +250,8 @@ class Revival():
                 proc = PtyProcess.spawn(app_config['Concerto']['revival_exe'].strip())
                 self.aproc = proc
         except FileNotFoundError:
-            sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
+            if secondary == False:
+                sc.error_message('%s not found.' % app_config['Concerto']['revival_exe'].strip())
         sum_txt = ""
         prev_txt = ""
         while proc.isalive():
@@ -270,7 +271,7 @@ class Revival():
                     self.flag_offline(sc)
                 break
             else:
-                if self.check_msg(sum_txt) != []:
+                if self.check_msg(sum_txt) != [] and secondary == False:
                     sc.error_message(self.check_msg(sum_txt))
                     proc = None
                     break
@@ -340,10 +341,13 @@ class Revival():
         self.secondary = False
 
     def input(self,sc):
-        try:
+        if os.path.isfile('config_EN.exe'):
             subprocess.run(['config_EN.exe'])
-        except FileNotFoundError:
-            sc.error_message('config_EN not found.')
+        else:
+            try:
+                subprocess.run(['config.exe'])
+            except FileNotFoundError:
+                sc.error_message('config.exe or config_EN.exe not found.')
         
     def dinput(self,sc):
         try:

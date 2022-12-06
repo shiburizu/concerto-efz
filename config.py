@@ -76,10 +76,11 @@ revival_config = configparser.ConfigParser(comment_prefixes=';', allow_no_value=
 revival_config.optionxform = str
 revival_config.read('EfzRevival.ini',encoding='UTF-16')
 
-LOBBYURL = "https://concerto-efz-testing.herokuapp.com/l"
+LOBBYURL = "https://concerto-mbaacc.shib.live/l"
 VERSIONURL = "https://concerto-mbaacc.shib.live/v"
 CURRENT_VERSION = '1.04'
-DEBUG_VERSION = 'EFZ-4' # set to '' if not in use. This string is printed to logging to track specific test builds.
+DEBUG_VERSION = 'EFZ-5' # set to '' if not in use. This string is printed to logging to track specific test builds.
+
 def find_img(file):
     if os.path.exists(file):
         return PATH + file

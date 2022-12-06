@@ -74,6 +74,8 @@ class LobbyScreen(ConcertoScreen):
                         self.widget_index.get(i[1]).parent.remove_widget(self.widget_index.get(i[1]))
                         p = PlayerRow()
                         p.ids['PlayerBtn'].text = i[0]
+                        if "[" in i[2]: #IPv6 Challenger
+                            p.ids['PlayerBtn'].text += " (IPv6)"
                         p.ids['PlayerBtn'].bind(on_release=partial(
                             self.accept_challenge, name=i[0], id=i[1], ip=i[2]))
                         p.ids['WatchBtn'].text = ""
@@ -151,8 +153,12 @@ class LobbyScreen(ConcertoScreen):
                     p = PlayerRow()
                     p.ids['PlayerBtn'].text = "%s vs %s" % (i[0], i[1])
                     if i[2] != self.player_id and i[3] != self.player_id:
-                        p.ids['PlayerBtn'].bind(on_release=partial(self.watch_match,
-                            name="%s vs %s" % (i[0], i[1]), ip=i[4]))
+                        if "[" in i[4]: #ipv6 spectator
+                            p.ids['PlayerBtn'].bind(on_release=partial(self.watch_match,
+                                name="%s vs %s (IPv6)" % (i[0], i[1]), ip=i[4]))
+                        else:
+                            p.ids['PlayerBtn'].bind(on_release=partial(self.watch_match,
+                                name="%s vs %s" % (i[0], i[1]), ip=i[4]))
                     p.ids['WatchBtn'].text = ""
                     self.match_list.add_widget(p)
                     self.widget_index.update({(i[2],i[3]):p})
@@ -305,6 +311,7 @@ class LobbyScreen(ConcertoScreen):
         return True
         
     def accept_challenge(self, obj, name, id, ip, *args):
+        #TODO automatically switch to IPv6 if challenge is accepted
         self.opponent = name
         self.watch_player = None
         for k,v in self.widget_index.items():
@@ -361,6 +368,7 @@ class LobbyScreen(ConcertoScreen):
                 break
 
     def watch_match(self, obj=None, name="", ip="", *args):
+        #TODO auto switch to IPv6 if IP is confirmed
         self.watch_player = None
         self.spectate = True
         for k,v in self.widget_index.items():

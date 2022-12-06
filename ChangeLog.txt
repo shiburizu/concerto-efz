@@ -1,3 +1,21 @@
+27/05/2022 1.02h!!!
+  - Fixed input config in netplay.
+
+27/05/2022 1.02h!!
+  - Improved hotswapping of controllers.
+  - Improved spectating with udp hole punching.
+
+17/04/2022 1.02h
+  - Allow hotswapping and changing the config of controllers in main menu and char select
+
+27/03/2022 1.02g
+  - Fixed char select slowdown in tournament mode
+  - Fixed names not displaying on char select online
+
+18/10/2020 1.02f
+  - Fixed slowdown of Shiori FM being persistent across savestate loading
+  - Fixed the speed of background animations being tied to rollbacks
+
 28/04/2020 1.02e
   - Fixed slow loading times on windows XP
   - Added icon

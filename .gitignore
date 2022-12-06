@@ -1,32 +1,14 @@
 # Offline testing/storage folders
-cccaster/
-media/
-cccaster*.exe
 *.zip
 concerto.ini
 concerto.log
 Concerto_*.txt
-Information/
 concerto-logs/
-GRP/
-*.dat
 *.p
 *.bat
 *.dll
 *.csv
-*.d
-*.dds
-dat/
-Movie/
-ReplayVS/
-RepDummy/
-ScreenShot/
-System/
-output/
 DejaVuSansCondensed.ttf
-MBAA.exe
-relay_list.txt
-lobby_list.txt
 Translation Changelog.html
 
 # EFZ Specific Files
@@ -57,6 +39,7 @@ replay/
 sayuri/
 shiori/
 wave/
+system/
 DInput_Config_Beta.exe
 efz.exe
 EfzCheck.exe
@@ -70,15 +53,12 @@ EfzRevival.exe
 config.exe
 config_EN.exe
 BattleLog.txt
+ChangeLog.txt
 
 # Concerto EXEs
 Concerto.exe
 Concerto.exe.new
 Concerto.exe.old
-p1name.txt
-p2name.txt
-p1score.txt
-p2score.txt
 
 # VSCode
 .vscode/

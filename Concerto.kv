@@ -32,7 +32,7 @@
             size_hint_x: 0.8
             id: PlayerBtn
             outline_width: 2
-            font_name: 'res/texgyreheros-bolditalic.otf' 
+            font_name: 'res/notosansjpbold.otf'
             background_color: (0, 0, 0, 0)
             on_press: self.background_color = (135/255,195/255,255/255, 1)
             on_release: self.background_color = (0, 0, 0, 0)
@@ -686,12 +686,12 @@
 <GameModal>:
     modal_txt: modal_txt
     close_btn: close_btn
+    btn_row: btn_row
     size_hint: None,None
     size: 400,200
     auto_dismiss: False 
     GridLayout:
         padding: [30,15]
-        spacing: [0,0]
         cols: 1
         GridLayout:
             padding: [0,5]
@@ -703,11 +703,15 @@
                 size: self.texture_size
                 text_size: self.size
                 size_hint_y: 0.60
-            Button:
-                id: close_btn
-                font_name: 'res/texgyreheros-bolditalic.otf'
-                outline_width: 2
+            GridLayout:
+                cols: 2
                 size_hint_y: 0.20
+                id: btn_row
+                Button:
+                    id: close_btn
+                    font_name: 'res/texgyreheros-bolditalic.otf'
+                    outline_width: 2
+                    
 
 <ProgressModal>:
     modal_txt: modal_txt

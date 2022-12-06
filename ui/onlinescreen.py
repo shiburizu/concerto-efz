@@ -75,6 +75,7 @@ class OnlineScreen(ConcertoScreen):
     def host(self):
         popup = GameModal(self.localize('ONLINE_MENU_HOSTING'),self.localize('TERM_QUIT'))
         popup.bind_btn(partial(self.dismiss, p=popup))
+        popup.bind_secondary(partial(self.app.game.local,secondary=True),"Local Play")
         popup.open()
         self.active_pop = popup
         if config.revival_config['Network']['Protocol'] == 'IPv6':
@@ -87,7 +88,11 @@ class OnlineScreen(ConcertoScreen):
 
     def set_ip(self,ip=None):
         if self.active_pop != None:
-            self.active_pop.modal_txt.text += 'IP: %s:%s' % (ip,config.revival_config['Network']['Port'])
+            if config.revival_config['Network']['Protocol'] == "IPv6":
+                ip = "[" + ip + "]:" + config.revival_config['Network']['Port']
+            else:
+                ip = ip + ":" + config.revival_config['Network']['Port']
+            self.active_pop.modal_txt.text += 'IP: %s' % ip
             if config.app_config['Concerto']['copy_ip_clipboard'] == "1":
                 pyperclip.copy('%s:%s' % (ip,config.revival_config['Network']['Port']))
                 self.active_pop.modal_txt.text += '\n(IP:Port copied to clipboard)'
