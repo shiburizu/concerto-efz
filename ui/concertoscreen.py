@@ -160,7 +160,7 @@ class ConcertoScreen(Screen):
             return None
         update_script = open('update.bat', 'w')
         update_script.writelines([
-            'taskkill /f /im Concerto.exe'
+            'taskkill /f /im Concerto.exe\n'
             'COPY "%s" "%s"\n' % (app_path, backup_path),
             'COPY "%s" "%s" /Y\n' % (dl_path, app_path), 
             'DEL "%s"\n' % dl_path, 
