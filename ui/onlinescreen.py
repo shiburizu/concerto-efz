@@ -8,6 +8,7 @@ import config
 import requests
 import pyperclip
 from kivy.clock import Clock
+from config import PATH
 
 class OnlineScreen(ConcertoScreen):
     
@@ -15,6 +16,8 @@ class OnlineScreen(ConcertoScreen):
         super().__init__(CApp)
         self.direct_pop = None  # Direct match popup for user settings
         self.spectate = False # Toggles behavior of DirectModal
+        if PATH in self.ids['char'].source:
+            self.ids['credit'].text = ""
 
     def direct(self,spectate=False):
         self.direct_pop = DirectModal()
@@ -94,7 +97,7 @@ class OnlineScreen(ConcertoScreen):
                 ip = ip + ":" + config.revival_config['Network']['Port']
             self.active_pop.modal_txt.text += 'IP: %s' % ip
             if config.app_config['Concerto']['copy_ip_clipboard'] == "1":
-                pyperclip.copy('%s:%s' % (ip,config.revival_config['Network']['Port']))
+                pyperclip.copy(ip)
                 self.active_pop.modal_txt.text += '\n(IP:Port copied to clipboard)'
             return True
         else:
@@ -146,7 +149,6 @@ class OnlineScreen(ConcertoScreen):
             self.dismiss, p=popup))
         popup.open()
 
-    # TODO prevent players from dismissing caster until EFZ is open to avoid locking issues
     def dismiss(self, obj, p=None, *args):
         self.app.game.kill_revival()
         self.spectate = False

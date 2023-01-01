@@ -26,6 +26,7 @@ class GameModal(ModalView):
             second.bind(on_release=btnaction)
             self.btn_row.add_widget(second) 
 
+
 class ProgressModal(ModalView):
     modal_txt = ObjectProperty(None)
     prog_bar = ObjectProperty(None)
@@ -37,13 +38,28 @@ class ChoiceModal(ModalView):
     btn_2 = ObjectProperty(None)
 
 
+class SessionModal(ModalView):
+    modal_txt = ObjectProperty(None)
+    btn_1 = ObjectProperty(None)
+    btn_2 = ObjectProperty(None)
+
+
 class DirectModal(ModalView):
     join_ip = ObjectProperty(None)
     connect_txt = ObjectProperty(None)
     screen = None
+
 
 class FrameModal(ModalView):
     frame_txt = ObjectProperty(None)
     d_input = ObjectProperty(None)
     start_btn = ObjectProperty(None)
     close_btn = ObjectProperty(None)
+
+
+class MatchupModal(ModalView):
+    submit_search = ObjectProperty(None)
+    p1_input = ObjectProperty(None)
+    p1_char = ObjectProperty(None)
+    p2_input = ObjectProperty(None)
+    p2_char = ObjectProperty(None)

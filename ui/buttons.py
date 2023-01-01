@@ -16,7 +16,6 @@ class MenuBtn(Button):
         super(MenuBtn, self).__init__(**kwargs)
         Window.bind(mouse_pos=self.on_mouse_pos)
         self.hover = False
-        
 
     def on_mouse_pos(self, *args):
         # Determine whether the control is in root In root control
@@ -56,4 +55,8 @@ class LobbyBtn(Button):
 
 
 class PlayerRow(AnchorLayout):
+    pass
+
+
+class SessionBtn(Button):
     pass

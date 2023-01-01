@@ -5,7 +5,7 @@ from config import *  # App config functions
 class Sound():
 
     def __init__(self):
-        self.bgm = SoundLoader.load('res/' + 'fuzzy.mp3')
+        self.bgm = SoundLoader.load('res/' + 'walkway.mp3')
         self.alert = SoundLoader.load('res/alert.mp3')
         self.muted = False
         self.mute_alerts = False
@@ -13,7 +13,7 @@ class Sound():
     def switch(self):
         if self.bgm.state == 'play':
             self.bgm.stop()
-        self.bgm = SoundLoader.load('res/' + 'fuzzy.mp3')
+        self.bgm = SoundLoader.load('res/' + 'walkway.mp3')
         self.cut_bgm()
 
     def cut_bgm(self, obj=None):

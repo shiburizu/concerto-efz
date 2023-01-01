@@ -32,21 +32,36 @@ This will bundle the `Concerto.exe` executable into the `dist/` directory.
 ## Customizing UI
 It is possible to change the character art and background images by placing certain image file names in your EFZ game directory.
 
-* Each character art is the name of its respective screen: main.png, offline.png, online.png, resources.png
-* Each background art is the name of its respective screen suffixed with _bg, i.e. main_bg.png
-* The background art used for online lobbies, about, and How to Play screens is called lobby_bg.png
+* Each character art is the name of its respective screen: Main.png, Online.png, Resources.png
+* Each background art is the name of its respective screen suffixed with _bg, i.e. Main_bg.png
 
 Each image is loaded directly onto the screen. For best results, make sure all images are 600x400px and keep in mind character arts are rendered above all other UI elements. See included files for examples.
 
 ## Audio/Visual sources
 Art & sound are provided by community members for exclusive use with Concerto.
+
 ### Visuals
-* [Arcuied by Bee Chan](https://twitter.com/Bee_Sempai/status/1345577709104205826?s=20)
-* [Sion by aBitofbaileys](https://www.pixiv.net/en/artworks/90676177)
-* [Riesbyfe by Onemi](https://www.pixiv.net/en/artworks/90219044)
-* [Kohaku by Kohakudoori](https://www.pixiv.net/en/artworks/83141238)
 * UI direction in cooperation with [okk](https://github.com/okkdev) and [M-AS](https://twitter.com/matthewrobo)
 * Backgrounds sourced from Unsplash
+
 ### Audio
 * "Soubrette's Walkway" by [Tempxa](https://twitter.com/TempxaRK9)
-* "Fuzzy" by [softdrinks](https://twitter.com/soffdrinks)
+
+## Known Issues
+* Not all error messages shown by EFZRevival may appear in Concerto.
+* Emojis in text will not render correctly.
+
+## Roadmap
+### 1.0
+* Online Lobbies
+* Battle Log
+* Search Player/Matchup
+
+### Future Plans
+* Dedicated lobby link support
+* Date/Time search for Batle Log
+* Personal Profile for Battle Log
+* Optimize Battle Log load time
+* Keybinding Menu
+* Discord Presence
+* Quick Match

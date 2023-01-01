@@ -298,13 +298,16 @@ class LobbyScreen(ConcertoScreen):
         caster.start()
 
     def set_ip(self,ip=None):
-        #pyperclip.copy('') #erase IP address from clipboard
+        if ":" in ip: #IPv6 if :
+            ip = "[" + ip + "]" + ":" + revival_config['Network']['Port']
+        else:
+            ip = ip + ":" + revival_config['Network']['Port']
         p = {
             't': self.challenge_id,
             'p': self.player_id,
             'action': 'challenge',
             'id': self.code,
-            'ip': ip + ":" + revival_config['Network']['Port'],
+            'ip': ip,
             'secret': self.secret
         }
         c = requests.get(url=LOBBYURL, params=p).json()
@@ -399,7 +402,6 @@ class LobbyScreen(ConcertoScreen):
             self.dismiss, p=popup))
         popup.open()
 
-    # TODO prevent players from dismissing caster until MBAA is open to avoid locking issues
     def dismiss(self, obj, p, *args):
         self.app.game.kill_revival()
         self.spectate = False

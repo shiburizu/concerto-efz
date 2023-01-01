@@ -14,6 +14,7 @@ class OptionScreen(ConcertoScreen):
         self.loaded = False
 
     def create_options(self,conf):
+        #TODO label hints
         for s in conf.sections():
             hd = DummyBtn()
             hd.text = s
@@ -21,15 +22,15 @@ class OptionScreen(ConcertoScreen):
             for (k, v) in conf.items(s):
                 row = ui.options.OptionRow()
                 if v.strip() == "True" or v.strip() == "False":
-                    row.create_opt(k.strip(),v.strip(),inptype="bool",hint="hint")
+                    row.create_opt(k.strip(),v.strip(),inptype="bool")
                 elif v.strip() == "0" or v.strip() == "1":
-                    row.create_opt(k.strip(),v.strip(),inptype="boolint",hint="hint")
+                    row.create_opt(k.strip(),v.strip(),inptype="boolint")
                 elif v.strip() == "IPv4" or v.strip() == "IPv6":
-                    row.create_opt(k.strip(),v.strip(),inptype="spinner",vals=["IPv4","IPv6"],hint="hint")
+                    row.create_opt(k.strip(),v.strip(),inptype="spinner",vals=["IPv4","IPv6"])
                 elif k == "Port" or k == "MaxRollback" or "Window" in k or "BackBuffer" in k:
-                    row.create_opt(k.strip(),v.strip(),inptype="int",hint="hint")
+                    row.create_opt(k.strip(),v.strip(),inptype="int")
                 else:
-                    row.create_opt(k.strip(),v.strip(),hint="hint")
+                    row.create_opt(k.strip(),v.strip())
                 self.ids['opt_grid'].add_widget(row)
                 self.optrows[k] = row
 

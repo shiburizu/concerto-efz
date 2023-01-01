@@ -3,12 +3,15 @@ from ui.modals import GameModal
 import ui.lang
 import config
 import threading
+from config import PATH
 
 class MainScreen(ConcertoScreen):
 
     def __init__(self,CApp):
         super().__init__(CApp)
         self.ids['version'].text = "v%s" % config.CURRENT_VERSION
+        if PATH in self.ids['char'].source:
+            self.ids['credit'].text = ""
         if config.DEBUG_VERSION != "":
             self.ids['version'].text += " - %s" % config.DEBUG_VERSION
 

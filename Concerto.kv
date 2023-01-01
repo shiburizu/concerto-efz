@@ -16,6 +16,20 @@
     outline_width: 2
     on_press: self.background_color = (135/255,195/255,255/255, 1)
     on_release: self.background_color = (1, 1, 1, 1)
+
+<SessionBtn>
+    size_hint_y: None
+    height: 32
+    padding_x: 10
+    text_size: self.size
+    halign: 'left'
+    valign: 'middle'
+    font_name: 'res/notosansjpbold.otf'
+    background_normal: 'res/menubtn.png'
+    background_down: 'res/menubtn.png'
+    outline_width: 2
+    on_press: self.background_color = (0,0,0,1)
+    on_release: self.background_color = (0,0,0,1)
     
 <PlayerRow>
     size_hint_y: None
@@ -94,12 +108,13 @@
     background_color: '#343B88'
 
 <MainScreen>:
+    artIndex: cfg.art_choice()
     name: 'Main'
     AnchorLayout:
         anchor_x: 'right'
         anchor_y: 'bottom'
         Image:
-            source: cfg.find_img('main_bg.png')
+            source: cfg.find_bg_img(root)
         Image:
             source: 'res/gradient.png'
         Label:
@@ -140,7 +155,8 @@
                     text: '7. %s' % lang.localize("MAIN_MENU_UPDATE")
                     on_release: root.update()
         Image:
-            source: cfg.find_img('main.png')
+            source: cfg.find_char_img(root)
+            id: char
         Label:
             id: version
             size_hint: (0.97,0.075)
@@ -154,12 +170,13 @@
         BoxLayout:
             size_hint: (0.2, 0.075)
             Label:
-                text: cfg.img_credit('main.png','[ref=x]Bee Chan[/ref]')
+                text: cfg.img_credit(root)
+                id: credit
                 outline_width: 2
                 markup: True
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 font_size: 12
-                on_ref_press: webbrowser.open('https://twitter.com/Bee_Sempai')
+                on_ref_press: webbrowser.open(root.artLink)
     AnchorLayout
         id: lobbyAnchor
         anchor_x: 'center'
@@ -179,7 +196,7 @@
         anchor_x: 'right'
         anchor_y: 'bottom'
         Image:
-            source: cfg.find_img('lobby_bg.png')
+            source: 'res/b/Lobby_bg.png'
         BoxLayout:
             orientation: 'vertical'
             BoxLayout:
@@ -224,7 +241,7 @@
         anchor_x: 'left'
         anchor_y: 'top'
         Image:
-            source: cfg.find_img('lobby_bg.png')
+            source: 'res/b/Lobby_bg.png'
         BoxLayout:
             orientation: 'vertical'
             GridLayout:
@@ -294,7 +311,7 @@
         anchor_x: 'left'
         anchor_y: 'top'
         Image:
-            source: cfg.find_img('lobby_bg.png')
+            source: 'res/b/Lobby_bg.png'
         Image:
             source: 'res/lowergradient.png'
         BoxLayout:
@@ -396,11 +413,12 @@
 
 <OnlineScreen>:
     name: 'Online'
+    artIndex: cfg.art_choice()
     AnchorLayout:
         anchor_x: 'right'
         anchor_y: 'bottom'
         Image:
-            source: cfg.find_img('online_bg.png')
+            source: cfg.find_bg_img(root)
         Image:
             source: 'res/gradient.png'
         Label:
@@ -441,16 +459,139 @@
                     text: '0. %s' % lang.localize("TERM_BACK").upper()
                     on_release: app.sm.current = 'Main'
         Image:
-            source: cfg.find_img('online.png')
+            source: cfg.find_char_img(root)
+            id: char
         BoxLayout:
             size_hint: (0.2, 0.1)
             Label:
-                text: cfg.img_credit('online.png','[ref=x]Tamaki[/ref]')
+                text: cfg.img_credit(root)
+                id: credit
                 outline_width: 2
                 markup: True
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 font_size: 12
-                on_ref_press: webbrowser.open('https://twitter.com/Tamaki_sh')
+                on_ref_press: webbrowser.open(root.artLink)
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<LogScreen>
+    nameLabel: nameLabel
+    rateLabel: rateLabel
+    timeLabel: timeLabel
+    resultList: resultList
+    logList: logList
+    name: 'Log'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        Image:
+            source: 'res/b/Lobby_bg.png'
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint: (1, 0.1)
+                MenuBtn:
+                    size_hint_x: 0.8
+                    size_hint_y: 1
+                    text: lang.localize("TERM_BACK").upper()
+                    on_release: 
+                        app.sm.current = 'Main'
+                Button:
+                    text: 'COPY'
+                    font_name: 'res/texgyreheros-bolditalic.otf'
+                    size_hint_x: 0.2
+                    size_hint_y: 1
+                    outline_width: 2
+                    background_color: (255, 0, 0, 0.2)
+                    background_normal: ''
+                    on_release: 
+                        self.background_color = (255, 0, 0, 0.2)
+                        root.copySummary()
+                    on_press: 
+                        self.background_color = (100, 0, 0, 0.9)  
+            TabbedPanel:
+                size_hint_y: 0.9
+                do_default_tab: False
+                background_color: (0,0,0,0)
+                tab_width: self.parent.width / 2
+                TabbedPanelItem:
+                    text: 'Summary'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            size_hint_y: 0.4
+                            orientation: 'vertical'
+                            Label:
+                                id: nameLabel
+                                outline_width: 2
+                                font_name: 'res/notosansjpbold.otf'
+                                font_size: 20
+                                text: 'Player vs. Player'
+                            Label:
+                                id: rateLabel
+                                outline_width: 2
+                                font_name: 'res/notosansjpbold.otf'
+                                font_size: 16
+                                text: 'XX% Winrate, #W/#L (# Total)'
+                            Label:
+                                id: timeLabel
+                                outline_width: 2
+                                font_name: 'res/notosansjpbold.otf'
+                                font_size: 16
+                                text: '#Hours Played, Avg. Match Time #:#'
+                        BoxLayout:
+                            size_hint_y: 0.6
+                            orientation: 'vertical'
+                            DummyBtn:
+                                size_hint_y: 0.22
+                                id: spreadLabel
+                                text: 'Results Spread'
+                            ScrollView:
+                                size_hint_y: 0.78
+                                do_scroll_x: False  
+                                do_scroll_y: True
+                                BoxLayout:
+                                    id: resultList
+                                    orientation: 'vertical'
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                TabbedPanelItem:
+                    text: 'Battle Log'
+                    outline_width: 2
+                    background_color: '#343B88'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BattleLog:
+                            id: logList
+    AnchorLayout
+        id: lobbyAnchor
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+<LogOnlyScreen>
+    logList: logList
+    name: 'LogOnly'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        Image:
+            source: 'res/b/Lobby_bg.png'
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint: (1, 0.1)
+                MenuBtn:
+                    size_hint_x: 1
+                    size_hint_y: 1
+                    text: lang.localize("TERM_BACK").upper()
+                    on_release: 
+                        app.sm.current = 'Main'
+            BattleLog:
+                id: logList
     AnchorLayout
         id: lobbyAnchor
         anchor_x: 'center'
@@ -458,11 +599,12 @@
 
 <ResourceScreen>:
     name: 'Resources'
+    artIndex: cfg.art_choice()
     AnchorLayout:
         anchor_x: 'right'
         anchor_y: 'bottom'
         Image:
-            source: cfg.find_img('resources_bg.png')
+            source: cfg.find_bg_img(root)
         Image:
             source: 'res/gradient.png'
         Label:
@@ -482,98 +624,31 @@
                 padding: (0,50)
                 spacing: [0,5]
                 MenuBtn:
-                    text: '1. ???'
+                    text: '1. BATTLE LOG'
+                    on_release: root.battleLog()
                 MenuBtn:
-                    text: '2. MIZUUMI WIKI'
+                    text: '2. SEARCH'
+                    on_release: root.openMatchups()
+                MenuBtn:
+                    text: '3. MIZUUMI WIKI'
                     on_release:
                         webbrowser.open('https://wiki.gbl.gg/w/Eternal_Fighter_Zero')
-                MenuBtn:
-                    text: '3. ???'
                 MenuBtn:
                     text: '0. %s' % lang.localize('TERM_BACK').upper()
                     on_release: app.sm.current = 'Main'
         Image:
-            source: cfg.find_img('resources.png')
+            source: cfg.find_char_img(root)
+            id: char
         BoxLayout:
             size_hint: (0.2, 0.1)
             Label:
-                text: cfg.img_credit('resources.png','[ref=x]sushi[/ref]')
+                text: cfg.img_credit(root)
+                id: credit
                 outline_width: 2
                 markup: True
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 font_size: 12
-                on_ref_press: webbrowser.open('https://twitter.com/sushisuke_')
-    AnchorLayout
-        id: lobbyAnchor
-        anchor_x: 'center'
-        anchor_y: 'top'
-
-<HowtoScreen>
-    name: 'HowTo'
-    AnchorLayout:
-        anchor_x: 'left'
-        anchor_y: 'top'
-        Image:
-            source: cfg.find_img('lobby_bg.png')
-        BoxLayout:
-            orientation: 'vertical'
-            MenuBtn:
-                size_hint: (1, 0.1)
-                text: lang.localize("TERM_BACK").upper()
-                on_release: 
-                    app.sm.current = 'Main'
-            TabbedPanel:
-                size_hint_y: 0.9
-                do_default_tab: False
-                background_color: (0,0,0,0)
-                TabbedPanelItem:
-                    text: 'Introduction'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: intro
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/intro.rst')
-                TabbedPanelItem:
-                    text: 'Movement'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: movement
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/movement.rst')
-                TabbedPanelItem:
-                    text: 'Offense'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: offense
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/offense.rst')
-                TabbedPanelItem:
-                    text: 'Defense'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: defense
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/defense.rst')
-                TabbedPanelItem:
-                    text: 'Moon Styles'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: moons
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/moons.rst')
-                TabbedPanelItem:
-                    text: 'Glossary'
-                    outline_width: 2
-                    background_color: '#343B88'
-                    RstDocument:
-                        id: glossary
-                        background_color: (0,0,0,0.5)
-                        source: res.resource_find('res/glossary.rst')
+                on_ref_press: webbrowser.open(root.artLink)
     AnchorLayout
         id: lobbyAnchor
         anchor_x: 'center'
@@ -585,7 +660,7 @@
         anchor_x: 'right'
         anchor_y: 'bottom'
         Image:
-            source: cfg.find_img('lobby_bg.png')
+            source: 'res/b/Lobby_bg.png'
         BoxLayout:
             orientation: 'vertical'
             BoxLayout:
@@ -712,7 +787,6 @@
                     font_name: 'res/texgyreheros-bolditalic.otf'
                     outline_width: 2
                     
-
 <ProgressModal>:
     modal_txt: modal_txt
     prog_bar: prog_bar
@@ -731,6 +805,37 @@
             valign: 'top'
         ProgressBar:
             id: prog_bar
+
+<SessionModal>:
+    modal_txt: modal_txt
+    btn_1: btn_1
+    btn_2: btn_2
+    size_hint: None,None
+    size: 550,350
+    auto_dismiss: False 
+    BoxLayout:
+        padding: 20,20
+        orientation: 'vertical'
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            Label:
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                id: modal_txt
+                markup: True
+                outline_width: 2
+        BoxLayout:
+            size_hint_y: 0.15
+            Button:
+                id: btn_1
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 2
+            Button:
+                id: btn_2
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 2
 
 <ChoiceModal>:
     modal_txt: modal_txt
@@ -755,6 +860,63 @@
                 outline_width: 2
             Button:
                 id: btn_2
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 2
+
+<MatchupModal>:
+    p1_input: p1_input
+    p1_char: p1_char
+    p2_input: p2_input
+    p2_char: p2_char
+    submit_search: submit_search
+    size_hint: None,None
+    size: 500,150
+    auto_dismiss: False 
+    BoxLayout:
+        padding: 20,20
+        orientation: 'vertical'
+        spacing: 5
+        BoxLayout:
+            size_hint_y: 0.40
+            Label:
+                text: 'Player/Character'
+                halign: 'center'
+            Label:
+                text: 'Opponent/Character (Optional)'
+                halign: 'center'
+        BoxLayout:
+            size_hint_y: 0.30
+            TextInput
+                multiline: False
+                id: p1_input
+                size_hint_x: 0.27
+            Spinner:
+                id: p1_char
+                text: 'All'
+                values: 'All','Akane','Akiko','Ayu','Doppel','Ikumi','Kanna','Kano','Kaori','Makoto','Mai','Mayu','Minagi','Mio','Misaki','Mishio','Misuzu','Nagamori','NayukiA','NayukiS','Rumi','Sayuri','Shiori','BossUnknown'
+                outline_width: 1
+                size_hint_x: 0.23
+            TextInput
+                multiline: False
+                id: p2_input
+                size_hint_x: 0.27
+            Spinner:
+                id: p2_char
+                text: 'All'
+                values: 'All','Akane','Akiko','Ayu','Doppel','Ikumi','Kanna','Kano','Kaori','Makoto','Mai','Mayu','Minagi','Mio','Misaki','Mishio','Misuzu','Nagamori','NayukiA','NayukiS','Rumi','Sayuri','Shiori','BossUnknown'
+                outline_width: 1
+                size_hint_x: 0.23
+        BoxLayout:
+            size_hint_y: 0.30
+            Button:
+                text: 'Close'
+                font_name: 'res/texgyreheros-bolditalic.otf'
+                outline_width: 2
+                on_release: 
+                    root.dismiss()
+            Button:
+                id: submit_search
+                text: 'Submit'
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 outline_width: 2
 
@@ -808,3 +970,15 @@
                 id: start_btn
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 outline_width: 2
+
+<BattleLog>:
+    viewclass: 'SessionBtn'  # defines the viewtype for the data items.
+    scroll_type: ['bars','content']
+    always_overscroll: False
+    bar_width: 25
+    RecycleBoxLayout:
+        default_size: None, dp(32)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'

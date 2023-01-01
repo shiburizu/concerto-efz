@@ -41,7 +41,7 @@ class ConcertoScreen(Screen):
 
     def switch_to_lobby(self):
         self.app.sm.current = 'Lobby'
-
+        
     def dismiss_active_pop(self,obj=None):
         if self.active_pop:
             self.active_pop.dismiss()

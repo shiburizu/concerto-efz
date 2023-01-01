@@ -388,7 +388,7 @@ strings = {
         "EN" : "Please supply a valid IP."
     },
     "TIP_CONCERTO_INVITES" : {
-        "EN" : "To join lobbies via Discord/invite links run Concerto as admin once."
+        "EN" : "To join lobbies via invite links run Concerto as admin once."
     },
     "TIP_CONTROLS" : {
         "EN" : "Tip: Press F4 in-game to bind controls."
