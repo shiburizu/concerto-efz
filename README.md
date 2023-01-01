@@ -52,16 +52,17 @@ Art & sound are provided by community members for exclusive use with Concerto.
 * Emojis in text will not render correctly.
 
 ## Roadmap
-### 1.0
+### 1.0.0
 * Online Lobbies
 * Battle Log
 * Search Player/Matchup
 
-### Future Plans
+### 1.1
+* Discord Presence re-implemented
+* Date/Time search in Battle Log
 * Dedicated lobby link support
-* Date/Time search for Batle Log
-* Personal Profile for Battle Log
-* Optimize Battle Log load time
+
+### Version TBD
+* Dedicated lobby link support
 * Keybinding Menu
-* Discord Presence
 * Quick Match

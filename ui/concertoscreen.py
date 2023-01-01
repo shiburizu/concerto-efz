@@ -103,7 +103,7 @@ class ConcertoScreen(Screen):
             
     def check_update(self):
         #returns None if no update needed
-        release_url = 'https://api.github.com/repos/shiburizu/concerto-mbaacc/releases/latest'
+        release_url = 'https://api.github.com/repos/shiburizu/concerto-efz/releases/latest'
         try:
             latest_release_req = requests.get(release_url,timeout=5)
             latest_release_req.raise_for_status()
