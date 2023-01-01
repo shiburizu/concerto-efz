@@ -57,7 +57,7 @@ Art & sound are provided by community members for exclusive use with Concerto.
 * Battle Log
 * Search Player/Matchup
 
-### 1.1
+### 1.1.0
 * Discord Presence re-implemented
 * Date/Time search in Battle Log
 * Dedicated lobby link support

@@ -267,6 +267,9 @@
                 size_hint: (1,0.9)
                 do_scroll_x: False
                 do_scroll_y: True
+                scroll_type: ['bars','content']
+                always_overscroll: False
+                bar_width: 10
                 GridLayout:
                     height: self.minimum_height
                     size_hint_y: None
@@ -321,10 +324,13 @@
                 text: lang.localize("LOBBY_LIST_HEADER")
                 font_name: 'res/texgyreheros-bolditalic.otf'
                 outline_width: 1
-            RecycleView:
+            ScrollView:
                 size_hint: (1,0.7)
                 do_scroll_x: False
                 do_scroll_y: True
+                scroll_type: ['bars','content']
+                always_overscroll: False
+                bar_width: 10
                 GridLayout:
                     size_hint: (1,0.7)
                     id: lobby_view
@@ -554,6 +560,9 @@
                                 size_hint_y: 0.78
                                 do_scroll_x: False  
                                 do_scroll_y: True
+                                scroll_type: ['bars','content']
+                                always_overscroll: False
+                                bar_width: 10
                                 BoxLayout:
                                     id: resultList
                                     orientation: 'vertical'
@@ -712,6 +721,9 @@
                 size_hint: (1,0.820)
                 do_scroll_x: False
                 do_scroll_y: True
+                scroll_type: ['bars','content']
+                always_overscroll: False
+                bar_width: 10
                 GridLayout:
                     id: opt_grid
                     cols: 1
@@ -817,6 +829,9 @@
         padding: 20,20
         orientation: 'vertical'
         ScrollView:
+            scroll_type: ['bars','content']
+            always_overscroll: False
+            bar_width: 10
             do_scroll_x: False
             do_scroll_y: True
             Label:
