@@ -97,7 +97,10 @@ class Concerto(App):
             params = sys.argv[1].replace('concertoefz://', '').rstrip('/').split(':', 1)
             if params[0] == 'lobby':
                 check = self.OnlineScreen.online_login()
-                if check != []:
+                if "UPDATE" in check:
+                    self.update()
+                    return None
+                elif check != []:
                     self.OnlineScreen.error_message(check)
                 else:
                     self.LobbyList.join(code=params[1])
