@@ -79,7 +79,7 @@ revival_config.read('EfzRevival.ini',encoding='UTF-16')
 
 LOBBYURL = "https://concerto-mbaacc.shib.live/l"
 VERSIONURL = "https://concerto-mbaacc.shib.live/v"
-CURRENT_VERSION = '1.0.0'
+CURRENT_VERSION = '1.0.1'
 DEBUG_VERSION = '' # set to '' if not in use. This string is printed to logging to track specific test builds.
 
 art_order = random.sample(range(8), 8)
@@ -103,7 +103,7 @@ def find_bg_img(sc):
 credits = [
     ("Bee Chan","https://twitter.com/Bee_Sempai"),
     ("Tamaki","https://twitter.com/Tamaki_sh"),
-    ("Sushi","https://twitter.com/sushisuke_"),
+    ("sushi","https://twitter.com/sushisuke_"),
     ("Tris3ctor","https://twitter.com/tris3ctor"),
     ("Starbitz","https://twitter.com/Starbitz_"),
     ("Juaking","https://twitter.com/LotteBestWitch"),

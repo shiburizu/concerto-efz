@@ -37,6 +37,8 @@ class LobbyScreen(ConcertoScreen):
         self.alias = None #lobby alias if any
         self.spectate = False # flag True if watching a match
 
+        self.global_lobby = False # True if started from the global lobby button
+
     def create(self, j, first=False, type='Private'):  # json response object
         #this does not use self.type because it should only run once per lobby.
         #the reason for this is that a player may start a Direct Online match separately and we do not want to erase that status.
@@ -48,9 +50,16 @@ class LobbyScreen(ConcertoScreen):
             self.code = j['id']
             if j['alias']:
                 self.alias = j['alias']
-                self.lobby_code.text = "[%s %s]" % (self.localize("TERM_LOBBYCODE"),self.alias)
+                if self.global_lobby is False:
+                    self.lobby_code.text = "[%s %s]" % (self.localize("TERM_LOBBYCODE"),self.alias)
             else:
-                self.lobby_code.text = "[%s %s %s]" % (self.localize("TERM_%s" % type.upper()), self.localize("TERM_LOBBYCODE"), self.code)
+                if self.global_lobby is False:
+                    self.lobby_code.text = "[%s %s %s]" % (self.localize("TERM_%s" % type.upper()), self.localize("TERM_LOBBYCODE"), self.code)
+            if self.global_lobby is False:
+                self.lobby_code.bind(on_release=self.invite_link)
+            else:
+                self.lobby_code.text = ""
+                self.lobby_code.unbind(on_release=self.invite_link)
             self.widget_index = {}
             self.player_list.clear_widgets()
             self.match_list.clear_widgets()
@@ -199,10 +208,13 @@ class LobbyScreen(ConcertoScreen):
                 target=self.auto_refresh, daemon=True)  # netplay watchdog
             self.lobby_updater.start()
         else:
+            code = self.code
+            if self.alias != None:
+                code = self.alias
             if len(self.challenge_list.children) > 0:
-                self.app.update_lobby_button('%s %s (%s)' % (self.localize("TERM_LOBBY").upper(),self.code,len(self.challenge_list.children) - 1))
+                self.app.update_lobby_button('%s %s (%s)' % (self.localize("TERM_LOBBY").upper(),code,len(self.challenge_list.children) - 1))
             else:
-                self.app.update_lobby_button('%s %s' % (self.localize("TERM_LOBBY").upper(), self.code))
+                self.app.update_lobby_button('%s %s' % (self.localize("TERM_LOBBY").upper(),code))
 
     def follow_player(self,obj,i):
         w = self.widget_index.get(i).ids['WatchBtn']
@@ -274,7 +286,11 @@ class LobbyScreen(ConcertoScreen):
         self.lobby_updater = None
         self.get_attempts = 0
         self.app.remove_lobby_button()
-        self.app.LobbyList.refresh()
+        if self.global_lobby is True:
+            self.app.sm.current = 'Online'
+            self.global_lobby = False
+        else:
+            self.app.LobbyList.refresh()
         if msg:
             GameModal(msg,self.localize("TERM_DISMISS")).open()
 

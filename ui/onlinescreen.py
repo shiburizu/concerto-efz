@@ -124,6 +124,17 @@ class OnlineScreen(ConcertoScreen):
             popup.open()
             self.active_pop = popup
 
+    def global_lobby(self):
+        check = self.online_login()
+        if "UPDATE" in check:
+            self.update()
+            return None
+        if check != []:
+            self.error_message(check)
+        else:
+            self.app.LobbyScreen.global_lobby = True
+            self.app.LobbyList.join(code='EFZ')
+
     def confirm(self, obj, p, d, *args):
         try:
             if int(d.text) < self.app.game.min_delay:

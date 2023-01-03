@@ -26,7 +26,7 @@ strings = {
         "EN" : "UPDATE",
     },
     "LOBBY_LIST_HEADER" : {
-        "EN" : "Public Lobbies",
+        "EN" : "Public Rooms",
     },
     "LOBBY_MENU_MAINMENU" : {
         "EN" : "MAIN MENU",
@@ -95,7 +95,10 @@ strings = {
         "EN" : "Connecting to IP: %s",
     },
     "ONLINE_MENU_LOBBY" : {
-        "EN" : "LOBBIES",
+        "EN" : "LOBBY",
+    },
+    "ONLINE_MENU_ROOM" : {
+        "EN" : "PLAYER ROOMS",
     },
     "ONLINE_MENU_BROADCAST" : {
         "EN" : "BROADCAST",
@@ -157,7 +160,7 @@ strings = {
         "EN" : "Lobby"
     },
     "TERM_LOBBYCODE" : {
-        "EN" : "Lobby Code"
+        "EN" : "Room Code"
     },
     "TERM_EXITPROGRAM" : {
         "EN" : "Exit Concerto"
@@ -331,7 +334,7 @@ strings = {
         "EN" : "Show FPS Counter"
     },
     "ERR_LOBBY_CREATE" : {
-        "EN" : "Unable to create lobby."
+        "EN" : "Unable to create room."
     },
     "ERR_LOBBY_CONN" : {
         "EN" : "Unable to establish a connection to lobby server."
@@ -346,13 +349,7 @@ strings = {
         "EN" : "Bad response from server. Try again."
     },
     "ERR_NO_LOBBIES" : {
-        "EN" : "No public lobbies found. Why not create one?"
-    },
-    "ERR_CCCASTER_MISSING" : {
-        "EN" : "'cccaster' folder not found in installation path."
-    },
-    "ERR_SYSDATA_MISSING" : {
-        "EN" : "'system/_AAGameData.dat' not found in installation path."
+        "EN" : "No public rooms found."
     },
     "ERR_INVALID_OPT" : {
         "EN" : "Invalid config files. Please back up your settings, delete cccaster/config.ini and concerto.ini and restart Concerto."
