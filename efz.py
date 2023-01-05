@@ -11,7 +11,22 @@ from urllib.request import urlopen
 #error messages
 error_strings = [
     "Connection timed out",
-    "Host timed out"
+    "Host timed out",
+    "Invalid address",
+    "Only one net instance allowed",
+    "Could not open EFZ.exe, check that it is in the same directory and you have the rights to run it.",
+    "Cannot read from the memory. Check user access rights.",
+    "Efz.exe is not EFZ Memorial 4.02",
+    "The loader could not allocate memory in EFZ.",
+    "Could not create a remote thread",
+    "EFZ could not load EfzRevival.dll. Make sure that it is in the same directory as the EFZ executable.",
+    "The loader could not load EfzRevival.dll. Make sure that they are in the same directory.",
+    "Could not create a remote thread for the dll",
+    "New version available, please update",
+    "Remote is using a deprecated version",
+    "Already playing, spectators have been disabled by the host",
+    "Spectators have been disabled by the host",
+    "Invalid delay"
 ]
 
 ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
