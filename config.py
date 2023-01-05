@@ -79,7 +79,7 @@ revival_config.read('EfzRevival.ini',encoding='UTF-16')
 
 LOBBYURL = "https://concerto-mbaacc.shib.live/l"
 VERSIONURL = "https://concerto-mbaacc.shib.live/v"
-CURRENT_VERSION = '1.0.1'
+CURRENT_VERSION = '1.0.2'
 DEBUG_VERSION = '' # set to '' if not in use. This string is printed to logging to track specific test builds.
 
 art_order = random.sample(range(8), 8)
