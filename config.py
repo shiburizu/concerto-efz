@@ -82,7 +82,7 @@ VERSIONURL = "https://concerto-mbaacc.shib.live/v"
 CURRENT_VERSION = '1.0.2'
 DEBUG_VERSION = '' # set to '' if not in use. This string is printed to logging to track specific test builds.
 
-art_order = random.sample(range(8), 8)
+art_order = random.sample(range(9), 9)
 
 def art_choice():
     return art_order.pop()
@@ -108,7 +108,8 @@ credits = [
     ("Starbitz","https://twitter.com/Starbitz_"),
     ("Juaking","https://twitter.com/LotteBestWitch"),
     ("Durdge-o","https://twitter.com/DurdgeO"),
-    ("Durdge-o","https://twitter.com/DurdgeO")
+    ("Durdge-o","https://twitter.com/DurdgeO"),
+    ("horocuro","https://twitter.com/horocuro")
 ]
 
 def img_credit(sc):
