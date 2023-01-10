@@ -39,7 +39,7 @@ delay = re.compile(r'Recommended input delay: (\d{1,2})')
 avg_ping = re.compile(r'Average Ping: (\d{1,4})')
 max_ping = re.compile(r'Max Ping: (\d{1,4})')
 min_ping = re.compile(r'Min Ping: (\d{1,4})')
-min_delay = re.compile(r'(\d+) and (\d+), none for recommended')
+min_delay = re.compile(r'(\d+) and \d+, none for recommended')
 
 class loghelper():
     dateTimeObj = datetime.now()
@@ -127,21 +127,21 @@ class Revival():
             logger.write("\n\n")
             print(str(sum_txt.split()))
 
-            cur_delay = re.search(delay,sum_txt)
-            cur_avg_ping = re.search(avg_ping,sum_txt)
-            cur_max_ping = re.search(max_ping,sum_txt)
-            cur_min_ping = re.search(min_ping,sum_txt)
-            cur_min_delay = re.search(min_delay,sum_txt)
+            cur_delay = re.findall(delay,sum_txt)
+            cur_avg_ping = re.findall(avg_ping,sum_txt)
+            cur_max_ping = re.findall(max_ping,sum_txt)
+            cur_min_ping = re.findall(min_ping,sum_txt)
+            cur_min_delay = re.findall(min_delay,sum_txt)
 
-            if cur_delay != None and cur_min_delay != None and cur_avg_ping != None and cur_max_ping != None and cur_min_ping != None:
+            if cur_delay != [] and cur_min_delay != [] and cur_avg_ping != [] and cur_max_ping != [] and cur_min_ping != []:
                 #if ":" in cur_avg_ping[0][-3:]:
                 #    ping = int(str(cur_avg_ping[0][-2:]).replace(":",""))
                 #else:
                 #    ping = int(str(cur_avg_ping[0][-3:]).replace(":",""))
-                self.min_delay = int(str(cur_min_delay.group(1)))
-                sc.set_frames(int(str(cur_delay.group(cur_delay.lastindex))),int(str(cur_avg_ping.group(cur_avg_ping.lastindex))),
-                    int(str(cur_min_ping.group(cur_min_ping.lastindex))),int(str(cur_max_ping.group(cur_max_ping.lastindex))),
-                    int(str(cur_min_delay.group(1))),target=t)
+                self.min_delay = int(cur_min_delay[-1])
+                sc.set_frames(int(cur_delay[-1]),int(cur_avg_ping[-1]),
+                    int(cur_min_ping[-1]),int(cur_max_ping[-1]),
+                    int(cur_min_delay[-1]),target=t)
                 break #do we need to break? can we keep the process alive and listen for errors?
             else:
                 if self.check_msg(sum_txt) != []:
@@ -196,21 +196,21 @@ class Revival():
             logger.write("\n\n")
             print(str(sum_txt.split()))
 
-            cur_delay = re.search(delay,sum_txt)
-            cur_avg_ping = re.search(avg_ping,sum_txt)
-            cur_max_ping = re.search(max_ping,sum_txt)
-            cur_min_ping = re.search(min_ping,sum_txt)
-            cur_min_delay = re.search(min_delay,sum_txt)
+            cur_delay = re.findall(delay,sum_txt)
+            cur_avg_ping = re.findall(avg_ping,sum_txt)
+            cur_max_ping = re.findall(max_ping,sum_txt)
+            cur_min_ping = re.findall(min_ping,sum_txt)
+            cur_min_delay = re.findall(min_delay,sum_txt)
 
-            if cur_delay != None and cur_min_delay != None and cur_avg_ping != None and cur_max_ping != None and cur_min_ping != None:
+            if cur_delay != [] and cur_min_delay != [] and cur_avg_ping != [] and cur_max_ping != [] and cur_min_ping != []:
                 #if ":" in cur_avg_ping[0][-3:]:
                 #    ping = int(str(cur_avg_ping[0][-2:]).replace(":",""))
                 #else:
                 #    ping = int(str(cur_avg_ping[0][-3:]).replace(":",""))
-                self.min_delay = int(str(cur_min_delay.group(1)))
-                sc.set_frames(int(str(cur_delay.group(cur_delay.lastindex))),int(str(cur_avg_ping.group(cur_avg_ping.lastindex))),
-                    int(str(cur_min_ping.group(cur_min_ping.lastindex))),int(str(cur_max_ping.group(cur_max_ping.lastindex))),
-                    int(str(cur_min_delay.group(1))),target=t)
+                self.min_delay = int(cur_min_delay[-1])
+                sc.set_frames(int(cur_delay[-1]),int(cur_avg_ping[-1]),
+                    int(cur_min_ping[-1]),int(cur_max_ping[-1]),
+                    int(cur_min_delay[-1]),target=t)
                 break
             else:
                 if self.check_msg(sum_txt) != []:
