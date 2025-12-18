@@ -4,6 +4,7 @@ concerto.ini
 concerto.log
 Concerto_*.txt
 concerto-logs/
+concerto_legacy.exe
 *.p
 *.bat
 *.dll

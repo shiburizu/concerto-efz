@@ -8,8 +8,8 @@ a = Analysis(['concerto.py','efz.py','config.py'],
                 ('efz.py','.'),
                 ('config.py','.'),
                 ('Concerto.kv','.'),
-                ('./ui','/ui'),
-                ('./res','/res')
+                ('./ui','./ui'),
+                ('./res','./res')
             ],
             hiddenimports=[],
             hookspath=[],
